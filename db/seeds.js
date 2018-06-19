@@ -1,1330 +1,1623 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-
 const { dbURI } = require('../config/environment');
-mongoose.connect(dbURI);
-
 const Fixtures = require('../models/fixture');
-
-Fixtures.collection.drop();
-
-Fixtures.create([{
-  homeTeam: 'PHI',
-  awayTeam: 'ATL',
-  week: 1
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'BUF',
-  week: 1
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'CIN',
-  week: 1
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'HOU',
-  week: 1
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'JAX',
-  week: 1
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'PIT',
-  week: 1
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'SF',
-  week: 1
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'TB',
-  week: 1
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'TEN',
-  week: 1
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'KC',
-  week: 1
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'DAL',
-  week: 1
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'SEA',
-  week: 1
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'WAS',
-  week: 1
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'CHI',
-  week: 1
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'NYJ',
-  week: 1
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'LAR',
-  week: 1
-},
+const Team = require('../models/team');
 
 
-{
-  homeTeam: 'CIN',
-  awayTeam: 'BAL',
-  week: 2
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'CAR',
-  week: 2
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'CLE',
-  week: 2
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'HOU',
-  week: 2
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'IND',
-  week: 2
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'KC',
-  week: 2
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'LAC',
-  week: 2
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'MIA',
-  week: 2
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'MIN',
-  week: 2
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'PHI',
-  week: 2
-},
-{
-  homeTeam: 'LAR',
-  awayTeam: 'ARI',
-  week: 2
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'DET',
-  week: 2
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'NE',
-  week: 2
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'OAK',
-  week: 2
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'NYG',
-  week: 2
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'SEA',
-  week: 2
-},
+mongoose.connect(dbURI, (err, db) => {
+
+  db.dropDatabase();
+  Team.create([{
+    name: 'Arizona Cardinals',
+    logo: 'http://prod.static.cardinals.clubs.nfl.com/nfl-assets/img/gbl-ico-team/ARI/logos/home/large.png',
+    primaryColor: '#97233F',
+    secondaryColor: '#FFB612',
+    tertiaryColor: '#000000',
+    division: 'NFC West',
+    established: 1920,
+    shortName: 'ARI'
+  },{
+    name: 'Chicago Bears',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Chicago_Bears_logo.svg/2000px-Chicago_Bears_logo.svg.png',
+    primaryColor: '#F26522',
+    secondaryColor: '#00143F',
+    tertiaryColor: '#ffffff',
+    division: 'NFC North',
+    established: 1920,
+    shortName: 'CHI'
+  },{
+    name: 'Green Bay Packers',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Green_Bay_Packers_logo.svg/1000px-Green_Bay_Packers_logo.svg.png',
+    primaryColor: '#24423C',
+    secondaryColor: '#FCBE14',
+    tertiaryColor: '#ffffff',
+    division: 'NFC North',
+    established: 1921,
+    shortName: 'GB'
+  },{
+    name: 'New York Giants',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/New_York_Giants_logo.svg/2000px-New_York_Giants_logo.svg.png',
+    primaryColor: '#192E6C',
+    secondaryColor: '#B20032',
+    tertiaryColor: '#ffffff',
+    division: 'NFC East',
+    established: 1925,
+    shortName: 'NYG'
+  },{
+    name: 'Detroit Lions',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/detroit-lions-logo-transparent.png',
+    primaryColor: '#046EB4',
+    secondaryColor: '#B0B7BC',
+    tertiaryColor: '#000000',
+    division: 'NFC North',
+    established: 1930,
+    shortName: 'DET'
+  },{
+    name: 'Washington Redskins',
+    logo: 'https://i.pinimg.com/originals/97/42/d4/9742d44f9ae66c653239f6fc2f5c215c.png',
+    primaryColor: '#7C1415',
+    secondaryColor: '#FFC20F',
+    tertiaryColor: '#000000',
+    division: 'NFC East',
+    established: 1932,
+    shortName: 'WAS'
+  },{
+    name: 'Philadelphia Eagles',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/philadelphia-eagles-logo-transparent.png',
+    primaryColor: '#014A53',
+    secondaryColor: '#BBC4C9',
+    tertiaryColor: '#000000',
+    division: 'NFC East',
+    established: 1933,
+    shortName: 'PHI'
+  },{
+    name: 'Pittsburgh Steelers',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Pittsburgh_Steelers_logo.svg/2000px-Pittsburgh_Steelers_logo.svg.png',
+    primaryColor: '#FFC20E',
+    secondaryColor: '#000000',
+    tertiaryColor: '#B2BABF',
+    division: 'AFC North',
+    established: 1933,
+    shortName: 'PIT'
+  },{
+    name: 'Los Angeles Rams',
+    logo: 'https://cdn.bleacherreport.net/images/team_logos/328x328/los_angeles_rams.png',
+    primaryColor: '#95774C',
+    secondaryColor: '#002147',
+    tertiaryColor: '#ffffff',
+    division: 'NFC West',
+    established: 1937,
+    shortName: 'LAR'
+  },{
+    name: 'San Francisco 49ers',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/San_Francisco_49ers_logo.svg/2000px-San_Francisco_49ers_logo.svg.png',
+    primaryColor: '#C9243F',
+    secondaryColor: '#C8AA76',
+    tertiaryColor: '#000000',
+    division: 'NFC West',
+    established: 1946,
+    shortName: 'SF'
+  },{
+    name: 'Cleveland Browns',
+    logo: 'https://vignette.wikia.nocookie.net/madden/images/a/ae/Cleveland_Browns_Logo.png/revision/20161013214105',
+    primaryColor: '#22150C',
+    secondaryColor: '#FB4F14',
+    tertiaryColor: '#ffffff',
+    division: 'AFC North',
+    established: 1946,
+    shortName: 'CLE'
+  },{
+    name: 'Indianapolis Colts',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Indianapolis_Colts_logo.svg/2000px-Indianapolis_Colts_logo.svg.png',
+    primaryColor: '#003D79',
+    secondaryColor: '#ffffff',
+    tertiaryColor: '#B0B7BC',
+    division: 'AFC South',
+    established: 1953,
+    shortName: 'IND'
+  },{
+    name: 'Dallas Cowboys',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Dallas_Cowboys.svg/2000px-Dallas_Cowboys.svg.png',
+    primaryColor: '#B0B7BC',
+    secondaryColor: '#0C264C',
+    tertiaryColor: '#ffffff',
+    division: 'NFC East',
+    established: 1960,
+    shortName: 'DAL'
+  },{
+    name: 'Kansas City Chiefs',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/kansas-city-chiefs-logo-transparent.png',
+    primaryColor: '#CA2430',
+    secondaryColor: '#FFB612',
+    tertiaryColor: '#000000',
+    division: 'AFC West',
+    established: 1960,
+    shortName: 'KC'
+  },{
+    name: 'Los Angeles Chargers',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/los-angeles-chargers-logo-transparent.png',
+    primaryColor: '#2072BA',
+    secondaryColor: '#FDB515',
+    tertiaryColor: '#0A2342',
+    division: 'AFC West',
+    established: 1960,
+    shortName: 'LAC'
+  },{
+    name: 'Denver Broncos',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/denver-broncos-logo-transparent.png',
+    primaryColor: '#002244',
+    secondaryColor: '#FB4F14',
+    tertiaryColor: '#ffffff',
+    division: 'AFC West',
+    established: 1960,
+    shortName: 'DEN'
+  },{
+    name: 'New York Jets',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/new-york-jets-logo-transparent.png',
+    primaryColor: '#203731',
+    secondaryColor: '#ffffff',
+    tertiaryColor: '#000000',
+    division: 'AFC East',
+    established: 1960,
+    shortName: 'NYJ'
+  },{
+    name: 'New England Patriots',
+    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b3b.png',
+    primaryColor: '#0A2342',
+    secondaryColor: '#C81F32',
+    tertiaryColor: '#B0B7BD',
+    division: 'AFC East',
+    established: 1960,
+    shortName: 'NE'
+  },{
+    name: 'Oakland Raiders',
+    logo: 'https://vignette.wikia.nocookie.net/madden/images/7/70/Oakland_Raiders_Logo.png/revision/latest?cb=20120716204636',
+    primaryColor: '#C4C9CC',
+    secondaryColor: '#000000',
+    tertiaryColor: '#ffffff',
+    division: 'AFC West',
+    established: 1960,
+    shortName: 'OAK'
+  },{
+    name: 'Tennessee Titans',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/tennessee-titans-logo-transparent.png',
+    primaryColor: '#4095D1',
+    secondaryColor: '#00295B',
+    tertiaryColor: '#BCC4C9',
+    division: 'AFC South',
+    established: 1960,
+    shortName: 'TEN'
+  },{
+    name: 'Buffalo Bills',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/buffalo-bills-logo-transparent.png',
+    primaryColor: '#00338D',
+    secondaryColor: '#C60C30',
+    tertiaryColor: '#ffffff',
+    division: 'AFC East',
+    established: 1960,
+    shortName: 'BUF'
+  },{
+    name: 'Minnesota Vikings',
+    logo: 'https://vignette.wikia.nocookie.net/madden/images/8/8f/Minnesota_Vikings_Logo.png/revision/latest?cb=20161013214506',
+    primaryColor: '#4F2E84',
+    secondaryColor: '#FEC62F',
+    tertiaryColor: '#000000',
+    division: 'NFC North',
+    established: 1961,
+    shortName: 'MIN'
+  },{
+    name: 'Atlanta Falcons',
+    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b02.png',
+    primaryColor: '#A71930',
+    secondaryColor: '#A5ACAF',
+    tertiaryColor: '#000000',
+    division: 'NFC South',
+    established: 1966,
+    shortName: 'ATL'
+  },{
+    name: 'Miami Dolphins',
+    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b35.png',
+    primaryColor: '#0091A0',
+    secondaryColor: '#FF8500',
+    tertiaryColor: '#002760',
+    division: 'AFC East',
+    established: 1966,
+    shortName: 'MIA'
+  },{
+    name: 'New Orleans Saints',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/New_Orleans_Saints_logo.svg/2000px-New_Orleans_Saints_logo.svg.png',
+    primaryColor: '#A08A58',
+    secondaryColor: '#000000',
+    tertiaryColor: '#ffffff',
+    division: 'NFC South',
+    established: 1967,
+    shortName: 'NO'
+  },{
+    name: 'Cincinnati Bengals',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cincinnati_Bengals_logo.svg/2000px-Cincinnati_Bengals_logo.svg.png',
+    primaryColor: '#FB4F14',
+    secondaryColor: '#000000',
+    tertiaryColor: '#ffffff',
+    division: 'AFC North',
+    established: 1968,
+    shortName: 'CIN'
+  },{
+    name: 'Seattle Seahawks',
+    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b58.png',
+    primaryColor: '#002A5C',
+    secondaryColor: '#7AC142',
+    tertiaryColor: '#B2B7BB',
+    division: 'NFC West',
+    established: 1976,
+    shortName: 'SEA'
+  },{
+    name: 'Tampa Bay Buccaneers',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/tampa-bay-buccaneers-logo-transparent.png',
+    primaryColor: '#D40909',
+    secondaryColor: '#B0B9BF',
+    tertiaryColor: '#000000',
+    division: 'NFC South',
+    established: 1976,
+    shortName: 'TB'
+  },{
+    name: 'Carolina Panthers',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/carolina-panthers-logo-transparent.png',
+    primaryColor: '#0085CA',
+    secondaryColor: '#BFC0BF',
+    tertiaryColor: '#000000',
+    division: 'NFC South',
+    established: 1995,
+    shortName: 'CAR'
+  },{
+    name: 'Jacksonville Jaguars',
+    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/jacksonville-jaguars-logo-transparent.png',
+    primaryColor: '#D8A328',
+    secondaryColor: '#136677',
+    tertiaryColor: '#000000',
+    division: 'AFC South',
+    established: 1995,
+    shortName: 'JAX'
+  },{
+    name: 'Baltimore Ravens',
+    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b09.png',
+    primaryColor: '#241773',
+    secondaryColor: '#9E7C0C',
+    tertiaryColor: '#ffffff',
+    division: 'AFC North',
+    established: 1996,
+    shortName: 'BAL'
+  },{
+    name: 'Houston Texans',
+    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b29.png',
+    primaryColor: '#00143F',
+    secondaryColor: '#C9243F',
+    tertiaryColor: '#ffffff',
+    division: 'AFC South',
+    established: 2002,
+    shortName: 'HOU'
+  }])
+    .then(teams => {
+      console.log(`${teams.length} teams created!`);
+      return Fixtures.create([{
+        homeTeam: teams[6],
+        awayTeam: teams[22],
+        week: '1'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[20],
+        week: '1'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[25],
+        week: '1'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[31],
+        week: '1'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[29],
+        week: '1'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[7],
+        week: '1'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[9],
+        week: '1'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[27],
+        week: '1'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[19],
+        week: '1'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[13],
+        week: '1'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[12],
+        week: '1'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[26],
+        week: '1'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[5],
+        week: '1'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[1],
+        week: '1'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[16],
+        week: '1'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[8],
+        week: '1'
+      },
 
 
-{
-  homeTeam: 'CLE',
-  awayTeam: 'NYJ',
-  week: 3
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'BUF',
-  week: 3
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'CIN',
-  week: 3
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'DEN',
-  week: 3
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'GB',
-  week: 3
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'IND',
-  week: 3
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'NO',
-  week: 3
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'NYG',
-  week: 3
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'OAK',
-  week: 3
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'SF',
-  week: 3
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'TEN',
-  week: 3
-},
-{
-  homeTeam: 'LAR',
-  awayTeam: 'LAC',
-  week: 3
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'CHI',
-  week: 3
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'DAL',
-  week: 3
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'NE',
-  week: 3
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'PIT',
-  week: 3
-},
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[30],
+        week: '2'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[28],
+        week: '2'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[10],
+        week: '2'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[31],
+        week: '2'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[11],
+        week: '2'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[13],
+        week: '2'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[14],
+        week: '2'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[23],
+        week: '2'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[21],
+        week: '2'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[6],
+        week: '2'
+      },
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[0],
+        week: '2'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[4],
+        week: '2'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[17],
+        week: '2'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[18],
+        week: '2'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[3],
+        week: '2'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[26],
+        week: '2'
+      },
 
 
-{
-  homeTeam: 'LAR',
-  awayTeam: 'MIN',
-  week: 4
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'BUF',
-  week: 4
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'CIN',
-  week: 4
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'DET',
-  week: 4
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'HOU',
-  week: 4
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'MIA',
-  week: 4
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'NYJ',
-  week: 4
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'PHI',
-  week: 4
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'TB',
-  week: 4
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'CLE',
-  week: 4
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'SEA',
-  week: 4
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'NO',
-  week: 4
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'SF',
-  week: 4
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'BAL',
-  week: 4
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'KC',
-  week: 4
-},
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[16],
+        week: '3'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[20],
+        week: '3'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[25],
+        week: '3'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[15],
+        week: '3'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[2],
+        week: '3'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[11],
+        week: '3'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[24],
+        week: '3'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[3],
+        week: '3'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[18],
+        week: '3'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[9],
+        week: '3'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[19],
+        week: '3'
+      },
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[14],
+        week: '3'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[1],
+        week: '3'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[12],
+        week: '3'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[17],
+        week: '3'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[7],
+        week: '3'
+      },
 
 
-
-{
-  homeTeam: 'NE',
-  awayTeam: 'IND',
-  week: 5
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'ATL',
-  week: 5
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'BAL',
-  week: 5
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'DEN',
-  week: 5
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'GB',
-  week: 5
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'JAX',
-  week: 5
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'MIA',
-  week: 5
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'NYG',
-  week: 5
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'TEN',
-  week: 5
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'OAK',
-  week: 5
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'ARI',
-  week: 5
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'LAR',
-  week: 5
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'MIN',
-  week: 5
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'DAL',
-  week: 5
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'WAS',
-  week: 5
-},
-
-
-
-{
-  homeTeam: 'NYG',
-  awayTeam: 'PHI',
-  week: 6
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'ARI',
-  week: 6
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'BUF',
-  week: 6
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'CAR',
-  week: 6
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'CHI',
-  week: 6
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'IND',
-  week: 6
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'LAC',
-  week: 6
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'PIT',
-  week: 6
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'SEA',
-  week: 6
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'TB',
-  week: 6
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'LAR',
-  week: 6
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'BAL',
-  week: 6
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'JAX',
-  week: 6
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'KC',
-  week: 6
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'SF',
-  week: 6
-},
-
-
-
-{
-  homeTeam: 'ARI',
-  awayTeam: 'DEN',
-  week: 7
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'TEN',
-  week: 7
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'BUF',
-  week: 7
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'CAR',
-  week: 7
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'CIN',
-  week: 7
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'CLE',
-  week: 7
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'DET',
-  week: 7
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'HOU',
-  week: 7
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'MIN',
-  week: 7
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'NE',
-  week: 7
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'NO',
-  week: 7
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'DAL',
-  week: 7
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'LAR',
-  week: 7
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'NYG',
-  week: 7
-},
-
-
-
-{
-  homeTeam: 'HOU',
-  awayTeam: 'MIA',
-  week: 8
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'PHI',
-  week: 8
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'BAL',
-  week: 8
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'CLE',
-  week: 8
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'DEN',
-  week: 8
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'NYJ',
-  week: 8
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'SEA',
-  week: 8
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'TB',
-  week: 8
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'WAS',
-  week: 8
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'IND',
-  week: 8
-},
-{
-  homeTeam: 'LAR',
-  awayTeam: 'GB',
-  week: 8
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'SF',
-  week: 8
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'NO',
-  week: 8
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'NE',
-  week: 8
-},
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[21],
+        week: '4'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[20],
+        week: '4'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[25],
+        week: '4'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[4],
+        week: '4'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[31],
+        week: '4'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[23],
+        week: '4'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[16],
+        week: '4'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[6],
+        week: '4'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[27],
+        week: '4'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[10],
+        week: '4'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[26],
+        week: '4'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[24],
+        week: '4'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[9],
+        week: '4'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[30],
+        week: '4'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[13],
+        week: '4'
+      },
 
 
 
-{
-  homeTeam: 'SF',
-  awayTeam: 'OAK',
-  week: 9
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'ATL',
-  week: 9
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'CHI',
-  week: 9
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'DET',
-  week: 9
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'KC',
-  week: 9
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'NYJ',
-  week: 9
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'PIT',
-  week: 9
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'TB',
-  week: 9
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'HOU',
-  week: 9
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'LAC',
-  week: 9
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'LAR',
-  week: 9
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'GB',
-  week: 9
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'TEN',
-  week: 9
-},
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[11],
+        week: '5'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[22],
+        week: '5'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[30],
+        week: '5'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[15],
+        week: '5'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[2],
+        week: '5'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[29],
+        week: '5'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[23],
+        week: '5'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[3],
+        week: '5'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[19],
+        week: '5'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[18],
+        week: '5'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[0],
+        week: '5'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[8],
+        week: '5'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[21],
+        week: '5'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[12],
+        week: '5'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[5],
+        week: '5'
+      },
 
 
 
-{
-  homeTeam: 'PIT',
-  awayTeam: 'CAR',
-  week: 10
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'ARI',
-  week: 10
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'ATL',
-  week: 10
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'BUF',
-  week: 10
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'DET',
-  week: 10
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'JAX',
-  week: 10
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'MIA',
-  week: 10
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'NE',
-  week: 10
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'NO',
-  week: 10
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'WAS',
-  week: 10
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'LAC',
-  week: 10
-},
-{
-  homeTeam: 'LAR',
-  awayTeam: 'SEA',
-  week: 10
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'DAL',
-  week: 10
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'NYG',
-  week: 10
-},
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[6],
+        week: '6'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[0],
+        week: '6'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[20],
+        week: '6'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[28],
+        week: '6'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[1],
+        week: '6'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[11],
+        week: '6'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[14],
+        week: '6'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[7],
+        week: '6'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[26],
+        week: '6'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[27],
+        week: '6'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[8],
+        week: '6'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[30],
+        week: '6'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[29],
+        week: '6'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[13],
+        week: '6'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[9],
+        week: '6'
+      },
 
 
 
-{
-  homeTeam: 'SEA',
-  awayTeam: 'GB',
-  week: 11
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'CAR',
-  week: 11
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'CIN',
-  week: 11
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'DAL',
-  week: 11
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'HOU',
-  week: 11
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'MIN',
-  week: 11
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'PHI',
-  week: 11
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'TB',
-  week: 11
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'TEN',
-  week: 11
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'DEN',
-  week: 11
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'OAK',
-  week: 11
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'PIT',
-  week: 11
-},
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[15],
+        week: '7'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[19],
+        week: '7'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[20],
+        week: '7'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[28],
+        week: '7'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[25],
+        week: '7'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[10],
+        week: '7'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[4],
+        week: '7'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[31],
+        week: '7'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[21],
+        week: '7'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[17],
+        week: '7'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[24],
+        week: '7'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[12],
+        week: '7'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[8],
+        week: '7'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[3],
+        week: '7'
+      },
+
+
+
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[23],
+        week: '8'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[6],
+        week: '8'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[30],
+        week: '8'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[10],
+        week: '8'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[15],
+        week: '8'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[16],
+        week: '8'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[26],
+        week: '8'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[27],
+        week: '8'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[5],
+        week: '8'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[11],
+        week: '8'
+      },
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[2],
+        week: '8'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[9],
+        week: '8'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[24],
+        week: '8'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[17],
+        week: '8'
+      },
+
+
+
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[18],
+        week: '9'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[22],
+        week: '9'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[1],
+        week: '9'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[4],
+        week: '9'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[13],
+        week: '9'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[16],
+        week: '9'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[7],
+        week: '9'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[27],
+        week: '9'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[31],
+        week: '9'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[14],
+        week: '9'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[8],
+        week: '9'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[2],
+        week: '9'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[19],
+        week: '9'
+      },
+
+
+
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[28],
+        week: '10'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[0],
+        week: '10'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[22],
+        week: '10'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[20],
+        week: '10'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[4],
+        week: '10'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[29],
+        week: '10'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[23],
+        week: '10'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[17],
+        week: '10'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[24],
+        week: '10'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[5],
+        week: '10'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[14],
+        week: '10'
+      },
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[26],
+        week: '10'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[12],
+        week: '10'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[3],
+        week: '10'
+      },
+
+
+
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[2],
+        week: '11'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[28],
+        week: '11'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[25],
+        week: '11'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[12],
+        week: '11'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[31],
+        week: '11'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[21],
+        week: '11'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[6],
+        week: '11'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[27],
+        week: '11'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[19],
+        week: '11'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[15],
+        week: '11'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[18],
+        week: '11'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[7],
+        week: '11'
+      },
 
 
 
 
-{
-  homeTeam: 'DET',
-  awayTeam: 'CHI',
-  week: 12
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'WAS',
-  week: 12
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'ATL',
-  week: 12
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'CLE',
-  week: 12
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'JAX',
-  week: 12
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'MIA',
-  week: 12
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'NE',
-  week: 12
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'NYG',
-  week: 12
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'OAK',
-  week: 12
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'SF',
-  week: 12
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'SEA',
-  week: 12
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'ARI',
-  week: 12
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'PIT',
-  week: 12
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'GB',
-  week: 12
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'TEN',
-  week: 12
-},
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[1],
+        week: '12'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[5],
+        week: '12'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[22],
+        week: '12'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[10],
+        week: '12'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[29],
+        week: '12'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[23],
+        week: '12'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[17],
+        week: '12'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[3],
+        week: '12'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[18],
+        week: '12'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[9],
+        week: '12'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[26],
+        week: '12'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[0],
+        week: '12'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[7],
+        week: '12'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[2],
+        week: '12'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[19],
+        week: '12'
+      },
 
 
 
-{
-  homeTeam: 'DAL',
-  awayTeam: 'NO',
-  week: 13
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'ARI',
-  week: 13
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'BAL',
-  week: 13
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'BUF',
-  week: 13
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'CAR',
-  week: 13
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'CHI',
-  week: 13
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'CLE',
-  week: 13
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'DEN',
-  week: 13
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'IND',
-  week: 13
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'LAC',
-  week: 13
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'LAR',
-  week: 13
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'KC',
-  week: 13
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'NYJ',
-  week: 13
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'MIN',
-  week: 13
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'SF',
-  week: 13
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'WAS',
-  week: 13
-},
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[24],
+        week: '13'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[0],
+        week: '13'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[30],
+        week: '13'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[20],
+        week: '13'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[28],
+        week: '13'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[1],
+        week: '13'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[10],
+        week: '13'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[15],
+        week: '13'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[11],
+        week: '13'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[14],
+        week: '13'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[8],
+        week: '13'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[13],
+        week: '13'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[16],
+        week: '13'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[21],
+        week: '13'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[9],
+        week: '13'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[5],
+        week: '13'
+      },
 
 
-{
-  homeTeam: 'TEN',
-  awayTeam: 'JAX',
-  week: 14
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'ATL',
-  week: 14
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'BAL',
-  week: 14
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'CAR',
-  week: 14
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'IND',
-  week: 14
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'LAR',
-  week: 14
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'NE',
-  week: 14
-},
-{
-  homeTeam: 'TB',
-  awayTeam: 'NO',
-  week: 14
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'NYG',
-  week: 14
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'NYJ',
-  week: 14
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'CIN',
-  week: 14
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'DEN',
-  week: 14
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'DET',
-  week: 14
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'PHI',
-  week: 14
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'PIT',
-  week: 14
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'MIN',
-  week: 14
-},
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[29],
+        week: '14'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[22],
+        week: '14'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[30],
+        week: '14'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[28],
+        week: '14'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[11],
+        week: '14'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[8],
+        week: '14'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[17],
+        week: '14'
+      },
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[24],
+        week: '14'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[3],
+        week: '14'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[16],
+        week: '14'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[25],
+        week: '14'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[15],
+        week: '14'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[4],
+        week: '14'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[6],
+        week: '14'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[7],
+        week: '14'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[21],
+        week: '14'
+      },
 
 
-{
-  homeTeam: 'KC',
-  awayTeam: 'LAC',
-  week: 15
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'CLE',
-  week: 15
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'HOU',
-  week: 15
-},
-{
-  homeTeam: 'ATL',
-  awayTeam: 'ARI',
-  week: 15
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'DAL',
-  week: 15
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'DET',
-  week: 15
-},
-{
-  homeTeam: 'CHI',
-  awayTeam: 'GB',
-  week: 15
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'MIA',
-  week: 15
-},
-{
-  homeTeam: 'CIN',
-  awayTeam: 'OAK',
-  week: 15
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'TB',
-  week: 15
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'TEN',
-  week: 15
-},
-{
-  homeTeam: 'JAX',
-  awayTeam: 'WAS',
-  week: 15
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'SEA',
-  week: 15
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'NE',
-  week: 15
-},
-{
-  homeTeam: 'LAR',
-  awayTeam: 'PHI',
-  week: 15
-},
-{
-  homeTeam: 'CAR',
-  awayTeam: 'NO',
-  week: 15
-},
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[14],
+        week: '15'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[10],
+        week: '15'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[31],
+        week: '15'
+      },
+      {
+        homeTeam: teams[22],
+        awayTeam: teams[0],
+        week: '15'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[12],
+        week: '15'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[4],
+        week: '15'
+      },
+      {
+        homeTeam: teams[1],
+        awayTeam: teams[2],
+        week: '15'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[23],
+        week: '15'
+      },
+      {
+        homeTeam: teams[25],
+        awayTeam: teams[18],
+        week: '15'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[27],
+        week: '15'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[19],
+        week: '15'
+      },
+      {
+        homeTeam: teams[29],
+        awayTeam: teams[5],
+        week: '15'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[26],
+        week: '15'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[17],
+        week: '15'
+      },
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[6],
+        week: '15'
+      },
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[24],
+        week: '15'
+      },
 
 
-{
-  homeTeam: 'CAR',
-  awayTeam: 'ATL',
-  week: 16
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'BUF',
-  week: 16
-},
-{
-  homeTeam: 'CLE',
-  awayTeam: 'CIN',
-  week: 16
-},
-{
-  homeTeam: 'NYJ',
-  awayTeam: 'GB',
-  week: 16
-},
-{
-  homeTeam: 'PHI',
-  awayTeam: 'HOU',
-  week: 16
-},
-{
-  homeTeam: 'MIA',
-  awayTeam: 'JAX',
-  week: 16
-},
-{
-  homeTeam: 'DET',
-  awayTeam: 'MIN',
-  week: 16
-},
-{
-  homeTeam: 'IND',
-  awayTeam: 'NYG',
-  week: 16
-},
-{
-  homeTeam: 'DAL',
-  awayTeam: 'TB',
-  week: 16
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'WAS',
-  week: 16
-},
-{
-  homeTeam: 'LAC',
-  awayTeam: 'BAL',
-  week: 16
-},
-{
-  homeTeam: 'SF',
-  awayTeam: 'CHI',
-  week: 16
-},
-{
-  homeTeam: 'ARI',
-  awayTeam: 'LAR',
-  week: 16
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'PIT',
-  week: 16
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'KC',
-  week: 16
-},
-{
-  homeTeam: 'OAK',
-  awayTeam: 'DEN',
-  week: 16
-},
+      {
+        homeTeam: teams[28],
+        awayTeam: teams[22],
+        week: '16'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[20],
+        week: '16'
+      },
+      {
+        homeTeam: teams[10],
+        awayTeam: teams[25],
+        week: '16'
+      },
+      {
+        homeTeam: teams[16],
+        awayTeam: teams[2],
+        week: '16'
+      },
+      {
+        homeTeam: teams[6],
+        awayTeam: teams[31],
+        week: '16'
+      },
+      {
+        homeTeam: teams[23],
+        awayTeam: teams[29],
+        week: '16'
+      },
+      {
+        homeTeam: teams[4],
+        awayTeam: teams[21],
+        week: '16'
+      },
+      {
+        homeTeam: teams[11],
+        awayTeam: teams[3],
+        week: '16'
+      },
+      {
+        homeTeam: teams[12],
+        awayTeam: teams[27],
+        week: '16'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[5],
+        week: '16'
+      },
+      {
+        homeTeam: teams[14],
+        awayTeam: teams[30],
+        week: '16'
+      },
+      {
+        homeTeam: teams[9],
+        awayTeam: teams[1],
+        week: '16'
+      },
+      {
+        homeTeam: teams[0],
+        awayTeam: teams[8],
+        week: '16'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[7],
+        week: '16'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[13],
+        week: '16'
+      },
+      {
+        homeTeam: teams[18],
+        awayTeam: teams[15],
+        week: '16'
+      },
 
 
-{
-  homeTeam: 'TB',
-  awayTeam: 'ATL',
-  week: 17
-},
-{
-  homeTeam: 'NO',
-  awayTeam: 'CAR',
-  week: 17
-},
-{
-  homeTeam: 'MIN',
-  awayTeam: 'CHI',
-  week: 17
-},
-{
-  homeTeam: 'PIT',
-  awayTeam: 'CIN',
-  week: 17
-},
-{
-  homeTeam: 'BAL',
-  awayTeam: 'CLE',
-  week: 17
-},
-{
-  homeTeam: 'NYG',
-  awayTeam: 'DAL',
-  week: 17
-},
-{
-  homeTeam: 'GB',
-  awayTeam: 'DET',
-  week: 17
-},
-{
-  homeTeam: 'TEN',
-  awayTeam: 'IND',
-  week: 17
-},
-{
-  homeTeam: 'HOU',
-  awayTeam: 'JAX',
-  week: 17
-},
-{
-  homeTeam: 'BUF',
-  awayTeam: 'MIA',
-  week: 17
-},
-{
-  homeTeam: 'NE',
-  awayTeam: 'NYJ',
-  week: 17
-},
-{
-  homeTeam: 'KC',
-  awayTeam: 'OAK',
-  week: 17
-},
-{
-  homeTeam: 'WAS',
-  awayTeam: 'PHI',
-  week: 17
-},
-{
-  homeTeam: 'SEA',
-  awayTeam: 'ARI',
-  week: 17
-},
-{
-  homeTeam: 'DEN',
-  awayTeam: 'LAC',
-  week: 17
-},
-{
-  homeTeam: 'LAR',
-  awayTeam: 'SF',
-  week: 17
-}])
-  .then(fixtures => console.log(`${fixtures.length} fixtures created!`))
-  .catch(err => console.log(err))
-  .finally(() => mongoose.connection.close());
+      {
+        homeTeam: teams[27],
+        awayTeam: teams[22],
+        week: '17'
+      },
+      {
+        homeTeam: teams[24],
+        awayTeam: teams[28],
+        week: '17'
+      },
+      {
+        homeTeam: teams[21],
+        awayTeam: teams[1],
+        week: '17'
+      },
+      {
+        homeTeam: teams[7],
+        awayTeam: teams[25],
+        week: '17'
+      },
+      {
+        homeTeam: teams[30],
+        awayTeam: teams[10],
+        week: '17'
+      },
+      {
+        homeTeam: teams[3],
+        awayTeam: teams[12],
+        week: '17'
+      },
+      {
+        homeTeam: teams[2],
+        awayTeam: teams[4],
+        week: '17'
+      },
+      {
+        homeTeam: teams[19],
+        awayTeam: teams[11],
+        week: '17'
+      },
+      {
+        homeTeam: teams[31],
+        awayTeam: teams[29],
+        week: '17'
+      },
+      {
+        homeTeam: teams[20],
+        awayTeam: teams[23],
+        week: '17'
+      },
+      {
+        homeTeam: teams[17],
+        awayTeam: teams[16],
+        week: '17'
+      },
+      {
+        homeTeam: teams[13],
+        awayTeam: teams[18],
+        week: '17'
+      },
+      {
+        homeTeam: teams[5],
+        awayTeam: teams[6],
+        week: '17'
+      },
+      {
+        homeTeam: teams[26],
+        awayTeam: teams[0],
+        week: '17'
+      },
+      {
+        homeTeam: teams[15],
+        awayTeam: teams[14],
+        week: '17'
+      },
+      {
+        homeTeam: teams[8],
+        awayTeam: teams[9],
+        week: '17'
+      }])
+        .then(teams => console.log(`${teams.length} teams created!`));
+    })
+    .catch(err => console.log(err))
+    .finally(() => mongoose.connection.close());
+});
