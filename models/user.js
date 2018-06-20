@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 mongoose.Promise = require('bluebird');
 
+
 const pickSchema = new mongoose.Schema({
   gameId: { type: mongoose.Schema.ObjectId, ref: 'Fixture'},
-  pick: { type: String },
+  winnerPick: { type: mongoose.Schema.ObjectId, ref: 'Team' },
+  loserPick: { type: mongoose.Schema.ObjectId, ref: 'Team' },
   pointsScored: { type: Number }
 });
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: 'Name is required' },
-  email: { type: String, required: 'Email is required' },
+  email: { type: String, required: 'Email is required', unique: true },
   password: { type: String, required: 'Password is required'},
   score: { type: Number },
   picks: [ pickSchema ]
@@ -42,5 +44,7 @@ userSchema.pre('save', function hashPassword(next){
   }
   next();
 });
+
+userSchema.plugin(require('mongoose-unique-validator'));
 
 module.exports = mongoose.model('User', userSchema);
