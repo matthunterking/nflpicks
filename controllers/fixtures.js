@@ -21,7 +21,16 @@ function fixtureShow(req, res, next) {
     .catch(next);
 }
 
+function fixtureIndexByWeek(req, res, next) {
+  Fixtures
+    .find({ week: req.params.week })
+    .populate('homeTeam awayTeam')
+    .then(fixtures => res.json(fixtures))
+    .catch(next);
+}
+
 module.exports = {
   index: fixtureIndex,
-  show: fixtureShow
+  show: fixtureShow,
+  week: fixtureIndexByWeek
 };

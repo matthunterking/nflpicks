@@ -14,6 +14,9 @@ router.route('/fixtures/:id')
 router.route('/fixtures/:id/pick')
   .post(secureRoute, picks.create);
 
+router.route('/fixtures/week/:week')
+  .get(fixtures.week);
+
 router.route('/teams')
   .get(teams.index);
 
