@@ -29,8 +29,28 @@ function fixtureIndexByWeek(req, res, next) {
     .catch(next);
 }
 
+function fixtureResult(req, res, next) {
+  Promise.all([req.body.forEach(result => {
+    Fixtures
+      .findById(result.gameId)
+      .then(fixture => {
+        fixture.winner = result.winner;
+        fixture.save();
+      })
+      .catch(next);
+  })
+  ])
+    .then(
+      Fixtures
+        .find({ week: req.params.week })
+        .populate('homeTeam awayTeam')
+        .then(fixtures => res.json(fixtures))
+        .catch(next));
+}
+
 module.exports = {
   index: fixtureIndex,
   show: fixtureShow,
-  week: fixtureIndexByWeek
+  week: fixtureIndexByWeek,
+  result: fixtureResult
 };
