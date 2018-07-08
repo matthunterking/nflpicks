@@ -6,6 +6,9 @@ const auth = require('../controllers/auth');
 router.route('/fixtures')
   .get(fixtures.index);
 
+router.route('/fixtures/:id')
+  .get(fixtures.show);
+
 router.route('/teams')
   .get(teams.index);
 

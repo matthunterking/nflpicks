@@ -9,6 +9,19 @@ function fixtureIndex(req, res, next) {
     .catch(next);
 }
 
+function fixtureShow(req, res, next) {
+  Fixtures
+    .findById(req.params.id)
+    .populate('homeTeam awayTeam')
+    .exec()
+    .then(fixture => {
+      if(!fixture) return res.sendStatus(404);
+      res.json(fixture);
+    })
+    .catch(next);
+}
+
 module.exports = {
-  index: fixtureIndex
+  index: fixtureIndex,
+  show: fixtureShow
 };
