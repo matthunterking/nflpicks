@@ -1,4 +1,5 @@
 const Fixtures = require('../models/fixture');
+const User = require('../models/user');
 
 function fixtureIndex(req, res, next) {
   Fixtures
@@ -30,23 +31,35 @@ function fixtureIndexByWeek(req, res, next) {
 }
 
 function fixtureResult(req, res, next) {
-  Promise.all([req.body.forEach(result => {
-    Fixtures
-      .findById(result.gameId)
-      .then(fixture => {
-        fixture.winner = result.winner;
-        fixture.save();
-      })
-      .catch(next);
-  })
-  ])
-    .then(
-      Fixtures
-        .find({ week: req.params.week })
-        .populate('homeTeam awayTeam')
-        .then(fixtures => res.json(fixtures))
-        .catch(next));
+  Fixtures
+    .findById(req.params.id)
+    .then(fixture => {
+      fixture.winner = req.body.winner;
+      fixture.save();
+      res.json(fixture);
+    })
+    .then(() => {
+      User
+        .find()
+        .then(users => {
+          users.forEach(user => {
+            user.picks.forEach(pick => {
+              if(pick.gameId.toString() === req.params.id
+              && pick.winnerPick.toString() === req.body.winner) {
+                pick.pointsScored = 1;
+              } else {
+                pick.pointsScored = 0;
+              }
+            });
+            user.score = user.picks.reduce((total, pick) => total + pick.pointsScored, 0);
+            user.save();
+          });
+        })
+        .catch(next);
+    })
+    .catch(next);
 }
+
 
 module.exports = {
   index: fixtureIndex,

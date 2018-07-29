@@ -9,20 +9,20 @@ router.route('/fixtures')
   .get(fixtures.index);
 
 router.route('/fixtures/:id')
-  .get(fixtures.show);
+  .get(fixtures.show)
+  .post(fixtures.result); //add secure route later
 
 router.route('/fixtures/:id/pick')
-  .post(secureRoute, users.create);
+  .post(secureRoute, users.createPick);
 
 router.route('/fixtures/week/:week')
-  .get(fixtures.week)
-  .post(secureRoute, fixtures.result);
+  .get(fixtures.week);
 
 router.route('/users')
   .get(users.index);
 
 router.route('/users/:id')
-  .get(users.pickIndex);
+  .get(users.calcuateResult);
 
 router.route('/teams')
   .get(teams.index);

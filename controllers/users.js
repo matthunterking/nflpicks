@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Fixtures = require('../models/fixture');
 
 function createPick(req, res, next) {
   User
@@ -11,25 +12,29 @@ function createPick(req, res, next) {
     .catch(next);
 }
 
-// function pickIndex(req, res, next) {
-//   User
-//     .findById(req.params.id)
-//     .then(user => {
-//       res.json(user);
-//     })
-//     .catch(next);
-// }
+function calcuateResult(req, res, next) {
+  User
+    .findById(req.params.id)
+    .populate('picks.gameId')
+    .then(user => {
+      const array = user.picks;
+      console.log(array.map(pick => pick.gameId.winner));
+      res.json(user.picks);
+    })
+    .catch(next);
+}
 
 function usersIndex(req, res, next) {
   User
     .find()
+    .populate('picks.gameId')
     .exec()
     .then(users => res.json(users))
     .catch(next);
 }
 
 module.exports = {
-  create: createPick,
-  // pickIndex: pickIndex,
+  createPick: createPick,
+  calcuateResult: calcuateResult,
   index: usersIndex
 };
