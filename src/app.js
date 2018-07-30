@@ -6,9 +6,11 @@ import {
   Switch
 } from 'react-router-dom';
 
+import AuthRegister from './components/auth/Register';
 import Fixtures from './components/fixtures/Index';
 import NotFound from './components/common/NotFound';
 import Home from './components/Home';
+
 
 import 'bulma';
 
@@ -20,6 +22,7 @@ class App extends React.Component {
       <div className='container'>
         <Router>
           <Switch>
+            <Route path="/register" component={AuthRegister} />
             <Route path="/fixtures" component={Fixtures} />
             <Route exact path="/" component={Home} />
             <Route component={NotFound} />
