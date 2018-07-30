@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Fixtures = require('../models/fixture');
 
 function createPick(req, res, next) {
+  req.body.gameId = req.params.id;
   User
     .findById(req.currentUser._id)
     .then(user => {

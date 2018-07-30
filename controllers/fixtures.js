@@ -35,28 +35,39 @@ function fixtureResult(req, res, next) {
     .findById(req.params.id)
     .then(fixture => {
       fixture.winner = req.body.winner;
-      fixture.save();
-      res.json(fixture);
+      return fixture.save();
     })
-    .then(() => {
+    .then(fixture => {
+      // const _fixture = fixture; // TODO: Is this necessary? Is fixture available later?
       User
         .find()
         .then(users => {
           users.forEach(user => {
-            user.picks.forEach(pick => {
-              if(pick.gameId.toString() === req.params.id
-              && pick.winnerPick.toString() === req.body.winner) {
-                pick.pointsScored = 1;
-              } else {
-                pick.pointsScored = 0;
-              }
-            });
-            user.score = user.picks.reduce((total, pick) => total + pick.pointsScored, 0);
-            user.save();
-          });
-        })
-        .catch(next);
+            user.checkPicks(fixture);
+            user.totalScore();
+          }); // A method on User model
+        });
     })
+    .then(fixture => res.json(fixture))
+    // .then(() => {
+    //   User
+    //     .find()
+    //     .then(users => {
+    //       users.forEach(user => {
+    //         user.picks.forEach(pick => {
+    //           if(pick.gameId.toString() === req.params.id
+    //           && pick.winnerPick.toString() === req.body.winner) {
+    //             pick.pointsScored = 1;
+    //           } else {
+    //             pick.pointsScored = 0;
+    //           }
+    //         });
+    //         user.score = user.picks.reduce((total, pick) => total + pick.pointsScored, 0);
+    //         user.save();
+    //       });
+        // })
+    //     .catch(next);
+    // })
     .catch(next);
 }
 

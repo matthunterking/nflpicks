@@ -18,6 +18,27 @@ const userSchema = new mongoose.Schema({
   picks: [ pickSchema ]
 });
 
+userSchema.methods.checkPicks = function checkPicks(fixture) {
+  // // This no longer makes sense but...
+  // const affectedUsers = users.filter(user => {
+  //   const userPicks = user.picks.filter(pick => pick.gameId === fixture.id);
+  //   return userPicks.includes(fixture.id);
+  // });
+  const pickToUpdate = this.picks.filter(pick => pick.gameId.toString() === fixture.id);
+  console.log('this is this.picks in the method ->', pickToUpdate);
+  if (pickToUpdate.winnerPick === fixture.winner) {
+    pickToUpdate.pointsScored = 1;
+  } else {
+    pickToUpdate.pointsScored = 0;
+  }
+};
+
+userSchema.methods.totalScore = function totalScore() {
+  this.score = this.picks.reduce((total, pick) => total + pick.pointsScored, 0);
+  console.log(this);
+  this.save();
+};
+
 userSchema.methods.validatePassword = function validatePassword(password){
   return bcrypt.compareSync(password, this.password);
 };
