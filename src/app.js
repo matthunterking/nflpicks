@@ -1,13 +1,30 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+
+import Fixtures from './components/fixtures/Index';
+import NotFound from './components/common/NotFound';
+import Home from './components/Home';
+
+import 'bulma';
 
 
 class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>dacdjcsdcjdnsCLKdnclkn</h1>
+      <div className='container'>
+        <Router>
+          <Switch>
+            <Route path="/fixtures" component={Fixtures} />
+            <Route exact path="/" component={Home} />
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
       </div>
     );
   }
