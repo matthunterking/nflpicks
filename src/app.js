@@ -7,28 +7,30 @@ import {
 } from 'react-router-dom';
 
 import AuthRegister from './components/auth/Register';
-import Fixtures from './components/fixtures/Index';
+import FixturesIndex from './components/fixtures/Index';
+import ResultsIndex from './components/fixtures/ResultsIndex';
+import Dashboard from './components/common/Dashboard';
 import NotFound from './components/common/NotFound';
 import Home from './components/Home';
 
 
 import 'bulma';
-
+import './scss/style.scss';
 
 class App extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <Router>
-          <Switch>
-            <Route path="/register" component={AuthRegister} />
-            <Route path="/fixtures" component={Fixtures} />
-            <Route exact path="/" component={Home} />
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/fixtures/results/:week" component={ResultsIndex} />
+          <Route path="/register" component={AuthRegister} />
+          <Route path="/fixtures" component={FixturesIndex} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
     );
   }
 }

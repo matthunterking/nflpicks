@@ -20,7 +20,7 @@ handleSubmit = (e) => {
       Auth.login(res.data);
       Flash.setMessage('info', res.data.message);
     })
-    .then(() => this.props.history.push('/fixtures'))
+    .then(() => this.props.history.push('/dashboard'))
     .catch(() => {
       Flash.setMessage('danger', 'Invalid credentials');
       this.props.history.push('/');
@@ -29,32 +29,34 @@ handleSubmit = (e) => {
 
 render() {
   return (
-    <div>
-      <p>NFL PICKS GAME!</p>
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <input
-            className="input"
-            name="email"
-            placeholder="Email"
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="field">
-          <input
-            type="password"
-            className="input"
-            name="password"
-            placeholder="Password"
-            onChange={this.handleChange}
-          />
-        </div>
-        <button className="button submitButton">Log in</button>
-      </form>
-      <div className="registerContainer">
-        <Link className="button redirectButton" to="/register">
-        Not registered? Join now!
-        </Link>
+    <div className="homeScreen">
+      <div className="container">
+        <form onSubmit={this.handleSubmit} className="box">
+          <p className="title is-1">NFL PICKS GAME!</p>
+          <div className="field">
+            <input
+              className="input"
+              name="email"
+              placeholder="Email"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="field">
+            <input
+              type="password"
+              className="input"
+              name="password"
+              placeholder="Password"
+              onChange={this.handleChange}
+            />
+          </div>
+          <button className="button submitButton">Log in</button>
+          <div className="registerContainer">
+            <Link className="button redirectButton" to="/register">
+            Register
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );

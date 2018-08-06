@@ -10,7 +10,7 @@ mongoose.connect(dbURI, (err, db) => {
   db.dropDatabase();
   Team.create([{
     name: 'Arizona Cardinals',
-    logo: 'http://prod.static.cardinals.clubs.nfl.com/nfl-assets/img/gbl-ico-team/ARI/logos/home/large.png',
+    logo: 'cardinals',
     primaryColor: '#97233F',
     secondaryColor: '#FFB612',
     tertiaryColor: '#000000',
@@ -19,7 +19,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'ARI'
   },{
     name: 'Chicago Bears',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Chicago_Bears_logo.svg/2000px-Chicago_Bears_logo.svg.png',
+    logo: 'bears',
     primaryColor: '#F26522',
     secondaryColor: '#00143F',
     tertiaryColor: '#ffffff',
@@ -28,7 +28,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'CHI'
   },{
     name: 'Green Bay Packers',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Green_Bay_Packers_logo.svg/1000px-Green_Bay_Packers_logo.svg.png',
+    logo: 'packers',
     primaryColor: '#24423C',
     secondaryColor: '#FCBE14',
     tertiaryColor: '#ffffff',
@@ -37,7 +37,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'GB'
   },{
     name: 'New York Giants',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/New_York_Giants_logo.svg/2000px-New_York_Giants_logo.svg.png',
+    logo: 'giants',
     primaryColor: '#192E6C',
     secondaryColor: '#B20032',
     tertiaryColor: '#ffffff',

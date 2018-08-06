@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import Flash from '../../lib/Flash';
-import { Link } from 'react-router-dom';
 
 class AuthRegister extends React.Component {
   state: {};
@@ -19,7 +18,7 @@ class AuthRegister extends React.Component {
         Auth.setToken(res.data.token);
         Flash.setMessage('info', res.data.message);
       })
-      .then(() => this.props.history.push('/fixtures'))
+      .then(() => this.props.history.push('/dashboard'))
       .catch(() => {
         Flash.setMessage('danger', 'Invalid credentials');
         this.props.history.replace('/register');

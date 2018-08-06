@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class FixturesIndex extends React.Component {
 
@@ -9,27 +10,33 @@ class FixturesIndex extends React.Component {
   }
 
   componentDidMount() {
+    console.log('THIS IS THE WEEK=>',this.props.match.params.week);
     axios
-      .get('api/fixtures')
-      .then(res => this.setState({ fixtures: res.data }));
+      .get(`/api/fixtures/week/${this.props.match.params.week}`)
+      .then(res => this.setState({ fixtures: res.data }, () => {
+        console.log('this is state at component did mount', this.state);
+      }));
   }
 
   handleClick = (e) => {
-    const results = [].concat(...this.state.results);
     const data = {
       fixtureId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture'),
       winner: e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner'),
       loser: e.target.parentNode.getAttribute('loser') || e.target.getAttribute('loser')
     };
-    if(results.some(result => result.fixtureId === data.fixtureId)) {
-      const index = results.findIndex(result => result.fixtureId === data.fixtureId);
-      results.splice(index, 1, data);
-    } else {
-      results.push(data);
-    }
-    this.setState({ results: results }, () => {
-      console.log(this.state.results);
-    });
+    axios
+      .post(`/api/fixtures/${data.fixtureId}`, data)
+      .then(res => {
+        console.log(res.data);
+        const results = this.state.fixtures;
+        const index = this.state.fixtures.findIndex(fixture => fixture._id === res.data._id);
+        console.log('this is results', results);
+        console.log('this is index', index);
+        results.splice(index, 1, res.data);
+        this.setState({ fixtures: results }, () => {
+          console.log(this.state);
+        });
+      });
   }
 
   render() {
@@ -49,14 +56,14 @@ class FixturesIndex extends React.Component {
                     onClick={this.handleClick}
                     style={{
                       backgroundColor:
-                      this.state.results.some(result => result.loser === fixture.awayTeam._id) ?
-                        'grey' : `${fixture.awayTeam.primaryColor}`
+                      this.state.fixtures.some(result => result.loser === fixture.awayTeam._id) ?
+                        'grey' : `${fixture.awayTeam.secondaryColor}`
                     }}
                   >
                     <div className="teamLogo"
                       style={{
                         backgroundImage:
-                        this.state.results.some(result => result.loser === fixture.awayTeam._id) ?
+                        this.state.fixtures.some(result => result.loser === fixture.awayTeam._id) ?
                           `url(/assets/images/${fixture.awayTeam.logo}BW.png)` :
                           `url(/assets/images/${fixture.awayTeam.logo}.png)`
                       }}
@@ -64,9 +71,9 @@ class FixturesIndex extends React.Component {
                     <p className="title is-5"
                       style={{
                         color:
-                        this.state.results.some(result => result.loser === fixture.awayTeam._id) ?
-                          'black' :`${fixture.awayTeam.secondaryColor}` }}>
-                      {fixture.awayTeam._id}{fixture.awayTeam.name}</p>
+                        this.state.fixtures.some(result => result.loser === fixture.awayTeam._id) ?
+                          'black' :`${fixture.awayTeam.primaryColor}` }}>
+                      {fixture.awayTeam.name}</p>
                   </div>
 
                   <div className="column is-one-fifths teamContainer">
@@ -80,17 +87,14 @@ class FixturesIndex extends React.Component {
                     onClick={this.handleClick}
                     style={{
                       backgroundColor:
-                      this.state.results.some(result => result.loser === fixture.homeTeam._id) ?
-                        'grey' :
-                        this.state.results.some(result => result.winner === fixture.homeTeam._id) ?
-                          `${fixture.homeTeam.primaryColor}` :
-                          `${fixture.homeTeam.secondaryColor}`
+                      this.state.fixtures.some(result => result.loser === fixture.homeTeam._id) ?
+                        'grey' : `${fixture.homeTeam.secondaryColor}`
                     }}
                   >
                     <div className="teamLogo"
                       style={{
                         backgroundImage:
-                          this.state.results.some(result => result.loser === fixture.homeTeam._id) ?
+                          this.state.fixtures.some(result => result.loser === fixture.homeTeam._id) ?
                             `url(/assets/images/${fixture.homeTeam.logo}BW.png)` :
                             `url(/assets/images/${fixture.homeTeam.logo}.png)`
                       }}
@@ -98,16 +102,17 @@ class FixturesIndex extends React.Component {
                     <p className="title is-5"
                       style={{
                         color:
-                        this.state.results.some(result => result.loser === fixture.homeTeam._id) ?
-                          'black' : this.state.results.some(result => result.winner === fixture.homeTeam._id) ?
-                            `${fixture.homeTeam.secondaryColor}` :
-                            `${fixture.homeTeam.primaryColor}`
+                        this.state.fixtures.some(result => result.loser === fixture.homeTeam._id) ?
+                          'black' : `${fixture.homeTeam.primaryColor}`
                       }}>
-                      {fixture.homeTeam._id}{fixture.homeTeam.name}</p>
+                      {fixture.homeTeam.name}</p>
                   </div>
                 </div>
               </div>
             )}
+            <div>
+              <Link to='/dashboard'>Return to Dashboard</Link>
+            </div>
           </div> }
       </div>
     );

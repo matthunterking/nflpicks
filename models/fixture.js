@@ -5,7 +5,7 @@ const fixtureSchema = new mongoose.Schema({
   awayTeam: { type: mongoose.Schema.ObjectId, ref: 'Team' },
   week: { type: String },
   winner: { type: mongoose.Schema.ObjectId, ref: 'Team' },
-  loser: { type: String },
+  loser: { type: mongoose.Schema.ObjectId, ref: 'Team'  },
   points: { type: Number, default: 1 }
 });
 

@@ -4,7 +4,7 @@ const User = require('../models/user');
 function fixtureIndex(req, res, next) {
   Fixtures
     .find()
-    .populate('homeTeam awayTeam')
+    .populate('homeTeam awayTeam winner')
     .exec()
     .then(fixtures => res.json(fixtures))
     .catch(next);
@@ -33,8 +33,10 @@ function fixtureIndexByWeek(req, res, next) {
 function fixtureResult(req, res, next) {
   Fixtures
     .findById(req.params.id)
+    .populate('homeTeam awayTeam')
     .then(fixture => {
       fixture.winner = req.body.winner;
+      fixture.loser = req.body.loser;
       return fixture.save();
     })
     .then(fixture => {
@@ -47,6 +49,7 @@ function fixtureResult(req, res, next) {
             user.totalScore();
           }); // A method on User model
         });
+      return fixture;
     })
     .then(fixture => res.json(fixture))
     // .then(() => {
@@ -64,7 +67,7 @@ function fixtureResult(req, res, next) {
     //         });
     //         user.score = user.picks.reduce((total, pick) => total + pick.pointsScored, 0);
     //         user.save();
-    //       });
+       // });
         // })
     //     .catch(next);
     // })
