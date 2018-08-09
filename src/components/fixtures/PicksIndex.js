@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Auth from '../../lib/Auth';
 
-class FixturesIndex extends React.Component {
+class PicksIndex extends React.Component {
 
   state = {
     fixtures: [],
-    results: [],
+    picks: [],
     week: 0
   }
 
@@ -20,23 +21,34 @@ class FixturesIndex extends React.Component {
   }
 
   handleClick = (e) => {
+    const picks = [].concat(...this.state.picks);
     const data = {
-      fixtureId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture'),
-      winner: e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner'),
-      loser: e.target.parentNode.getAttribute('loser') || e.target.getAttribute('loser')
+      gameId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture'),
+      winnerPick: e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner'),
+      loserPick: e.target.parentNode.getAttribute('loser') || e.target.getAttribute('loser'),
+      week: this.state.week
     };
+    if(picks.some(pick => pick.gameId === data.gameId)) {
+      const index = picks.findIndex(pick => pick.gameId === data.gameId);
+      picks.splice(index, 1, data);
+    } else {
+      picks.push(data);
+    }
+    this.setState({ picks: picks }, () => {
+      console.log('this is state.picks',this.state.picks);
+    });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.picks);
     axios
-      .post(`/api/fixtures/${data.fixtureId}`, data)
-      .then(res => {
-        console.log(res.data);
-        const results = this.state.fixtures;
-        const index = this.state.fixtures.findIndex(fixture => fixture._id === res.data._id);
-        console.log('this is results', results);
-        console.log('this is index', index);
-        results.splice(index, 1, res.data);
-        this.setState({ fixtures: results }, () => {
-          console.log(this.state);
-        });
+      .post('/api/fixtures/picks', this.state.picks, {
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
+      .then(() => this.props.history.push('/dashboard'))
+      .catch(() => {
+        this.props.history.replace('/register');
       });
   }
 
@@ -57,7 +69,7 @@ class FixturesIndex extends React.Component {
                     onClick={this.handleClick}
                     style={{
                       backgroundColor:
-                      this.state.fixtures.some(result => result.loser === fixture.awayTeam._id) ?
+                      this.state.picks.some(pick => pick.loserPick === fixture.awayTeam._id) ?
                         'grey' : `${fixture.awayTeam.primaryColor}`
                     }}
                   >
@@ -69,7 +81,7 @@ class FixturesIndex extends React.Component {
                     <p className="title is-4 teamName"
                       style={{
                         color:
-                        this.state.fixtures.some(result => result.loser === fixture.awayTeam._id) ?
+                        this.state.picks.some(pick => pick.loserPick === fixture.awayTeam._id) ?
                           'black' :`${fixture.awayTeam.secondaryColor}` }}>
                       {fixture.awayTeam.name}</p>
                   </div>
@@ -85,7 +97,7 @@ class FixturesIndex extends React.Component {
                     onClick={this.handleClick}
                     style={{
                       backgroundColor:
-                      this.state.fixtures.some(result => result.loser === fixture.homeTeam._id) ?
+                      this.state.picks.some(pick => pick.loserPick === fixture.homeTeam._id) ?
                         'grey' : `${fixture.homeTeam.primaryColor}`
                     }}
                   >
@@ -97,7 +109,7 @@ class FixturesIndex extends React.Component {
                     <p className="title is-5 teamName"
                       style={{
                         color:
-                        this.state.fixtures.some(result => result.loser === fixture.homeTeam._id) ?
+                        this.state.picks.some(pick => pick.loserPick === fixture.homeTeam._id) ?
                           'black' : `${fixture.homeTeam.secondaryColor}`
                       }}>
                       {fixture.homeTeam.name}</p>
@@ -106,6 +118,9 @@ class FixturesIndex extends React.Component {
                 <hr />
               </div>
             )}
+            {/* {this.state.picks.length === this.state.fixtures.length && <div> */}
+              <button onClick={this.handleSubmit}>Submit Results</button>
+            {/* </div>} */}
             <div>
               <Link to='/dashboard'>Return to Dashboard</Link>
             </div>
@@ -116,4 +131,4 @@ class FixturesIndex extends React.Component {
 
 }
 
-export default FixturesIndex;
+export default PicksIndex;

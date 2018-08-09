@@ -10,7 +10,7 @@ mongoose.connect(dbURI, (err, db) => {
   db.dropDatabase();
   Team.create([{
     name: 'Arizona Cardinals',
-    logo: 'cardinals',
+    logo: 'cardinals.png',
     primaryColor: '#97233F',
     secondaryColor: '#FFB612',
     tertiaryColor: '#000000',
@@ -19,7 +19,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'ARI'
   },{
     name: 'Chicago Bears',
-    logo: 'bears',
+    logo: 'bears.png',
     primaryColor: '#F26522',
     secondaryColor: '#00143F',
     tertiaryColor: '#ffffff',
@@ -28,7 +28,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'CHI'
   },{
     name: 'Green Bay Packers',
-    logo: 'packers',
+    logo: 'packers.png',
     primaryColor: '#24423C',
     secondaryColor: '#FCBE14',
     tertiaryColor: '#ffffff',
@@ -37,7 +37,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'GB'
   },{
     name: 'New York Giants',
-    logo: 'giants',
+    logo: 'giants.png',
     primaryColor: '#192E6C',
     secondaryColor: '#B20032',
     tertiaryColor: '#ffffff',
@@ -46,7 +46,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'NYG'
   },{
     name: 'Detroit Lions',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/detroit-lions-logo-transparent.png',
+    logo: 'lions.png',
     primaryColor: '#046EB4',
     secondaryColor: '#B0B7BC',
     tertiaryColor: '#000000',
@@ -55,7 +55,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'DET'
   },{
     name: 'Washington Redskins',
-    logo: 'https://i.pinimg.com/originals/97/42/d4/9742d44f9ae66c653239f6fc2f5c215c.png',
+    logo: 'redskins.png',
     primaryColor: '#7C1415',
     secondaryColor: '#FFC20F',
     tertiaryColor: '#000000',
@@ -64,7 +64,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'WAS'
   },{
     name: 'Philadelphia Eagles',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/philadelphia-eagles-logo-transparent.png',
+    logo: 'eagles.png',
     primaryColor: '#014A53',
     secondaryColor: '#BBC4C9',
     tertiaryColor: '#000000',
@@ -73,7 +73,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'PHI'
   },{
     name: 'Pittsburgh Steelers',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Pittsburgh_Steelers_logo.svg/2000px-Pittsburgh_Steelers_logo.svg.png',
+    logo: 'steelers.png',
     primaryColor: '#FFC20E',
     secondaryColor: '#000000',
     tertiaryColor: '#B2BABF',
@@ -82,7 +82,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'PIT'
   },{
     name: 'Los Angeles Rams',
-    logo: 'https://cdn.bleacherreport.net/images/team_logos/328x328/los_angeles_rams.png',
+    logo: 'rams.png',
     primaryColor: '#95774C',
     secondaryColor: '#002147',
     tertiaryColor: '#ffffff',
@@ -91,7 +91,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'LAR'
   },{
     name: 'San Francisco 49ers',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/San_Francisco_49ers_logo.svg/2000px-San_Francisco_49ers_logo.svg.png',
+    logo: '49ers.png',
     primaryColor: '#C9243F',
     secondaryColor: '#C8AA76',
     tertiaryColor: '#000000',
@@ -100,7 +100,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'SF'
   },{
     name: 'Cleveland Browns',
-    logo: 'https://vignette.wikia.nocookie.net/madden/images/a/ae/Cleveland_Browns_Logo.png/revision/20161013214105',
+    logo: 'browns.png',
     primaryColor: '#22150C',
     secondaryColor: '#FB4F14',
     tertiaryColor: '#ffffff',
@@ -109,7 +109,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'CLE'
   },{
     name: 'Indianapolis Colts',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Indianapolis_Colts_logo.svg/2000px-Indianapolis_Colts_logo.svg.png',
+    logo: 'colts.png',
     primaryColor: '#003D79',
     secondaryColor: '#ffffff',
     tertiaryColor: '#B0B7BC',
@@ -118,7 +118,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'IND'
   },{
     name: 'Dallas Cowboys',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Dallas_Cowboys.svg/2000px-Dallas_Cowboys.svg.png',
+    logo: 'cowboys.png',
     primaryColor: '#B0B7BC',
     secondaryColor: '#0C264C',
     tertiaryColor: '#ffffff',
@@ -127,7 +127,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'DAL'
   },{
     name: 'Kansas City Chiefs',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/kansas-city-chiefs-logo-transparent.png',
+    logo: 'chiefs.png',
     primaryColor: '#CA2430',
     secondaryColor: '#FFB612',
     tertiaryColor: '#000000',
@@ -136,7 +136,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'KC'
   },{
     name: 'Los Angeles Chargers',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/los-angeles-chargers-logo-transparent.png',
+    logo: 'chargers.png',
     primaryColor: '#2072BA',
     secondaryColor: '#FDB515',
     tertiaryColor: '#0A2342',
@@ -145,7 +145,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'LAC'
   },{
     name: 'Denver Broncos',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/denver-broncos-logo-transparent.png',
+    logo: 'broncos.png',
     primaryColor: '#002244',
     secondaryColor: '#FB4F14',
     tertiaryColor: '#ffffff',
@@ -154,7 +154,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'DEN'
   },{
     name: 'New York Jets',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/new-york-jets-logo-transparent.png',
+    logo: 'jets.png',
     primaryColor: '#203731',
     secondaryColor: '#ffffff',
     tertiaryColor: '#000000',
@@ -163,7 +163,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'NYJ'
   },{
     name: 'New England Patriots',
-    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b3b.png',
+    logo: 'pats.png',
     primaryColor: '#0A2342',
     secondaryColor: '#C81F32',
     tertiaryColor: '#B0B7BD',
@@ -172,7 +172,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'NE'
   },{
     name: 'Oakland Raiders',
-    logo: 'https://vignette.wikia.nocookie.net/madden/images/7/70/Oakland_Raiders_Logo.png/revision/latest?cb=20120716204636',
+    logo: 'raiders.png',
     primaryColor: '#C4C9CC',
     secondaryColor: '#000000',
     tertiaryColor: '#ffffff',
@@ -181,7 +181,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'OAK'
   },{
     name: 'Tennessee Titans',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/tennessee-titans-logo-transparent.png',
+    logo: 'titans.png',
     primaryColor: '#4095D1',
     secondaryColor: '#00295B',
     tertiaryColor: '#BCC4C9',
@@ -190,7 +190,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'TEN'
   },{
     name: 'Buffalo Bills',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/buffalo-bills-logo-transparent.png',
+    logo: 'bills.png',
     primaryColor: '#00338D',
     secondaryColor: '#C60C30',
     tertiaryColor: '#ffffff',
@@ -199,7 +199,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'BUF'
   },{
     name: 'Minnesota Vikings',
-    logo: 'https://vignette.wikia.nocookie.net/madden/images/8/8f/Minnesota_Vikings_Logo.png/revision/latest?cb=20161013214506',
+    logo: 'vikings.png',
     primaryColor: '#4F2E84',
     secondaryColor: '#FEC62F',
     tertiaryColor: '#000000',
@@ -208,7 +208,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'MIN'
   },{
     name: 'Atlanta Falcons',
-    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b02.png',
+    logo: 'falcons.png',
     primaryColor: '#A71930',
     secondaryColor: '#A5ACAF',
     tertiaryColor: '#000000',
@@ -217,7 +217,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'ATL'
   },{
     name: 'Miami Dolphins',
-    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b35.png',
+    logo: 'dolphins.png',
     primaryColor: '#0091A0',
     secondaryColor: '#FF8500',
     tertiaryColor: '#002760',
@@ -226,7 +226,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'MIA'
   },{
     name: 'New Orleans Saints',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/New_Orleans_Saints_logo.svg/2000px-New_Orleans_Saints_logo.svg.png',
+    logo: 'saints.png',
     primaryColor: '#A08A58',
     secondaryColor: '#000000',
     tertiaryColor: '#ffffff',
@@ -235,7 +235,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'NO'
   },{
     name: 'Cincinnati Bengals',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cincinnati_Bengals_logo.svg/2000px-Cincinnati_Bengals_logo.svg.png',
+    logo: 'bengals.png',
     primaryColor: '#FB4F14',
     secondaryColor: '#000000',
     tertiaryColor: '#ffffff',
@@ -244,7 +244,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'CIN'
   },{
     name: 'Seattle Seahawks',
-    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b58.png',
+    logo: 'seahawks.png',
     primaryColor: '#002A5C',
     secondaryColor: '#7AC142',
     tertiaryColor: '#B2B7BB',
@@ -253,7 +253,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'SEA'
   },{
     name: 'Tampa Bay Buccaneers',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/tampa-bay-buccaneers-logo-transparent.png',
+    logo: 'bucks.png',
     primaryColor: '#D40909',
     secondaryColor: '#B0B9BF',
     tertiaryColor: '#000000',
@@ -262,7 +262,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'TB'
   },{
     name: 'Carolina Panthers',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/carolina-panthers-logo-transparent.png',
+    logo: 'panthers.png',
     primaryColor: '#0085CA',
     secondaryColor: '#BFC0BF',
     tertiaryColor: '#000000',
@@ -271,7 +271,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'CAR'
   },{
     name: 'Jacksonville Jaguars',
-    logo: 'https://s3.amazonaws.com/freebiesupply/large/2x/jacksonville-jaguars-logo-transparent.png',
+    logo: 'jags.png',
     primaryColor: '#D8A328',
     secondaryColor: '#136677',
     tertiaryColor: '#000000',
@@ -280,7 +280,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'JAX'
   },{
     name: 'Baltimore Ravens',
-    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b09.png',
+    logo: 'ravens.png',
     primaryColor: '#241773',
     secondaryColor: '#9E7C0C',
     tertiaryColor: '#ffffff',
@@ -289,7 +289,7 @@ mongoose.connect(dbURI, (err, db) => {
     shortName: 'BAL'
   },{
     name: 'Houston Texans',
-    logo: 'http://www.stickpng.com/assets/images/580b585b2edbce24c47b2b29.png',
+    logo: 'texans.png',
     primaryColor: '#00143F',
     secondaryColor: '#C9243F',
     tertiaryColor: '#ffffff',

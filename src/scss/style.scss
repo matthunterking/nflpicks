@@ -9,16 +9,29 @@
 .teamContainer {
   min-height: 200px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
+  padding: 0px;
+  background-color: black;
+  color: white;
 }
 
 .teamLogo {
-  min-height: 100px;
-  width: 80%;
-  margin-left: 10%;
-  margin-bottom: 10px;
-  background-size: contain;
+  min-height: 200px;
+  padding: 0px;
+  width: 60%;
+  background-size: 120%;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: right;
+}
+
+.teamName {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.fixtureAt {
+  background-color: black;
 }

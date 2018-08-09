@@ -3,12 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose= require('mongoose');
 const errorHandler = require('./lib/errorHandler');
+const morgan = require('morgan');
 
 const { port, dbURI } = require('./config/environment');
 const router = require('./config/router');
 
 mongoose.connect(dbURI);
 
+app.use(morgan('dev'));
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.json());
 app.use('/api', router);

@@ -13,7 +13,7 @@ class AuthRegister extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('api/register', this.state)
+      .post('/api/register', this.state)
       .then(res =>  {
         Auth.setToken(res.data.token);
         Flash.setMessage('info', res.data.message);

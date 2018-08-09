@@ -7,7 +7,8 @@ const pickSchema = new mongoose.Schema({
   gameId: { type: mongoose.Schema.ObjectId, ref: 'Fixture'},
   winnerPick: { type: mongoose.Schema.ObjectId, ref: 'Team' },
   loserPick: { type: mongoose.Schema.ObjectId, ref: 'Team' },
-  pointsScored: { type: Number }
+  week: { type: String },
+  pointsScored: { type: Number, default: 0 }
 });
 
 const userSchema = new mongoose.Schema({
@@ -15,25 +16,27 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: 'Email is required', unique: true },
   password: { type: String, required: 'Password is required'},
   score: { type: Number },
-  picks: [ pickSchema ]
+  picks: [ pickSchema ],
+  leagues: [{ type: mongoose.Schema.ObjectId, ref: 'League' }]
 });
 
 userSchema.methods.checkPicks = function checkPicks(fixture) {
-  // // This no longer makes sense but...
-  // const affectedUsers = users.filter(user => {
-  //   const userPicks = user.picks.filter(pick => pick.gameId === fixture.id);
-  //   return userPicks.includes(fixture.id);
-  // });
-  const pickToUpdate = this.picks.filter(pick => pick.gameId.toString() === fixture.id);
-  console.log('this is this.picks in the method ->', pickToUpdate);
-  if (pickToUpdate.winnerPick === fixture.winner) {
+  const pickToUpdate = this.picks.filter(pick => pick.gameId.toString() === fixture._id.toString())[0];
+  if (pickToUpdate.winnerPick.toString() === fixture.winner.toString()) {
     pickToUpdate.pointsScored = 1;
   } else {
     pickToUpdate.pointsScored = 0;
   }
 };
 
+userSchema.methods.updateLeagues = function updateLeagues(league) {
+  this.leagues.push(league.id.toString());
+  this.save();
+};
+
 userSchema.methods.totalScore = function totalScore() {
+  console.log('this.picks =>', this.picks);
+  console.log('this.picks.reduce((total, pick) => total + pick.pointsScored, 0) =>', this.picks.reduce((total, pick) => total + pick.pointsScored, 0));
   this.score = this.picks.reduce((total, pick) => total + pick.pointsScored, 0);
   console.log(this);
   this.save();
