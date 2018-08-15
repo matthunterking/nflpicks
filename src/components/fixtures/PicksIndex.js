@@ -8,7 +8,8 @@ class PicksIndex extends React.Component {
   state = {
     fixtures: [],
     picks: [],
-    week: 0
+    week: 0,
+    locked: false
   }
 
   componentDidMount() {
@@ -26,6 +27,7 @@ class PicksIndex extends React.Component {
       gameId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture'),
       winnerPick: e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner'),
       loserPick: e.target.parentNode.getAttribute('loser') || e.target.getAttribute('loser'),
+      lock: false,
       week: this.state.week
     };
     if(picks.some(pick => pick.gameId === data.gameId)) {
@@ -36,6 +38,23 @@ class PicksIndex extends React.Component {
     }
     this.setState({ picks: picks }, () => {
       console.log('this is state.picks',this.state.picks);
+    });
+  }
+
+  handleLock = (e) => {
+    const picks = [].concat(...this.state.picks);
+    const data = {
+      gameId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture')
+    };
+    console.log('this is data in handle lock', data);
+    if(picks.some(pick => pick.gameId === data.gameId)) {
+      const index = picks.findIndex(pick => pick.gameId === data.gameId);
+      picks[index].lock = true;
+    } else {
+      picks.push(data);
+    }
+    this.setState({ picks: picks, locked: true }, () => {
+      console.log('this is state in handleLock',this.state);
     });
   }
 
@@ -115,11 +134,14 @@ class PicksIndex extends React.Component {
                       {fixture.homeTeam.name}</p>
                   </div>
                 </div>
+                {!this.state.locked && <div fixture={fixture._id} onClick={this.handleLock}>
+                  LOCK
+                </div>}
                 <hr />
               </div>
             )}
             {/* {this.state.picks.length === this.state.fixtures.length && <div> */}
-              <button onClick={this.handleSubmit}>Submit Results</button>
+            <button onClick={this.handleSubmit}>Submit Results</button>
             {/* </div>} */}
             <div>
               <Link to='/dashboard'>Return to Dashboard</Link>

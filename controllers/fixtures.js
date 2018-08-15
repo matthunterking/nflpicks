@@ -31,6 +31,7 @@ function fixtureIndexByWeek(req, res, next) {
 }
 
 function fixtureResult(req, res, next) {
+  console.log('in fixture results');
   Fixtures
     .findById(req.params.id)
     .populate('homeTeam awayTeam')
@@ -40,37 +41,18 @@ function fixtureResult(req, res, next) {
       return fixture.save();
     })
     .then(fixture => {
-      // const _fixture = fixture; // TODO: Is this necessary? Is fixture available later?
+      console.log('this is the fixture later in results',fixture);
       User
         .find()
         .then(users => {
           users.forEach(user => {
             user.checkPicks(fixture);
             user.totalScore();
-          }); // A method on User model
+          });
         });
       return fixture;
     })
     .then(fixture => res.json(fixture))
-    // .then(() => {
-    //   User
-    //     .find()
-    //     .then(users => {
-    //       users.forEach(user => {
-    //         user.picks.forEach(pick => {
-    //           if(pick.gameId.toString() === req.params.id
-    //           && pick.winnerPick.toString() === req.body.winner) {
-    //             pick.pointsScored = 1;
-    //           } else {
-    //             pick.pointsScored = 0;
-    //           }
-    //         });
-    //         user.score = user.picks.reduce((total, pick) => total + pick.pointsScored, 0);
-    //         user.save();
-       // });
-        // })
-    //     .catch(next);
-    // })
     .catch(next);
 }
 

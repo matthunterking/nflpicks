@@ -7,11 +7,12 @@ const secureRoute = require('../lib/secureRoute');
 const auth = require('../controllers/auth');
 
 router.route('/leagues')
+  .get(secureRoute, leagues.index)
   .post(secureRoute, leagues.create);
 
 router.route('/leagues/:id')
   .get(leagues.show)
-  .post(leagues.join);
+  .post(secureRoute, leagues.join);
 
 
 router.route('/fixtures')

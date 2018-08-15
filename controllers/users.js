@@ -1,7 +1,8 @@
 const User = require('../models/user');
 
 function createPicks(req, res, next) {
-  console.log(req.body);
+  const lock = req.body.filter(pick => pick.lock)[0];
+  console.log('this is the lock pick=>', lock);
   User
     .findById(req.currentUser._id)
     .then(user => {
@@ -9,6 +10,7 @@ function createPicks(req, res, next) {
       console.log(user.picks);
       return user.save();
     })
+    .then(user => user.setLock(lock))
     .then(user => res.status(201).json(user))
     .catch(next);
 }
@@ -18,6 +20,10 @@ function userShow(req, res, next) {
     .findById(req.params.id)
     .populate('picks.gameId picks.winnerPick picks.loserPick leagues')
     .exec()
+    .then(user => {
+      // user.leagues.forEach(league => league.updateTable());
+      return user;
+    })
     .then(user => res.json(user))
     .catch(next);
 }
