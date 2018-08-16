@@ -1,5 +1,6 @@
 const Fixtures = require('../models/fixture');
 const User = require('../models/user');
+const Team = require('../models/team');
 
 function fixtureIndex(req, res, next) {
   Fixtures
@@ -31,7 +32,6 @@ function fixtureIndexByWeek(req, res, next) {
 }
 
 function fixtureResult(req, res, next) {
-  console.log('in fixture results');
   Fixtures
     .findById(req.params.id)
     .populate('homeTeam awayTeam')
@@ -41,13 +41,22 @@ function fixtureResult(req, res, next) {
       return fixture.save();
     })
     .then(fixture => {
-      console.log('this is the fixture later in results',fixture);
       User
         .find()
         .then(users => {
           users.forEach(user => {
             user.checkPicks(fixture);
             user.totalScore();
+          });
+        });
+      return fixture;
+    })
+    .then(fixture => {
+      Team
+        .find()
+        .then(teams => {
+          teams.forEach(team => {
+            team.updateRecord(fixture);
           });
         });
       return fixture;

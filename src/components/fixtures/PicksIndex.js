@@ -9,7 +9,9 @@ class PicksIndex extends React.Component {
     fixtures: [],
     picks: [],
     week: 0,
-    locked: false
+    locked: false,
+    user: null,
+    hover: { target: null, active: false }
   }
 
   componentDidMount() {
@@ -17,7 +19,11 @@ class PicksIndex extends React.Component {
     axios
       .get(`/api/fixtures/week/${this.props.match.params.week}`)
       .then(res => this.setState({ fixtures: res.data, week: res.data[0].week }, () => {
-        console.log('this is state at component did mount', this.state);
+        axios
+          .get(`/api/users/${Auth.getPayload().sub}`)
+          .then(res => this.setState({ user: res.data }, () => {
+            console.log('===>', this.state.user);
+          }));
       }));
   }
 
@@ -71,10 +77,21 @@ class PicksIndex extends React.Component {
       });
   }
 
+  handleHover = (e) => {
+    const targetTeam = e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner');
+    this.setState({ hover: { target: targetTeam, active: true }}, () => {
+      console.log(this.state);
+    });
+  }
+
+  handleMouseOut = () => {
+    this.setState({ hover: { target: null, active: false } });
+  }
+
   render() {
     return (
       <div>
-        {!this.state.fixtures && <p>Loading...</p>}
+        {!this.state && <p>Loading...</p>}
         {this.state.fixtures &&
           <div className='container'>
             <p className="title is-1">Week { this.state.week }</p>
@@ -86,6 +103,8 @@ class PicksIndex extends React.Component {
                     winner={fixture.awayTeam._id}
                     loser={fixture.homeTeam._id}
                     onClick={this.handleClick}
+                    onMouseOver={this.handleHover}
+                    onMouseOut={this.handleMouseOut}
                     style={{
                       backgroundColor:
                       this.state.picks.some(pick => pick.loserPick === fixture.awayTeam._id) ?
@@ -103,6 +122,15 @@ class PicksIndex extends React.Component {
                         this.state.picks.some(pick => pick.loserPick === fixture.awayTeam._id) ?
                           'black' :`${fixture.awayTeam.secondaryColor}` }}>
                       {fixture.awayTeam.name}</p>
+                    {this.state.hover.active &&
+                      this.state.hover.target === fixture.awayTeam._id &&
+                      <div>
+                        <p>You have picked the {fixture.awayTeam.name}s
+                        {this.state.user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
+                       times</p>
+                        <p>Record : {fixture.awayTeam.record.wins.length} - {fixture.awayTeam.record.loss.length} - {fixture.awayTeam.record.tie.length}
+                        </p>
+                      </div>}
                   </div>
 
                   {/* <div className="column is-one-fifths fixtureAt">

@@ -40,19 +40,21 @@ function leagueIndex(req, res, next) {
 function leagueShow(req, res, next) {
   League
     .findById(req.params.id)
-    .populate('table.user')
+    .populate('users.userId')
     .exec()
     .then(league => res.json(league))
     .catch(next);
 }
 
 function leagueJoin(req, res, next) {
+  console.log('in league join =>', req.body);
   League
     .findById(req.params.id)
     .then(league => {
+      console.log(req.body.code, '===', league.code);
       if(req.body.code === league.code) {
         league.users.push({ userId: req.currentUser.id.toString() });
-        league.save();
+        return league.save();
       } else {
         return res.status(401).json({ message: 'Unauthorized' });
       }

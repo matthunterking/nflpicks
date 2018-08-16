@@ -35,8 +35,6 @@ class UsersShow extends React.Component {
       ));
   }
 
-  //// TODO: WORK OUT A WAY TO FILTER OUT LEAGUES THAT THIS USER IS NOT IN!
-
   render() {
     const { user } = this.state;
     if(!this.state.user || !this.state.leagues || !this.state.teams) return null;
@@ -167,7 +165,7 @@ class UsersShow extends React.Component {
           <div>
             {this.state.leagues.map(league =>
               <div key={league._id}>
-                <p>league name = {league.leagueName}</p>
+                <Link to={`/leagues/${league._id}`}>league name = {league.leagueName}</Link>
                 <div>
                   <div>
                     <p>POSITION</p>

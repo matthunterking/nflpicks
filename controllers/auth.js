@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const { secret } = require('../config/environment');
 
 function register(req, res, next) {
+  console.log('this is the req.body in register', req.body);
   User
     .create(req.body)
     .then(user => {
@@ -17,6 +18,7 @@ function register(req, res, next) {
 }
 
 function login(req, res, next) {
+  console.log('in log in', req.body);
   User
     .findOne({ email: req.body.email })
     .then(user => {
