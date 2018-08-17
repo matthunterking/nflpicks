@@ -38,6 +38,7 @@ function fixtureResult(req, res, next) {
     .then(fixture => {
       fixture.winner = req.body.winner;
       fixture.loser = req.body.loser;
+      fixture.tie = false;
       return fixture.save();
     })
     .then(fixture => {

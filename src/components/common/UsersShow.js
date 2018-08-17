@@ -8,31 +8,36 @@ class UsersShow extends React.Component {
   state = {
     user: null,
     leagues: [],
-    teams: []
+    teams: [],
+    weeks: []
   };
 
   componentDidMount () {
+    let userData;
+    let leaguesData;
+    let weeks;
+
     axios
       .get(`/api/users/${Auth.getPayload().sub}`)
-      .then(res => this.setState({ user: res.data }, () => {
-        console.log('===>', this.state.user);
+      .then(res => userData = res.data)
+      .then(
         axios
           .get('/api/leagues', {
             headers: { Authorization: `Bearer ${Auth.getToken()}`}
           })
-          .then(res => {
-            console.log('we got these leagues from server', res.data);
-            this.setState({leagues: res.data }, () => {
-              console.log('-->', this.state);
-              axios
-                .get('/api/teams')
-                .then(res => this.setState({ teams: res.data }, () => {
-                  console.log(this.state);
-                }));
-            });
-          });
-      }
-      ));
+          .then(res => leaguesData = res.data)
+          .then(() => {
+            weeks = userData.picks.map(pick => parseInt(pick.week) + 1);
+            console.log(weeks);
+            weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
+            console.log(weeks);
+            axios
+              .get('/api/teams')
+              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks }, () => {
+                console.log(this.state);
+              }));
+          }
+          ));
   }
 
   render() {
@@ -69,91 +74,14 @@ class UsersShow extends React.Component {
               <th>Score</th>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td><Link to="/fixtures/picks/1">Make picks for Week 1</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '1').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><Link to="/fixtures/picks/2">Make picks for Week 2</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '2').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><Link to="/fixtures/picks/3">Make picks for Week 3</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '3').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><Link to="/fixtures/picks/4">Make picks for Week 4</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '4').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td><Link to="/fixtures/picks/5">Make picks for Week 5</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '5').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td><Link to="/fixtures/picks/6">Make picks for Week 6</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '6').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td><Link to="/fixtures/picks/7">Make picks for Week 7</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '7').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td><Link to="/fixtures/picks/8">Make picks for Week 8</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '8').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td><Link to="/fixtures/picks/9">Make picks for Week 9</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '9').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td><Link to="/fixtures/picks/10">Make picks for Week 10</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '10').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td><Link to="/fixtures/picks/11">Make picks for Week 11</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '11').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td><Link to="/fixtures/picks/12">Make picks for Week 12</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '12').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>13</td>
-                <td><Link to="/fixtures/picks/13">Make picks for Week 13</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '13').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>14</td>
-                <td><Link to="/fixtures/picks/14">Make picks for Week 14</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '14').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>15</td>
-                <td><Link to="/fixtures/picks/15">Make picks for Week 15</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '15').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>16</td>
-                <td><Link to="/fixtures/picks/16">Make picks for Week 16</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '16').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
-              <tr>
-                <td>17</td>
-                <td><Link to="/fixtures/picks/17">Make picks for Week 17</Link></td>
-                <td>{user.picks.filter(pick => pick.week === '17').reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-              </tr>
+              {this.state.weeks.map(week =>
+                <tr key={week}>
+                  <td>{week}</td>
+                  <td>
+                    <Link to={`/fixtures/picks/${week}`}>Make PICKS</Link>
+                  </td>
+                  <td>{user.picks.filter(pick => pick.week === week.toString()).reduce((total, pick) => total + pick.pointsScored, 0)}</td>
+                </tr>)}
               <tr>
                 <td>TOTAL</td>
                 <td></td>

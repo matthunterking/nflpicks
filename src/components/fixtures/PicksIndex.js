@@ -89,9 +89,9 @@ class PicksIndex extends React.Component {
   }
 
   render() {
+    if(!this.state.fixtures || !this.state.picks || !this.state.user) return null;
     return (
       <div>
-        {!this.state && <p>Loading...</p>}
         {this.state.fixtures &&
           <div className='container'>
             <p className="title is-1">Week { this.state.week }</p>
@@ -125,9 +125,9 @@ class PicksIndex extends React.Component {
                     {this.state.hover.active &&
                       this.state.hover.target === fixture.awayTeam._id &&
                       <div>
-                        <p>You have picked the {fixture.awayTeam.name}s
-                        {this.state.user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
-                       times</p>
+                        <p>You have picked the {fixture.awayTeam.name}
+                          <span> {this.state.user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}</span> time(s)
+                        </p>
                         <p>Record : {fixture.awayTeam.record.wins.length} - {fixture.awayTeam.record.loss.length} - {fixture.awayTeam.record.tie.length}
                         </p>
                       </div>}
