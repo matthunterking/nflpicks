@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import { Pie } from 'react-chartjs-2';
 
 class UsersShow extends React.Component {
 
@@ -17,6 +18,26 @@ class UsersShow extends React.Component {
     let leaguesData;
     let weeks;
 
+    const chartData = {
+      labels: [
+        'Red',
+        'Green'
+      ],
+      datasets: [{
+        data: [],
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB'
+          // '#FFCE56'
+        ],
+        hoverBackgroundColor: [
+          '#FF6384',
+          '#36A2EB'
+          // '#FFCE56'
+        ]
+      }]
+    };
+
     axios
       .get(`/api/users/${Auth.getPayload().sub}`)
       .then(res => userData = res.data)
@@ -28,17 +49,20 @@ class UsersShow extends React.Component {
           .then(res => leaguesData = res.data)
           .then(() => {
             weeks = userData.picks.map(pick => parseInt(pick.week) + 1);
-            console.log(weeks);
+            console.log('this is weeks', weeks);
             weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
-            console.log(weeks);
+            console.log('this is the last weeks', weeks);
+            const totalAvailable = userData.score - ((weeks.length - 1) * userData.picks.length + 4);
+            chartData.datasets[0].data = [userData.score, totalAvailable];
             axios
               .get('/api/teams')
-              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks }, () => {
+              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks, data: chartData }, () => {
                 console.log(this.state);
               }));
           }
           ));
   }
+
 
   render() {
     const { user } = this.state;
@@ -47,6 +71,8 @@ class UsersShow extends React.Component {
       <div>
         {user && <div>
           <p>{user.name}s DASHBOARD</p>
+          <p className="title is-1">{this.state.user.score}</p>
+          <Pie data={this.state.data} />
           <div className="columns is-multiline">
             {this.state.teams.sort((a, b) => {
               if(a.division < b.division) return -1;
