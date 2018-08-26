@@ -4,6 +4,7 @@ const users = require('../controllers/users');
 const teams = require('../controllers/teams');
 const leagues = require('../controllers/leagues');
 const secureRoute = require('../lib/secureRoute');
+const adminSecureRoute = require('../lib/adminSecureRoute');
 const auth = require('../controllers/auth');
 
 router.route('/leagues')
@@ -16,14 +17,15 @@ router.route('/leagues/:id')
 
 
 router.route('/fixtures')
-  .get(fixtures.index);
+  .get(fixtures.index)
+  .post(adminSecureRoute, fixtures.new);
 
 router.route('/fixtures/picks')
   .post(secureRoute, users.createPicks);
 
 router.route('/fixtures/:id')
   .get(fixtures.show)
-  .post(fixtures.result); //add secure route later
+  .post(adminSecureRoute, fixtures.result);
 
 
 router.route('/fixtures/week/:week')

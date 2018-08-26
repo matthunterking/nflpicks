@@ -15,8 +15,10 @@ const pickSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   name: { type: String, required: 'Name is required' },
   email: { type: String, required: 'Email is required', unique: true },
+  admin: { type: Boolean, default: false },
+  profilePic: { type: String, default: 'https://www.playerprofiler.com/wp-content/uploads/2014/06/HeadshotSilhouette5.png'},
   password: { type: String, required: 'Password is required'},
-  favouriteTeam: { type: mongoose.Schema.ObjectId, ref: 'League' },
+  favouriteTeam: { type: mongoose.Schema.ObjectId, ref: 'Team' },
   score: { type: Number, default: 0 },
   picks: [ pickSchema ],
   locks: [{ type: mongoose.Schema.ObjectId, ref: 'Team' } ],
@@ -68,7 +70,7 @@ userSchema
   });
 
 userSchema.pre('validate', function checkPassword(next){
-  if(!this.googleId && !this.password) {
+  if(!this.password) {
     this.invalidate('password', 'Password is required');
   }
   if(this.isModified('password') && this._passwordConfirmation !== this.password){

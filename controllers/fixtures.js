@@ -66,10 +66,18 @@ function fixtureResult(req, res, next) {
     .catch(next);
 }
 
+function fixtureNew(req, res, next) {
+  Fixtures
+    .create(req.body)
+    .then(fixture => res.json(fixture))
+    .catch(next);
+}
+
 
 module.exports = {
   index: fixtureIndex,
   show: fixtureShow,
   week: fixtureIndexByWeek,
-  result: fixtureResult
+  result: fixtureResult,
+  new: fixtureNew
 };
