@@ -13,7 +13,9 @@ class FixtureNew extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      console.log(this.state);
+    });
   }
 
   handleSubmit = (e) => {
@@ -23,7 +25,7 @@ class FixtureNew extends React.Component {
         headers: { Authorization: `Bearer ${Auth.getToken()}`}
       })
       .then(() => this.props.history.push('/dashboard'))
-      .catch(() => this.props.history.replace('/leagues/new'));
+      .catch(() => this.props.history.replace('/fixtures/new'));
   }
 
   render() {
@@ -34,31 +36,42 @@ class FixtureNew extends React.Component {
           <p>HOME TEAM </p><select
             className="select"
             name="homeTeam"
+            placeholder=''
             onChange={this.handleChange}>
+            <option value=''></option>
             {this.state.teams.map(team =>
               <option
-                key={team.id}
-                value={team.id}
+                key={team._id}
+                value={team._id}
               >{team.name}</option>
             )}
           </select>
           <p>AWAY TEAM </p><select
             className="select"
             name="awayTeam"
+            placeholder=''
             onChange={this.handleChange}>
+            <option value=''></option>
             {this.state.teams.map(team =>
               <option
-                key={team.id}
-                value={team.id}
+                key={team._id}
+                value={team._id}
               >{team.name}</option>
             )}
           </select>
-          <input
-            className="input"
-            name="code"
-            placeholder="CODE WORD"
+          <p>Week </p><select
+            name="week"
+            onChange={this.handleChange}>
+            <option value=''></option>
+            <option value="18">Wild Card (4)</option>
+            <option value="19">Divisional (4)</option>
+            <option value="20">Conference (8)</option>
+            <option value="21">SuperBowl (16)</option>
+          </select>
+          <p>Points </p><input name="points"
+            placeholder=''
             onChange={this.handleChange}
-          />
+            type='number'></input>
         </div>
         <button>Sumbit</button>
       </form>

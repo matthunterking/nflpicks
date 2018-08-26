@@ -25,6 +25,7 @@
     "morgan": "^1.9.0",
     "react": "^16.4.1",
     "react-chartjs-2": "^2.7.4",
+    "react-countup": "^4.0.0-alpha.6",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
     "supertest": "^3.1.0"

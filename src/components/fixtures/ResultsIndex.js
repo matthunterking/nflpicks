@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Auth from '../../lib/Auth';
 import { Link } from 'react-router-dom';
 
 class FixturesIndex extends React.Component {
@@ -26,7 +27,9 @@ class FixturesIndex extends React.Component {
       loser: e.target.parentNode.getAttribute('loser') || e.target.getAttribute('loser')
     };
     axios
-      .post(`/api/fixtures/${data.fixtureId}`, data)
+      .post(`/api/fixtures/${data.fixtureId}`, data, {
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
       .then(res => {
         console.log(res.data);
         const results = this.state.fixtures;

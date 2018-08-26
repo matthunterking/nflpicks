@@ -3,6 +3,7 @@ mongoose.Promise = require('bluebird');
 const { dbURI } = require('../config/environment');
 const Fixtures = require('../models/fixture');
 const Team = require('../models/team');
+const User = require('../models/user');
 
 
 mongoose.connect(dbURI, (err, db) => {
@@ -1616,7 +1617,22 @@ mongoose.connect(dbURI, (err, db) => {
         awayTeam: teams[9],
         week: '17'
       }])
-        .then(teams => console.log(`${teams.length} teams created!`));
+        .then(teams => {
+          console.log(`${teams.length} teams created!`);
+          return User
+            .create([{
+              name: 'Matt Hunter-King',
+              email: 'matthew85king@gmail.com',
+              admin: true,
+              profilePic: 'https://www.playerprofiler.com/wp-content/uploads/2014/06/HeadshotSilhouette5.png',
+              password: 'a',
+              passwordConfirmation: 'a',
+              favouriteTeam: teams[1],
+              score: 0,
+              city: 'London'
+            }])
+            .then(user => console.log(`${user.length} user created!`));
+        });
     })
     .catch(err => console.log(err))
     .finally(() => mongoose.connection.close());

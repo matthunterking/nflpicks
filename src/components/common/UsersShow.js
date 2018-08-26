@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import { Pie } from 'react-chartjs-2';
+import CountUp from 'react-countup';
 
 class UsersShow extends React.Component {
 
@@ -10,7 +11,8 @@ class UsersShow extends React.Component {
     user: null,
     leagues: [],
     teams: [],
-    weeks: []
+    weeks: [],
+    counter: 0
   };
 
   componentDidMount () {
@@ -71,7 +73,7 @@ class UsersShow extends React.Component {
       <div>
         {user && <div>
           <p>{user.name}s DASHBOARD</p>
-          <p className="title is-1">{this.state.user.score}</p>
+          <CountUp className="title is-1" start={0} end={this.state.user.score} duration={2} />
           <Pie data={this.state.data} />
           <div className="columns is-multiline">
             {this.state.teams.sort((a, b) => {
@@ -168,7 +170,7 @@ class UsersShow extends React.Component {
               <Link to="/fixtures/picks/16">Make picks for Week 16</Link>
               <Link to="/fixtures/picks/17">Make picks for Week 17</Link>
             </div>
-            <div className="column is-one-half">
+            {this.state.user.admin && <div className="column is-one-half">
               <p>SET RESULTS</p>
               <Link to="/fixtures/results/1">Set Results for Week 1</Link>
               <Link to="/fixtures/results/2">Set Results for Week 2</Link>
@@ -187,7 +189,7 @@ class UsersShow extends React.Component {
               <Link to="/fixtures/results/15">Set Results for Week 15</Link>
               <Link to="/fixtures/results/16">Set Results for Week 16</Link>
               <Link to="/fixtures/results/17">Set Results for Week 17</Link>
-            </div>
+            </div>}
           </div>
         </div>}
       </div>
