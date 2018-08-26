@@ -8,6 +8,7 @@ import {
 
 import AuthRegister from './components/auth/Register';
 import FixturesIndex from './components/fixtures/Index';
+import FixturesNew from './components/fixtures/New';
 import LeagueNew from './components/leagues/New';
 import LeagueJoin from './components/leagues/Join';
 import LeagueShow from './components/leagues/Show';
@@ -36,6 +37,7 @@ class App extends React.Component {
             <Route path="/fixtures/picks/:week" component={PicksIndex} />
             <Route path="/fixtures/results/:week" component={ResultsIndex} />
             <Route path="/register" component={AuthRegister} />
+            <Route path="/fixtures/new" component={FixturesNew} />
             <Route path="/fixtures" component={FixturesIndex} />
             <Route path="/dashboard" component={UsersShow} />
             <Route exact path="/" component={Home} />

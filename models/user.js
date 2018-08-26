@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
   score: { type: Number, default: 0 },
   picks: [ pickSchema ],
   locks: [{ type: mongoose.Schema.ObjectId, ref: 'Team' } ],
-  leagues: [{ type: mongoose.Schema.ObjectId, ref: 'League' }]
+  leagues: [{ type: mongoose.Schema.ObjectId, ref: 'League' }],
+  city: { type: String }
 });
 
 userSchema.methods.checkPicks = function checkPicks(fixture) {
