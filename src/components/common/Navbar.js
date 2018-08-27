@@ -26,7 +26,7 @@ class Navbar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <img />
+            <p className="highlightText navbar-item navbarTitle">NFL PICKS GAME</p>
           </Link>
           <a role="button" className={`navbar-burger ${this.state.navIsOpen? 'is-active' : ''}`} onClick={this.handleToggle}>
             <span aria-hidden="true"></span>
@@ -37,9 +37,9 @@ class Navbar extends React.Component {
 
         <div className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-end">
-            {Auth.isAuthenticated() && <a onClick={this.handleLogout} className="navbar-item">Logout</a>}
-            {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
-            {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
+            {Auth.isAuthenticated() && <a onClick={this.handleLogout} className="navbar-item standardText">Log out</a>}
+            {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item standardText">Register</Link>}
+            {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item standardText">Log In</Link>}
           </div>
         </div>
       </nav>

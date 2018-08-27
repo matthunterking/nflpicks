@@ -6,3 +6,29 @@
   width: 100%;
   padding: 80px 50px 20px 20px;
 }
+
+.highlightText {
+  font-family: 'Anton', sans-serif;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.standardText {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+}
+
+.size30 {
+  font-size: 30px;
+}
+
+.size20 {
+  font-size: 20px;
+}
+
+small {
+  font-size: 15px;
+  letter-spacing: normal;
+  line-height: 0.2;
+}

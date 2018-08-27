@@ -1,12 +1,48 @@
 .userShowContainer {
-  width: 70%;
+  width: 934px;
   background-color: transparent;
 }
 
 .subMenu {
   width: 100%;
-  height: 100px;
-  background-color: white;
+  height: 60px;
+  background-color: black;
   display: flex;
   align-items: center;
+}
+
+.subNavItem {
+  margin-top: 15px;
+  width: 20%;
+  height: 50px;
+  text-align: center;
+}
+
+.leftProfileContainer {
+  background-color: white;
+  min-height: 554px;
+  opacity: 0.9;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profilePic {
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  background-color: grey;
+  background-position: center;
+  background-size: cover;
+  margin: 10px;
+}
+
+.teamLogoSmall {
+  width: 140px;
+  height: 140px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
