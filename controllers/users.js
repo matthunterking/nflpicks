@@ -18,7 +18,7 @@ function createPicks(req, res, next) {
 function userShow(req, res, next) {
   User
     .findById(req.params.id)
-    .populate('picks.gameId picks.winnerPick picks.loserPick leagues')
+    .populate('picks.gameId picks.winnerPick picks.loserPick leagues favouriteTeam')
     .exec()
     .then(user => {
       // user.leagues.forEach(league => league.updateTable());
@@ -37,8 +37,22 @@ function usersIndex(req, res, next) {
     .catch(next);
 }
 
+function usersEdit(req, res, next) {
+  User
+    .findById(req.params.id)
+    .exec()
+    .then(user => {
+      if(!user) return res.sendStatus(404);
+      return Object.assign(user, req.body);
+    })
+    .then(user => user.save())
+    .then(user => res.json(user))
+    .catch(next);
+}
+
 module.exports = {
   createPicks: createPicks,
   show: userShow,
-  index: usersIndex
+  index: usersIndex,
+  edit: usersEdit
 };

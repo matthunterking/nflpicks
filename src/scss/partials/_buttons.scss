@@ -1,0 +1,27 @@
+.redButton {
+  width: 30%;
+  height: 40px;
+  margin: 60px 5%;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: rgb(255, 53, 0);
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+}
+
+.registerButton {
+  position: relative;
+  top: 310px;
+  left: 10%;
+  background-color: transparent;
+  color: white;
+}
+
+.loginButton {
+  position: relative;
+  top: 310px;
+  left: 100%;
+  background-color: transparent;
+  color: white;
+}

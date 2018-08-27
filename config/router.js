@@ -35,7 +35,8 @@ router.route('/users')
   .get(users.index);
 
 router.route('/users/:id')
-  .get(users.show);
+  .get(users.show)
+  .put(users.edit);
 
 router.route('/teams')
   .get(teams.index);

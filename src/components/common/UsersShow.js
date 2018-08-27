@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import CountUp from 'react-countup';
 
 class UsersShow extends React.Component {
@@ -12,13 +12,22 @@ class UsersShow extends React.Component {
     leagues: [],
     teams: [],
     weeks: [],
-    counter: 0
+    counter: 0,
+    chartOptions: null
   };
 
   componentDidMount () {
     let userData;
     let leaguesData;
     let weeks;
+
+    const chartOptions = {
+      legend: {
+        display: false
+      },
+      cutoutPercentage: 80
+    };
+
 
     const chartData = {
       labels: [
@@ -27,15 +36,10 @@ class UsersShow extends React.Component {
       ],
       datasets: [{
         data: [],
-        backgroundColor: [
-          '#FF6384',
-          '#36A2EB'
-          // '#FFCE56'
-        ],
+        backgroundColor: [],
         hoverBackgroundColor: [
           '#FF6384',
           '#36A2EB'
-          // '#FFCE56'
         ]
       }]
     };
@@ -56,10 +60,13 @@ class UsersShow extends React.Component {
             console.log('this is the last weeks', weeks);
             const totalAvailable = userData.score - ((weeks.length - 1) * userData.picks.length + 4);
             chartData.datasets[0].data = [userData.score, totalAvailable];
+            if(userData.favouriteTeam) {
+              chartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor || 'pink', userData.favouriteTeam.tertiaryColor || 'black'];
+            }
             axios
               .get('/api/teams')
-              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks, data: chartData }, () => {
-                console.log(this.state);
+              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks, data: chartData, chartOptions: chartOptions}, () => {
+                console.log('---> ',this.state);
               }));
           }
           ));
@@ -71,10 +78,43 @@ class UsersShow extends React.Component {
     if(!this.state.user || !this.state.leagues || !this.state.teams) return null;
     return (
       <div>
-        {user && <div>
-          <p>{user.name}s DASHBOARD</p>
+        {user && <div className="container userShowContainer">
+          <div className="columns">
+            <div className="column is-one-quarter">
+            </div>
+            <div className="column is-three-quarters">
+              <div className="subMenu">
+                <Link to="/dashboard">Home</Link>
+                <Link to={`/fixtures/picks/${this.state.weeks[this.state.weeks.length - 1]}`}>Picks</Link>
+                <Link to="/dashboard">Leagues</Link>
+              </div>
+            </div>
+          </div>
+          <div className="columns">
+            <div className="column is-one-quarter leftProfileContainer">
+              <div className="profilePic" style={{backgroundImage: `url(${user.profilePic})`}} />
+              <p>{user.name}</p>
+              <p>{user.city}</p>
+              <div className="teamLogoSmall" style={{
+                backgroundImage:
+                user.favouriteTeam ?
+                  `url(/assets/images/${user.favouriteTeam.logo})` :
+                  'url(/assets/images/nfl.png)'}}/>
+              <p>Favourite Team</p>
+              <p>{user.favouriteTeam ? user.favouriteTeam.name : 'Edit profile to choose your favourite team'}</p>
+              <Link to={`/users/${user._id}/edit`} className='button' style={{
+                backgroundColor:
+                user.favouriteTeam ?
+                  `${user.favouriteTeam.primaryColor}` : 'black'
+              }}>Edit profile</Link>
+            </div>
+            <div className="column is-one-half">
+              <p>DASHBOARD</p>
+            </div>
+
+          </div>
           <CountUp className="title is-1" start={0} end={this.state.user.score} duration={2} />
-          <Pie data={this.state.data} />
+          <Doughnut data={this.state.data} options={this.state.chartOptions}/>
           <div className="columns is-multiline">
             {this.state.teams.sort((a, b) => {
               if(a.division < b.division) return -1;
