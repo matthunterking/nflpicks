@@ -29,18 +29,27 @@ class UsersShow extends React.Component {
     };
 
 
-    const chartData = {
+    const scoreChartData = {
       labels: [
-        'Red',
-        'Green'
+        'Correct Picks',
+        'Incorrct Picks'
       ],
       datasets: [{
         data: [],
         backgroundColor: [],
-        hoverBackgroundColor: [
-          '#FF6384',
-          '#36A2EB'
-        ]
+        borderColor: ['','']
+      }]
+    };
+
+    const lockChartData = {
+      labels: [
+        'Correct Locks',
+        'Incorrct Locks'
+      ],
+      datasets: [{
+        data: [],
+        backgroundColor: [],
+        borderColor: ['','']
       }]
     };
 
@@ -58,14 +67,26 @@ class UsersShow extends React.Component {
             console.log('this is weeks', weeks);
             weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
             console.log('this is the last weeks', weeks);
-            const totalAvailable = userData.score - ((weeks.length - 1) * userData.picks.length + 4);
-            chartData.datasets[0].data = [userData.score, totalAvailable];
+            const totalAvailable = (weeks.length - 1) * userData.picks.length + 4;
+
+            //TODO clean this up and sort out post season
+
+            scoreChartData.datasets[0].data = [(userData.score/totalAvailable).toFixed(2), ((totalAvailable - userData.score)/totalAvailable).toFixed(2)];
+
+            const correctLocks = userData.picks.filter(pick => pick.pointsScored === 5).length;
+            lockChartData.datasets[0].data = [correctLocks, weeks.length-correctLocks];
+
             if(userData.favouriteTeam) {
-              chartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor || 'pink', userData.favouriteTeam.tertiaryColor || 'black'];
+              scoreChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
+              lockChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
+            } else {
+              scoreChartData.datasets[0].backgroundColor = ['#013369', 'black'];
+              lockChartData.datasets[0].backgroundColor = ['#013369', 'black'];
             }
+
             axios
               .get('/api/teams')
-              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks, data: chartData, chartOptions: chartOptions}, () => {
+              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks, scoreData: scoreChartData, lockData: lockChartData, chartOptions: chartOptions}, () => {
                 console.log('---> ',this.state);
               }));
           }
@@ -122,14 +143,46 @@ class UsersShow extends React.Component {
                   `${user.favouriteTeam.secondaryColor}` : '#013369'
               }}>Edit profile</Link>
             </div>
-            <div className="column is-one-half">
-              <p>DASHBOARD</p>
+            <div className="column is-four-fifths topProfileContainer" style={{
+              backgroundColor:
+              user.favouriteTeam ?
+                `${user.favouriteTeam.tertiaryColor}` : 'black'
+            }}>
+              <p className="standardText">Hello {user.name}</p>
+              <hr />
+              <div className="statsContainer">
+                <div className="stats">
+                  <p className="standardText">Current Score</p>
+                  <div className="innerStats">
+                    <CountUp
+                      className="highlightText size100"
+                      start={0} end={user.score} duration={2}
+                      style={{
+                        color: user.favouriteTeam ?
+                          `${user.favouriteTeam.secondaryColor}` : '#013369'}}
+                    />
+                    <p className="highlightText size30" style={{
+                      color: user.favouriteTeam ?
+                        `${user.favouriteTeam.secondaryColor}` : '#013369'}}>
+                      <span className="pointerSmall">&#9650;</span>
+                      <CountUp
+                        start={0}
+                        end={user.picks.filter(pick =>
+                          pick.week === this.state.weeks[this.state.weeks.length - 2].toString())
+                          .reduce((total, pick) => total + pick.pointsScored, 0)}
+                        duration={4}/>
+                    </p>
+                    <p className="standardText">Latest Points</p>
+                  </div>
+                </div>
+                <Doughnut data={this.state.scoreData} options={this.state.chartOptions}/>
+                <Doughnut data={this.state.lockData} options={this.state.chartOptions}/>
+              </div>
             </div>
-
           </div>
-          <CountUp className="title is-1" start={0} end={this.state.user.score} duration={2} />
-          <Doughnut data={this.state.data} options={this.state.chartOptions}/>
-          <div className="columns is-multiline">
+
+
+          {/* <div  Name="columns is-multiline">
             {this.state.teams.sort((a, b) => {
               if(a.division < b.division) return -1;
               if(a.division > b.division) return 1;
@@ -148,7 +201,7 @@ class UsersShow extends React.Component {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
           <table className="table">
             <thead>
               <th>WEEK</th>
