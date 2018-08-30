@@ -7,12 +7,11 @@ import Auth from '../../lib/Auth';
 import SubMenu from '../partials/UserShowSubMenu';
 import LeftPanel from '../partials/UserShowLeftPanel';
 import TopPanel from '../partials/UserShowTopPanel';
+import MiddlePanel from '../partials/UserShowMiddlePanel';
 
 class UsersShow extends React.Component {
 
   state = {};
-
-
 
   componentDidMount () {
     let userData;
@@ -121,12 +120,18 @@ class UsersShow extends React.Component {
           </div>
           <div className="columns">
             <LeftPanel user={user} />
-            <TopPanel
-              user={user}
-              week={this.state.weeks}
-              chartOptions={this.state.chartOptions}
-              scoreData={this.state.scoreData}
-              lockData={this.state.lockData}/>
+            <div className='column is-four-fifths'>
+              <TopPanel
+                user={user}
+                week={this.state.weeks}
+                chartOptions={this.state.chartOptions}
+                scoreData={this.state.scoreData}
+                lockData={this.state.lockData}/>
+              <MiddlePanel
+                user={user}
+                week={this.state.weeks}
+              />
+            </div>
           </div>
 
 

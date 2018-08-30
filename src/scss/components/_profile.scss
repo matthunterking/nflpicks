@@ -57,6 +57,17 @@
   background-color: black;
   margin-left: 20px;
   border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.middleProfileContainer {
+  margin-top: 20px;
+  width: 722px;
+  height: 430px;
+  background-color: black;
+  margin-left: 20px;
+  border-radius: 10px;
+  padding: 0.75rem;
 }
 
 .statsContainer {
@@ -64,7 +75,7 @@
 }
 
 canvas {
-  width: 260px !important;
+  width: 100% !important;
   height: 140px !important;
 }
 
@@ -82,4 +93,15 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.scoreByWeekContainer {
+  padding-left: 5%;
+  width: 100%;
+  height: 50px;
+  display: flex;
+}
+
+.scoreByWeek {
+  width: 15%;
 }

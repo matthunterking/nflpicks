@@ -6,7 +6,7 @@ import DoughnutChart from '../common/DoughnutChart';
 
 const TopPanel = ({ user, week, scoreData, lockData, chartOptions}) => {
   return (
-    <div className="column is-four-fifths topProfileContainer" style={{
+    <div className="topProfileContainer" style={{
       backgroundColor:
       user.favouriteTeam ?
         `${user.favouriteTeam.tertiaryColor}B3` : 'black'
