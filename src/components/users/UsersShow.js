@@ -2,19 +2,17 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
-import { Doughnut } from 'react-chartjs-2';
-import CountUp from 'react-countup';
+
+
+import SubMenu from '../partials/UserShowSubMenu';
+import LeftPanel from '../partials/UserShowLeftPanel';
+import TopPanel from '../partials/UserShowTopPanel';
 
 class UsersShow extends React.Component {
 
-  state = {
-    user: null,
-    leagues: [],
-    teams: [],
-    weeks: [],
-    counter: 0,
-    chartOptions: null
-  };
+  state = {};
+
+
 
   componentDidMount () {
     let userData;
@@ -27,7 +25,6 @@ class UsersShow extends React.Component {
       },
       cutoutPercentage: 80
     };
-
 
     const scoreChartData = {
       labels: [
@@ -53,49 +50,64 @@ class UsersShow extends React.Component {
       }]
     };
 
+    function updateData() {
+      weeks = userData.picks.map(pick => parseInt(pick.week) + 1);
+      weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
+      const totalAvailable = (weeks.length - 1) * userData.picks.length + 4;
+
+      //TODO clean this up and sort out post season
+
+      scoreChartData.datasets[0].data = [(userData.score/totalAvailable).toFixed(2), ((totalAvailable - userData.score)/totalAvailable).toFixed(2)];
+
+      const correctLocks = userData.picks.filter(pick => pick.pointsScored === 5).length;
+      lockChartData.datasets[0].data = [correctLocks, weeks.length-correctLocks];
+
+      if(userData.favouriteTeam) {
+        scoreChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
+        lockChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
+      } else {
+        scoreChartData.datasets[0].backgroundColor = ['#013369', 'black'];
+        lockChartData.datasets[0].backgroundColor = ['#013369', 'black'];
+      }
+      console.log('this is in update', chartOptions, scoreChartData, lockChartData);
+    }
+
     axios
       .get(`/api/users/${Auth.getPayload().sub}`)
       .then(res => userData = res.data)
-      .then(
-        axios
+      .then(() => {
+        return axios
           .get('/api/leagues', {
             headers: { Authorization: `Bearer ${Auth.getToken()}`}
           })
-          .then(res => leaguesData = res.data)
+          .then(res => {
+            console.log('!!!!!!!!!!!!', res.data);
+            leaguesData = res.data;
+          })
+          .then(() => updateData())
           .then(() => {
-            weeks = userData.picks.map(pick => parseInt(pick.week) + 1);
-            console.log('this is weeks', weeks);
-            weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
-            console.log('this is the last weeks', weeks);
-            const totalAvailable = (weeks.length - 1) * userData.picks.length + 4;
-
-            //TODO clean this up and sort out post season
-
-            scoreChartData.datasets[0].data = [(userData.score/totalAvailable).toFixed(2), ((totalAvailable - userData.score)/totalAvailable).toFixed(2)];
-
-            const correctLocks = userData.picks.filter(pick => pick.pointsScored === 5).length;
-            lockChartData.datasets[0].data = [correctLocks, weeks.length-correctLocks];
-
-            if(userData.favouriteTeam) {
-              scoreChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
-              lockChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
-            } else {
-              scoreChartData.datasets[0].backgroundColor = ['#013369', 'black'];
-              lockChartData.datasets[0].backgroundColor = ['#013369', 'black'];
-            }
-
-            axios
+            console.log('in the last then', leaguesData);
+            return axios
               .get('/api/teams')
-              .then(res => this.setState({ teams: res.data, user: userData, leagues: leaguesData, weeks: weeks, scoreData: scoreChartData, lockData: lockChartData, chartOptions: chartOptions}, () => {
-                console.log('---> ',this.state);
-              }));
-          }
-          ));
+              .then(res =>
+                this.setState({
+                  teams: res.data,
+                  user: userData,
+                  leagues: leaguesData,
+                  weeks: weeks,
+                  scoreData: scoreChartData,
+                  lockData: lockChartData,
+                  chartOptions: chartOptions
+                }, () => console.log('this is the state',this.state)));
+          });
+      });
   }
 
+  // TODO add in 2 extra characters on hex codes for opacity eg #hjdcdsbn07
 
   render() {
-    if(!this.state.user || !this.state.leagues || !this.state.teams) return null;
+    if(!this.state.user) return null;
+    console.log('here is the state ',this.state);
     const { user } = this.state;
     return (
       <div>
@@ -104,81 +116,17 @@ class UsersShow extends React.Component {
             <div className="column is-one-quarter">
             </div>
             <div className="column is-three-quarters">
-              <div className="subMenu">
-                <Link className="standardText subNavItem" to="/dashboard">HOME</Link>
-                <Link className="standardText subNavItem" to={`/fixtures/picks/${this.state.weeks[this.state.weeks.length - 1]}`}>PICKS</Link>
-                <Link className="standardText subNavItem" to="/dashboard">LEAGUES</Link>
-              </div>
+              <SubMenu currentWeek={this.state.weeks[this.state.weeks.length - 1]} />
             </div>
           </div>
           <div className="columns">
-            <div className="column is-one-fifth leftProfileContainer" style={{
-              backgroundColor:
-              user.favouriteTeam ?
-                `${user.favouriteTeam.tertiaryColor}` : 'black'
-            }}>
-              <div className="profilePic" style={{backgroundImage: `url(${user.profilePic})`}} />
-              <p className="highlightText size30" style={{
-                color:
-                user.favouriteTeam ?
-                  `${user.favouriteTeam.secondaryColor}` : '#013369'
-              }}>{user.name}</p>
-              <p className="standardText">{user.city}</p>
-              <div className="teamLogoSmall" style={{
-                backgroundImage:
-                user.favouriteTeam ?
-                  `url(/assets/images/${user.favouriteTeam.logo})` :
-                  'url(/assets/images/nfl.png)'}}/>
-              <p className="standardText">Favourite Team</p>
-              <p className="highlightText size20" style={{
-                color: user.favouriteTeam ?
-                  `${user.favouriteTeam.secondaryColor}` : '#013369'
-              }}
-              >{user.favouriteTeam ? user.favouriteTeam.name : <small>Edit profile to choose your favourite team</small>}</p>
-              <Link to={`/users/${user._id}/edit`} className='button standardText editProfile' style={{
-                backgroundColor:
-                user.favouriteTeam ?
-                  `${user.favouriteTeam.primaryColor}` : '#D50A0A',
-                color: user.favouriteTeam ?
-                  `${user.favouriteTeam.secondaryColor}` : '#013369'
-              }}>Edit profile</Link>
-            </div>
-            <div className="column is-four-fifths topProfileContainer" style={{
-              backgroundColor:
-              user.favouriteTeam ?
-                `${user.favouriteTeam.tertiaryColor}` : 'black'
-            }}>
-              <p className="standardText">Hello {user.name}</p>
-              <hr />
-              <div className="statsContainer">
-                <div className="stats">
-                  <p className="standardText">Current Score</p>
-                  <div className="innerStats">
-                    <CountUp
-                      className="highlightText size100"
-                      start={0} end={user.score} duration={2}
-                      style={{
-                        color: user.favouriteTeam ?
-                          `${user.favouriteTeam.secondaryColor}` : '#013369'}}
-                    />
-                    <p className="highlightText size30" style={{
-                      color: user.favouriteTeam ?
-                        `${user.favouriteTeam.secondaryColor}` : '#013369'}}>
-                      <span className="pointerSmall">&#9650;</span>
-                      <CountUp
-                        start={0}
-                        end={user.picks.filter(pick =>
-                          pick.week === this.state.weeks[this.state.weeks.length - 2].toString())
-                          .reduce((total, pick) => total + pick.pointsScored, 0)}
-                        duration={4}/>
-                    </p>
-                    <p className="standardText">Latest Points</p>
-                  </div>
-                </div>
-                <Doughnut data={this.state.scoreData} options={this.state.chartOptions}/>
-                <Doughnut data={this.state.lockData} options={this.state.chartOptions}/>
-              </div>
-            </div>
+            <LeftPanel user={user} />
+            <TopPanel
+              user={user}
+              week={this.state.weeks}
+              chartOptions={this.state.chartOptions}
+              scoreData={this.state.scoreData}
+              lockData={this.state.lockData}/>
           </div>
 
 

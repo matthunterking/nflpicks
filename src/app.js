@@ -14,7 +14,7 @@ import LeagueJoin from './components/leagues/Join';
 import LeagueShow from './components/leagues/Show';
 import ResultsIndex from './components/fixtures/ResultsIndex';
 import PicksIndex from './components/fixtures/PicksIndex';
-import UsersShow from './components/common/UsersShow';
+import UsersShow from './components/users/UsersShow';
 import UsersEdit from './components/common/Edit';
 import Navbar from './components/common/Navbar';
 import NotFound from './components/common/NotFound';
