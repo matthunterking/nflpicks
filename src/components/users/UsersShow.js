@@ -60,7 +60,7 @@ class UsersShow extends React.Component {
       scoreChartData.datasets[0].data = [(userData.score/totalAvailable).toFixed(2), ((totalAvailable - userData.score)/totalAvailable).toFixed(2)];
 
       const correctLocks = userData.picks.filter(pick => pick.pointsScored === 5).length;
-      lockChartData.datasets[0].data = [correctLocks, weeks.length-correctLocks];
+      lockChartData.datasets[0].data = [(correctLocks/weeks.length), ((weeks.length-correctLocks)/weeks.length)];
 
       if(userData.favouriteTeam) {
         scoreChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];

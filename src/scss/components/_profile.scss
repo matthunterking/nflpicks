@@ -3,6 +3,11 @@
   background-color: transparent;
 }
 
+.topPanelTopLine {
+  display: flex;
+  justify-content: space-between;
+}
+
 .subMenu {
   width: 100%;
   height: 60px;

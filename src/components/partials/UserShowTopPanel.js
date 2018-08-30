@@ -1,6 +1,8 @@
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
 import CountUp from 'react-countup';
+import { Link } from 'react-router-dom';
+
+import DoughnutChart from '../common/DoughnutChart';
 
 const TopPanel = ({ user, week, scoreData, lockData, chartOptions}) => {
   return (
@@ -9,7 +11,16 @@ const TopPanel = ({ user, week, scoreData, lockData, chartOptions}) => {
       user.favouriteTeam ?
         `${user.favouriteTeam.tertiaryColor}B3` : 'black'
     }}>
-      <p className="standardText">Hello {user.name}</p>
+      <div className="topPanelTopLine">
+        <p className="standardText">Hello {user.name}</p>
+        <Link to={`/fixtures/picks/${week[week.length -1]}`} className='button standardText' style={{
+          backgroundColor:
+        user.favouriteTeam ?
+          `${user.favouriteTeam.primaryColor}` : '#D50A0A',
+          color: user.favouriteTeam ?
+            `${user.favouriteTeam.secondaryColor}` : '#013369'
+        }}>Make Picks</Link>
+      </div>
       <hr />
       <div className="statsContainer">
         <div className="stats">
@@ -36,8 +47,18 @@ const TopPanel = ({ user, week, scoreData, lockData, chartOptions}) => {
             <p className="standardText">Latest Points</p>
           </div>
         </div>
-        <Doughnut data={scoreData} options={chartOptions}/>
-        <Doughnut data={lockData} options={chartOptions}/>
+        <DoughnutChart
+          chartData={scoreData}
+          chartOptions={chartOptions}
+          user={user}
+          text='Pick'
+        />
+        <DoughnutChart
+          chartData={lockData}
+          chartOptions={chartOptions}
+          user={user}
+          text='Lock'
+        />
       </div>
     </div>
   );
