@@ -8,6 +8,8 @@ import SubMenu from '../partials/UserShowSubMenu';
 import LeftPanel from '../partials/UserShowLeftPanel';
 import TopPanel from '../partials/UserShowTopPanel';
 import MiddlePanel from '../partials/UserShowMiddlePanel';
+import LockDisplay from '../partials/UserShowLockDisplay';
+import LeagueDisplay from '../partials/UserShowLeagueDisplay';
 
 class UsersShow extends React.Component {
 
@@ -131,83 +133,25 @@ class UsersShow extends React.Component {
                 user={user}
                 week={this.state.weeks}
               />
+              <div className="columns">
+                <div className="column is-one-half">
+                  <LockDisplay
+                    teams={this.state.teams}
+                    user={this.state.user}
+                  />
+                </div>
+                <div className="column is-one-half">
+                  <LeagueDisplay
+                    leagues={this.state.leagues}
+                    user={this.state.user}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
 
-          {/* <div  Name="columns is-multiline">
-            {this.state.teams.sort((a, b) => {
-              if(a.division < b.division) return -1;
-              if(a.division > b.division) return 1;
-              return 0;
-            }).map(team =>
-              <div className="column is-3" key={team._id}>
-                <div className="teamLogo" style={{
-                  backgroundImage: `url(/assets/images/${team.logo})`,
-                  backgroundColor:
-                  this.state.user.locks.includes(team._id) ?
-                    'Black' : `${team.primaryColor}`,
-                  opacity:
-                  this.state.user.locks.includes(team._id) ?
-                    0.4 : 1
-                }}>
-                </div>
-              </div>
-            )}
-          </div> */}
-          <table className="table">
-            <thead>
-              <th>WEEK</th>
-              <th>Make Picks</th>
-              <th>Score</th>
-            </thead>
-            <tbody>
-              {this.state.weeks.map(week =>
-                <tr key={week}>
-                  <td>{week}</td>
-                  <td>
-                    <Link to={`/fixtures/picks/${week}`}>Make PICKS</Link>
-                  </td>
-                  <td>{user.picks.filter(pick => pick.week === week.toString()).reduce((total, pick) => total + pick.pointsScored, 0)}</td>
-                </tr>)}
-              <tr>
-                <td>TOTAL</td>
-                <td></td>
-                <td>{user.score}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div>
-            {this.state.leagues.map(league =>
-              <div key={league._id}>
-                <Link to={`/leagues/${league._id}`}>league name = {league.leagueName}</Link>
-                <div>
-                  <div>
-                    <p>POSITION</p>
-                    <p></p>
-                    <p>Score</p>
-                  </div>
-                  <div>
-                    {league.users.map(user =>
-                      <div key={user._id}>
-                        <p>position {user.position}</p>
-                        <p>{user.userId.name}</p>
-                        <p>{user.userId.score}</p>
-                        {/* <p>{row.name}</p>
-                        <p>{row.score}</p> */}
-                      </div>
-                    )}
-                  </div>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                </div>
-              </div>)}
-            <Link to="/leagues/new">Create League</Link>
-            <Link to="/leagues/join">Join League</Link>
-          </div>
+        
 
           <div className="columns">
             <div className="column is-one-half">
