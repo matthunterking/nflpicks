@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 //TODO: Fix this filter thing
 
 const LeagueDisplay = ({ user, leagues }) => {
-  console.log(leagues.map(league => league.users.filter(leagueUser => leagueUser.userId.toString() === user._id.toString())));
+  const myPositions = leagues.map(league => league.users).filter(leagueUsers => leagueUsers.filter(leagueUser => leagueUser.userId._id === user._id));
   return (
     <div style={{
       backgroundColor:
@@ -24,7 +24,7 @@ const LeagueDisplay = ({ user, leagues }) => {
                 <p>Score</p>
               </div>
               <div>
-                {league.users.filter(leagueUser => leagueUser.userId.toString() === user._id.toString())}
+                {myPositions.map(po => <p key={po._id}>{po[0].position}</p>)}
               </div>
             </div>
           </div>

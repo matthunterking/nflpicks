@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Admin from '../common/Admin';
 
-const leftPanel = ({user}) => {
+const leftPanel = ({user, weeks}) => {
   console.log('this is user on the component', user);
   return(
     <div className="column is-one-fifth leftProfileContainer" style={{
@@ -34,6 +35,7 @@ const leftPanel = ({user}) => {
         color: user.favouriteTeam ?
           `${user.favouriteTeam.secondaryColor}` : '#013369'
       }}>Edit profile</Link>
+      {user.admin && <Admin weeks={weeks}/> }
     </div>
   );
 };
