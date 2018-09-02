@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 
@@ -103,8 +103,6 @@ class UsersShow extends React.Component {
           });
       });
   }
-
-  // TODO add in 2 extra characters on hex codes for opacity eg #hjdcdsbn07
 
   render() {
     if(!this.state.user) return null;

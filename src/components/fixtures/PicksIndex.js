@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
 
+import SubMenu from '../partials/UserShowSubMenu';
+import Locks from '../common/Locks';
+import Fixture from '../common/Fixture';
+
 class PicksIndex extends React.Component {
 
   state = {
@@ -22,17 +26,18 @@ class PicksIndex extends React.Component {
         axios
           .get(`/api/users/${Auth.getPayload().sub}`)
           .then(res => this.setState({ user: res.data }, () => {
-            console.log('===>', this.state.user);
+            axios.get('/api/teams').then(res => this.setState({teams: res.data}));
           }));
       }));
   }
 
   handleClick = (e) => {
+    console.log(e.target);
     const picks = [].concat(...this.state.picks);
     const data = {
-      gameId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture'),
-      winnerPick: e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner'),
-      loserPick: e.target.parentNode.getAttribute('loser') || e.target.getAttribute('loser'),
+      gameId: e.target.getAttribute('game'),
+      winnerPick: e.target.getAttribute('winner'),
+      loserPick: e.target.getAttribute('loser'),
       lock: false,
       week: this.state.week
     };
@@ -48,9 +53,10 @@ class PicksIndex extends React.Component {
   }
 
   handleLock = (e) => {
+    console.log('WE ARE IN HANDLE LOCK');
     const picks = [].concat(...this.state.picks);
     const data = {
-      gameId: e.target.parentNode.getAttribute('fixture') || e.target.getAttribute('fixture')
+      gameId: e.target.getAttribute('game')
     };
     console.log('this is data in handle lock', data);
     if(picks.some(pick => pick.gameId === data.gameId)) {
@@ -89,92 +95,53 @@ class PicksIndex extends React.Component {
   }
 
   render() {
-    if(!this.state.fixtures || !this.state.picks || !this.state.user) return null;
+    if(!this.state.fixtures || !this.state.picks || !this.state.user || !this.state.teams) return null;
+    const { user } = this.state;
     return (
       <div>
         {this.state.fixtures &&
-          <div className='container'>
-            <p className="title is-1">Week { this.state.week }</p>
-            {this.state.fixtures.map(fixture =>
-              <div key={fixture._id}>
-                <div className="columns is-mobile has-text-centered">
-                  <div className="column is-one-half teamContainer"
-                    fixture={fixture._id}
-                    winner={fixture.awayTeam._id}
-                    loser={fixture.homeTeam._id}
-                    onClick={this.handleClick}
-                    onMouseOver={this.handleHover}
-                    onMouseOut={this.handleMouseOut}
-                    style={{
-                      backgroundColor:
-                      this.state.picks.some(pick => pick.loserPick === fixture.awayTeam._id) ?
-                        'grey' : `${fixture.awayTeam.primaryColor}`
-                    }}
-                  >
-                    <div className="teamLogo"
-                      style={{
-                        backgroundImage: `url(/assets/images/${fixture.awayTeam.logo})`
-                      }}
-                    />
-                    <p className="title is-4 teamName"
-                      style={{
-                        color:
-                        this.state.picks.some(pick => pick.loserPick === fixture.awayTeam._id) ?
-                          'black' :`${fixture.awayTeam.secondaryColor}` }}>
-                      {fixture.awayTeam.name}</p>
-                    {this.state.hover.active &&
-                      this.state.hover.target === fixture.awayTeam._id &&
-                      <div>
-                        <p>You have picked the {fixture.awayTeam.name}
-                          <span> {this.state.user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}</span> time(s)
-                        </p>
-                        <p>Record : {fixture.awayTeam.record.wins.length} - {fixture.awayTeam.record.loss.length} - {fixture.awayTeam.record.tie.length}
-                        </p>
-                      </div>}
-                  </div>
-
-                  {/* <div className="column is-one-fifths fixtureAt">
-                    <p className="title is-one has-text-white">at</p>
-                  </div> */}
-
-                  <div className="column is-one-half teamContainer"
-                    fixture={fixture._id}
-                    winner={fixture.homeTeam._id}
-                    loser={fixture.awayTeam._id}
-                    onClick={this.handleClick}
-                    style={{
-                      backgroundColor:
-                      this.state.picks.some(pick => pick.loserPick === fixture.homeTeam._id) ?
-                        'grey' : `${fixture.homeTeam.primaryColor}`
-                    }}
-                  >
-                    <div className="teamLogo"
-                      style={{
-                        backgroundImage: `url(/assets/images/${fixture.homeTeam.logo})`
-                      }}
-                    />
-                    <p className="title is-5 teamName"
-                      style={{
-                        color:
-                        this.state.picks.some(pick => pick.loserPick === fixture.homeTeam._id) ?
-                          'black' : `${fixture.homeTeam.secondaryColor}`
-                      }}>
-                      {fixture.homeTeam.name}</p>
-                  </div>
-                </div>
-                {!this.state.locked && <div fixture={fixture._id} onClick={this.handleLock}>
-                  LOCK
-                </div>}
-                <hr />
+          <div className='container userShowContainer'>
+            <div className="columns">
+              <div className="column is-one-quarter">
               </div>
-            )}
-            {/* {this.state.picks.length === this.state.fixtures.length && <div> */}
-            <button onClick={this.handleSubmit}>Submit Results</button>
-            {/* </div>} */}
-            <div>
-              <Link to='/dashboard'>Return to Dashboard</Link>
+              <div className="column is-three-quarters">
+                <SubMenu currentWeek={this.state.week} />
+              </div>
             </div>
-          </div> }
+            <div className="columns">
+              <div className="column is-one-fifth leftProfileContainer" style={{
+                backgroundColor:
+                  user.favouriteTeam ?
+                    `${user.favouriteTeam.tertiaryColor}B3` : 'black'
+              }}>
+                <Locks user={user} teams={this.state.teams} />
+              </div>
+              <div className='column is-four-fifths centralColumn'>
+                <div className='middleProfileContainer' style={{
+                  backgroundColor:
+                    user.favouriteTeam ?
+                      `${user.favouriteTeam.tertiaryColor}B3` : 'black'
+                }}>
+                  <p className="standardText">Week { this.state.week } picks</p>
+                  <hr />
+                  {this.state.fixtures.map(fixture =>
+                    <div key={fixture._id}>
+                      <div className="columns is-mobile has-text-centered">
+                        <Fixture
+                          fixture={fixture}
+                          handleClick={this.handleClick}
+                          handleLock={this.handleLock}
+                          picks={this.state.picks}
+                        />
+                      </div>
+                    </div> )}
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>}
       </div>
     );
   }
