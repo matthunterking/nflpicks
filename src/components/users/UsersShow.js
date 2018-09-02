@@ -122,7 +122,7 @@ class UsersShow extends React.Component {
           </div>
           <div className="columns">
             <LeftPanel user={user} weeks={this.state.weeks}/>
-            <div className='column is-four-fifths'>
+            <div className='column is-four-fifths centralColumn'>
               <TopPanel
                 user={user}
                 week={this.state.weeks}
@@ -134,13 +134,13 @@ class UsersShow extends React.Component {
                 week={this.state.weeks}
               />
               <div className="columns">
-                <div className="column is-one-half">
+                <div className="column is-one-half bottomPanel">
                   <LockDisplay
                     teams={this.state.teams}
                     user={this.state.user}
                   />
                 </div>
-                <div className="column is-one-half">
+                <div className="column is-one-half bottomPanel">
                   <LeagueDisplay
                     leagues={this.state.leagues}
                     user={this.state.user}

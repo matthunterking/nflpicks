@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const LeagueDisplay = ({ user, leagues }) => {
   const myPositions = leagues.map(league => league.users).filter(leagueUsers => leagueUsers.filter(leagueUser => leagueUser.userId._id === user._id));
   return (
-    <div style={{
+    <div className="innerBottomPanel" style={{
       backgroundColor:
       user.favouriteTeam ?
         `${user.favouriteTeam.tertiaryColor}B3` : 'black'
