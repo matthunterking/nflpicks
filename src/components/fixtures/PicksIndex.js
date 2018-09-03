@@ -14,12 +14,10 @@ class PicksIndex extends React.Component {
     picks: [],
     week: 0,
     locked: false,
-    user: null,
-    hover: { target: null, active: false }
+    user: null
   }
 
   componentDidMount() {
-    console.log('THIS IS THE WEEK=>',this.props.match.params.week);
     axios
       .get(`/api/fixtures/week/${this.props.match.params.week}`)
       .then(res => this.setState({ fixtures: res.data, week: res.data[0].week }, () => {
@@ -32,7 +30,6 @@ class PicksIndex extends React.Component {
   }
 
   handleClick = (e) => {
-    console.log(e.target);
     const picks = [].concat(...this.state.picks);
     const data = {
       gameId: e.target.getAttribute('game'),
@@ -54,18 +51,19 @@ class PicksIndex extends React.Component {
 
   handleLock = (e) => {
     console.log('WE ARE IN HANDLE LOCK');
+    let lockedTeam;
     const picks = [].concat(...this.state.picks);
     const data = {
       gameId: e.target.getAttribute('game')
     };
-    console.log('this is data in handle lock', data);
     if(picks.some(pick => pick.gameId === data.gameId)) {
       const index = picks.findIndex(pick => pick.gameId === data.gameId);
       picks[index].lock = true;
+      lockedTeam = picks[index].winnerPick;
     } else {
       picks.push(data);
     }
-    this.setState({ picks: picks, locked: true }, () => {
+    this.setState({ picks: picks, locked: lockedTeam }, () => {
       console.log('this is state in handleLock',this.state);
     });
   }
@@ -81,13 +79,6 @@ class PicksIndex extends React.Component {
       .catch(() => {
         this.props.history.replace('/register');
       });
-  }
-
-  handleHover = (e) => {
-    const targetTeam = e.target.parentNode.getAttribute('winner') || e.target.getAttribute('winner');
-    this.setState({ hover: { target: targetTeam, active: true }}, () => {
-      console.log(this.state);
-    });
   }
 
   handleMouseOut = () => {
@@ -132,6 +123,8 @@ class PicksIndex extends React.Component {
                           handleClick={this.handleClick}
                           handleLock={this.handleLock}
                           picks={this.state.picks}
+                          locked={this.state.locked}
+                          user={this.state.user}
                         />
                       </div>
                     </div> )}
