@@ -34,18 +34,40 @@
   margin-top: 40px;
 }
 
-.FixtureButton {
+.FixtureButtonLeft {
   width: 10%;
   height: 100px;
   margin-right: 10px;
 }
 
+.FixtureButtonRight {
+  width: 10%;
+  height: 100px;
+  margin-left: 10px;
+}
+
+.at {
+  background-color: white;
+  height: 100px;
+  position: relative;
+}
 .PickButton {
   background-color: red;
 }
 
 .LockButton {
   background-color: green;
+}
+
+.lockedButton {
+  background-color: green;
+  background-image: url('/assets/images/lock.png');
+  background-position: center;
+  background-repeat: no-repeat;   
+  height: 100px;
+  width: 10%;
+  position: relative;
+  left: 0px;
 }
 
 .inactive {

@@ -24,13 +24,13 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         game={fixture.id}
         winner={fixture.awayTeam._id}
         loser={fixture.homeTeam._id}
-        className="PickButton FixtureButton standardText button"
+        className="PickButton FixtureButtonLeft standardText button"
       >
         Pick
       </button>}
 
       {awayPicked && !awayLocked && (!availableToLockAway || otherLocked) && <button
-        className="inactive FixtureButton standardText button"
+        className="inactive FixtureButtonLeft standardText button"
       >
         Picked
       </button>}
@@ -41,7 +41,7 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         game={fixture.id}
         winner={fixture.awayTeam._id}
         loser={fixture.homeTeam._id}
-        className="LockButton FixtureButton standardText button"
+        className="LockButton FixtureButtonLeft standardText button"
       >
         Lock
       </button>}
@@ -51,7 +51,7 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         game={fixture.id}
         winner={fixture.awayTeam._id}
         loser={fixture.homeTeam._id}
-        className="inactive FixtureButton standardText button"
+        className="inactive FixtureButtonLeft standardText button"
       >
       </button>}
 
@@ -59,17 +59,41 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         onClick={handleClick}
         game={fixture.id}
         winner={fixture.awayTeam._id}
-        loser={fixture.homeTeam._id}>
-        Unlock and pick
+        loser={fixture.homeTeam._id}
+        className="PickButton FixtureButtonLeft standardText button"
+      >
+        Pick
       </button>}
 
-      <div>
-        <p>{fixture.awayTeam.name}</p>
+      <div className="team" style={{
+        backgroundColor:
+            fixture.awayTeam.primaryColor
+      }}>
+        {awayPicked && awayLocked && <button
+          onClick={handleClick}
+          game={fixture.id}
+          winner={fixture.awayTeam._id}
+          loser={fixture.homeTeam._id}
+          className="lockedButton"
+        >
+        </button>}
+        <p className="standardText">{fixture.awayTeam.name}</p>
       </div>
 
-      <div>AT</div>
-      <div>
-        <p>{fixture.homeTeam.name}</p>
+      <div className="at">AT</div>
+      <div className="team teamRight" style={{
+        backgroundColor:
+            fixture.homeTeam.primaryColor
+      }}>
+        {homePicked && homeLocked && <button
+          onClick={handleClick}
+          game={fixture.id}
+          winner={fixture.homeTeam._id}
+          loser={fixture.awayTeam._id}
+          className="lockedButton"
+        >
+        </button>}
+        <p className="standardText">{fixture.homeTeam.name}</p>
       </div>
 
 
@@ -78,12 +102,14 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         game={fixture.id}
         winner={fixture.homeTeam._id}
         loser={fixture.awayTeam._id}
-        className="PickButton FixtureButton standardText button"
+        className="PickButton FixtureButtonRight standardText button"
       >
         Pick
       </button>}
 
-      {homePicked && !homeLocked && (!availableToLockHome || otherLocked) && <button>
+      {homePicked && !homeLocked && (!availableToLockHome || otherLocked) && <button
+        className="inactive FixtureButtonRight standardText button"
+      >
         Picked!
       </button>}
 
@@ -93,7 +119,7 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         game={fixture.id}
         winner={fixture.homeTeam._id}
         loser={fixture.awayTeam._id}
-        className="LockButton FixtureButton standardText button"
+        className="LockButton FixtureButtonRight standardText button"
       >
         Lock
       </button>}
@@ -102,16 +128,18 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user }) => {
         onClick={handleClick}
         game={fixture.id}
         winner={fixture.homeTeam._id}
-        loser={fixture.awayTeam._id}>
-        UnLock
+        loser={fixture.awayTeam._id}
+        className="inactive FixtureButtonRight standardText button"
+      >
       </button>}
 
       {awayPicked && awayLocked && <button
         onClick={handleClick}
         game={fixture.id}
         winner={fixture.homeTeam._id}
-        loser={fixture.awayTeam._id}>
-        Unlock and pick
+        loser={fixture.awayTeam._id}
+        className="PickButton FixtureButtonRight standardText button">
+        Pick
       </button>}
 
     </div>
