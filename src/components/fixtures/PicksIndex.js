@@ -50,7 +50,6 @@ class PicksIndex extends React.Component {
   }
 
   handleLock = (e) => {
-    console.log('WE ARE IN HANDLE LOCK');
     let lockedTeam;
     const picks = [].concat(...this.state.picks);
     const data = {
@@ -65,6 +64,24 @@ class PicksIndex extends React.Component {
     }
     this.setState({ picks: picks, locked: lockedTeam }, () => {
       console.log('this is state in handleLock',this.state);
+    });
+  }
+
+  handleUnlock = (e) => {
+    let lockedTeam;
+    const picks = [].concat(...this.state.picks);
+    const data = {
+      gameId: e.target.getAttribute('game')
+    };
+    if(picks.some(pick => pick.gameId === data.gameId)) {
+      const index = picks.findIndex(pick => pick.gameId === data.gameId);
+      picks[index].lock = false;
+      lockedTeam = '';
+    } else {
+      picks.push(data);
+    }
+    this.setState({ picks: picks, locked: lockedTeam }, () => {
+      console.log('this is state in handleUNLock',this.state);
     });
   }
 
@@ -125,6 +142,7 @@ class PicksIndex extends React.Component {
                           picks={this.state.picks}
                           locked={this.state.locked}
                           user={this.state.user}
+                          handleUnlock={this.handleUnlock}
                         />
                       </div>
                     </div> )}

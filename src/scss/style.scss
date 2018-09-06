@@ -24,9 +24,14 @@ html {
 
 .team {
   width: 40%;
-  height: 100px;
-  display: flex;
 }
+
+.innerTeam {
+  display: flex;
+  height: 100px;
+  width: 100%;
+}
+
 .teamRight {
   flex-direction: row-reverse;
 }
