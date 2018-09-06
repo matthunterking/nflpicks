@@ -33,3 +33,21 @@
 .editProfile {
   margin-top: 40px;
 }
+
+.FixtureButton {
+  width: 10%;
+  height: 100px;
+  margin-right: 10px;
+}
+
+.PickButton {
+  background-color: red;
+}
+
+.LockButton {
+  background-color: green;
+}
+
+.inactive {
+  background-color: grey;
+}
