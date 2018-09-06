@@ -32,6 +32,10 @@ html {
   width: 100%;
 }
 
+.innerTeamRight {
+  flex-direction: row-reverse;
+}
+
 .teamRight {
   flex-direction: row-reverse;
 }
@@ -50,7 +54,6 @@ html {
   margin-left: 2.5%;
   margin-top: 50px;
   height: 150px;
-  border: 3px solid red;
   display: flex;
   justify-content: space-between;
 }

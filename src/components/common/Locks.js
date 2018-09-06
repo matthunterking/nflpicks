@@ -4,8 +4,8 @@ const Locks = ({ user, teams }) => {
   return (
     <div className="lockContainer">
       {teams.sort((a, b) => {
-        if(a.division < b.division) return -1;
-        if(a.division > b.division) return 1;
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
         return 0;
       }).map(team =>
         <div

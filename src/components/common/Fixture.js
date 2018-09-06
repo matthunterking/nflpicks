@@ -1,12 +1,11 @@
 import React from 'react';
 
-const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user, handleUnlock }) => {
+const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }) => {
 
-//TODO: 2. MAKE A HANDLE UNLOCK FEATURE
+//TODO: 2. fix line 7 and 8 so we don't used locked anymore
 
-  const otherLocked = locked && !picks.filter(pick => pick.lock).filter(pick => pick.gameId === fixture.id.toString()).length;
-  const thisLocked = locked && !!picks.filter(pick => pick.lock).filter(pick => pick.gameId === fixture.id.toString()).length;
-  const thisPicked = !!picks.filter(pick => pick.gameId === fixture.id.toString()).length;
+  const otherLocked = !!picks.filter(pick => pick.lock && pick.gameId !== fixture.id.toString()).length;
+  const thisLocked = !!picks.filter(pick => pick.lock && pick.gameId === fixture.id.toString()).length;
 
   const availableToLockAway = !user.locks.includes(fixture.awayTeam._id);
   const availableToLockHome = !user.locks.includes(fixture.homeTeam._id);
@@ -14,8 +13,10 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user, handle
   const awayPicked = !!picks.filter(pick => pick.winnerPick === fixture.awayTeam._id.toString()).length;
   const homePicked = !!picks.filter(pick => pick.winnerPick === fixture.homeTeam._id.toString()).length;
 
-  const awayLocked = locked === fixture.awayTeam._id.toString();
-  const homeLocked = locked === fixture.homeTeam._id.toString();
+  const awayLocked = !!picks.filter(pick => pick.lock && pick.winnerPick === fixture.awayTeam._id.toString()).length;
+  const homeLocked = !!picks.filter(pick => pick.lock && pick.winnerPick === fixture.homeTeam._id.toString()).length;
+
+  console.log('otherLocked', otherLocked);
 
   return (
     <div className="fixtureContainer">
@@ -80,14 +81,18 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user, handle
           </button>}
           <p className="standardText">{fixture.awayTeam.name}</p>
         </div>
-        <p>Record</p>
+        <p className="standardText">&#9432; Past picks:{' '}
+          {user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
+          {' '}  Record: {' '}
+          {fixture.homeTeam.record.wins.length} - {fixture.homeTeam.record.loss.length} - {fixture.homeTeam.record.tie.length}
+        </p>
       </div>
 
       <div className="at">AT</div>
 
 
       <div className="team teamRight">
-        <div className="innerTeam" style={{
+        <div className="innerTeam innerTeamRight" style={{
           backgroundColor:
           fixture.homeTeam.primaryColor
         }}>
@@ -101,7 +106,11 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, locked, user, handle
           </button>}
           <p className="standardText">{fixture.homeTeam.name}</p>
         </div>
-        <p>Record</p>
+        <p className="standardText">&#9432; Past picks:{' '}
+          {user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
+          {' '}  Record: {' '}
+          {fixture.homeTeam.record.wins.length} - {fixture.homeTeam.record.loss.length} - {fixture.homeTeam.record.tie.length}
+        </p>
       </div>
 
 
