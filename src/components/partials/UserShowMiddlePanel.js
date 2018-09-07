@@ -19,7 +19,7 @@ const MiddlePanel = ({ user, week }) => {
         weeks={week}
       />
       <div className="scoreByWeekContainer">
-        {week.map(week =>
+        {week.map((week, index, array) =>
           <div className="scoreByWeek" key={week}>
             <p>Week {week}</p>
             <p
@@ -30,7 +30,12 @@ const MiddlePanel = ({ user, week }) => {
               }}
             >{user.picks.filter(pick => pick.week === week.toString()).reduce((total, pick) => total + pick.pointsScored, 0)}</p>
             <p>
-              <Link to={`/fixtures/picks/${week}`}>Make PICKS</Link>
+              {array[array.length - 1] === week &&
+                <Link to={`/fixtures/picks/${week}`}>Make PICKS</Link>
+              }
+              {array[array.length - 1] !== week &&
+                <Link to={`/fixtures/picks/history/${week}`}>View PICKS</Link>
+              }
             </p>
           </div>)}
       </div>

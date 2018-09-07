@@ -14,6 +14,7 @@ import LeagueJoin from './components/leagues/Join';
 import LeagueShow from './components/leagues/Show';
 import ResultsIndex from './components/fixtures/ResultsIndex';
 import PicksIndex from './components/fixtures/PicksIndex';
+import PastPicksIndex from './components/fixtures/PastPicksIndex';
 import UsersShow from './components/users/UsersShow';
 import UsersEdit from './components/common/Edit';
 import Navbar from './components/common/Navbar';
@@ -36,6 +37,7 @@ class App extends React.Component {
             <Route path="/leagues/:leagueId/join" component={LeagueJoin} />
             <Route path="/leagues/:leagueId" component={LeagueShow} />
             <Route path="/users/:id/edit" component={UsersEdit} />
+            <Route path="/fixtures/picks/history/:week" component={PastPicksIndex} />
             <Route path="/fixtures/picks/:week" component={PicksIndex} />
             <Route path="/fixtures/results/:week" component={ResultsIndex} />
             <Route path="/register" component={AuthRegister} />

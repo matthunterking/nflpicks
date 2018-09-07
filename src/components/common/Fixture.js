@@ -16,7 +16,6 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
   const awayLocked = !!picks.filter(pick => pick.lock && pick.winnerPick === fixture.awayTeam._id.toString()).length;
   const homeLocked = !!picks.filter(pick => pick.lock && pick.winnerPick === fixture.homeTeam._id.toString()).length;
 
-  console.log('otherLocked', otherLocked);
 
   return (
     <div className="fixtureContainer">
