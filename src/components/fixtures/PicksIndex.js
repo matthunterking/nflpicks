@@ -93,9 +93,6 @@ class PicksIndex extends React.Component {
       });
   }
 
-  handleMouseOut = () => {
-    this.setState({ hover: { target: null, active: false } });
-  }
 
   render() {
     if(!this.state.fixtures || !this.state.picks || !this.state.user || !this.state.teams) return null;
@@ -140,6 +137,15 @@ class PicksIndex extends React.Component {
                         />
                       </div>
                     </div> )}
+                  {this.state.picks.length === this.state.fixtures.length &&
+                    !!this.state.picks.filter(pick => pick.lock).length &&
+                    <button onClick={this.handleSubmit} className='button standardText' style={{
+                      backgroundColor:
+                    user.favouriteTeam ?
+                      `${user.favouriteTeam.primaryColor}` : '#D50A0A',
+                      color: user.favouriteTeam ?
+                        `${user.favouriteTeam.secondaryColor}` : '#013369'
+                    }}>Submit</button>}
                 </div>
               </div>
             </div>
