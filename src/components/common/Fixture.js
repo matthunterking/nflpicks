@@ -84,7 +84,7 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
         <p className="standardText">&#9432; Past picks:{' '}
           {user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
           {' '}  Record: {' '}
-          {fixture.homeTeam.record.wins.length} - {fixture.homeTeam.record.loss.length} - {fixture.homeTeam.record.tie.length}
+          {fixture.awayTeam.record.wins.length} - {fixture.awayTeam.record.loss.length} - {fixture.awayTeam.record.tie.length}
         </p>
       </div>
 
@@ -107,7 +107,7 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
           <p className="standardText">{fixture.homeTeam.name}</p>
         </div>
         <p className="standardText">&#9432; Past picks:{' '}
-          {user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
+          {user.picks.filter(pick => pick.winnerPick._id === fixture.homeTeam._id).length}
           {' '}  Record: {' '}
           {fixture.homeTeam.record.wins.length} - {fixture.homeTeam.record.loss.length} - {fixture.homeTeam.record.tie.length}
         </p>
