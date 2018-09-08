@@ -2,7 +2,7 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 const DoughnutChart = ({ chartData, chartOptions, user, text }) => {
-  console.log('here is the chartData', chartData);
+  const percentage = chartData.datasets[0].data[0] * 100;
   return (
     <div className="doughnutChart">
       <Doughnut data={chartData} options={chartOptions}/>
@@ -10,7 +10,7 @@ const DoughnutChart = ({ chartData, chartOptions, user, text }) => {
         <p className="highlightText size30" style={{
           color: user.favouriteTeam ?
             `${user.favouriteTeam.secondaryColor}` : '#013369'}}>
-          {chartData.datasets[0].data[0] * 100}%
+          {percentage.toFixed(0)}%
         </p>
         <p className="standardText doughnutChartSubText">{text} success rate</p>
       </div>

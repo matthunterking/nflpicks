@@ -6,8 +6,6 @@ const PastFixture = ({ fixture, user }) => {
   const awayWin = fixture.winner === fixture.awayTeam._id;
   const homeWin = fixture.winner === fixture.homeTeam._id;
 
-  console.log('==========>', awayWin, homeWin );
-
   return (
     <div className="fixtureContainer">
       <div className="team">
@@ -28,25 +26,17 @@ const PastFixture = ({ fixture, user }) => {
 
       <div className="at">AT</div>
 
-
       <div className="team teamRight">
         <div className="innerTeam innerTeamRight" style={{
           backgroundColor:
           homeWin ? fixture.homeTeam.primaryColor : 'grey'
         }}>
-          {/* <button
-            className="lockedButton"
-          >
-          </button> */}
           <p className="standardText">{fixture.homeTeam.name}</p>
         </div>
         {pick.winnerPick._id === fixture.homeTeam._id && <p className="standardText">
           You picked the {fixture.homeTeam.name}
         </p>}
       </div>
-
-      {/* // TODO: amend line 46 so that it shows if you picked it */}
-
 
       <button
         className="PickButton FixtureButtonRight standardText button"
@@ -57,7 +47,6 @@ const PastFixture = ({ fixture, user }) => {
       >
         {pick.pointsScored}
       </button>
-
 
     </div>
   );
