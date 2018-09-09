@@ -90,7 +90,7 @@ class UsersEdit extends React.Component {
           <div className="columns">
             <LeftPanel user={user} weeks={this.state.weeks}/>
             <div className='column is-four-fifths centralColumn'>
-              <div className="topProfileContainer" style={{
+              <div className="middleProfileContainer" style={{
                 backgroundColor:
                 user.favouriteTeam ?
                   `${user.favouriteTeam.tertiaryColor}B3` : 'black'
@@ -162,7 +162,7 @@ class UsersEdit extends React.Component {
 
                     <ReactFilestack
                       apikey= "A59NZXCVQTPiOSoJ88JWEz"
-                      buttonText="Upload Photo"
+                      buttonText="Upload Profile Picture"
                       buttonClass="button redirectButton"
                       options={basicOptions}
                       onSuccess={this.onSuccess}

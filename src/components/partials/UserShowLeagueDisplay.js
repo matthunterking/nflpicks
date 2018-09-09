@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 //TODO: Fix this filter thing
 
 const LeagueDisplay = ({ user, leagues }) => {
-  const myPositions = leagues.map(league => league.users).filter(leagueUsers => leagueUsers.filter(leagueUser => leagueUser.userId._id === user._id));
   return (
     <div className="innerBottomPanel" style={{
       backgroundColor:
@@ -16,16 +15,31 @@ const LeagueDisplay = ({ user, leagues }) => {
       <div>
         {leagues.map(league =>
           <div key={league._id}>
-            <Link to={`/leagues/${league._id}`}>{league.leagueName}</Link>
             <div>
-              <div>
-                <p>POSITION</p>
-                <p></p>
-                <p>Score</p>
-              </div>
-              <div>
-                {myPositions.map(po => <p key={po._id}>{po[0].position}</p>)}
-              </div>
+              {!leagues.length && <div>
+                <Link to={'/leagues/new'} className='button standardText editProfile' style={{
+                  backgroundColor:
+                  user.favouriteTeam ?
+                    `${user.favouriteTeam.primaryColor}` : '#D50A0A',
+                  color: user.favouriteTeam ?
+                    `${user.favouriteTeam.secondaryColor}` : '#013369'
+                }}>Create a League</Link>
+              </div>}
+              {!!leagues.length && <div>
+                {leagues.map(league =>
+                  <div key={league._id} className="columns">
+                    <div className="column is-one-half">
+                      <Link to={'/leagues'} className="standardText size20">{league.leagueName}</Link>
+                    </div>
+                    {league.users
+                      .filter(leagueUser => leagueUser.userId._id === user._id)
+                      .map(leagueuser =>
+                        <div className="column is-one-half" key={leagueuser._id}>
+                          <p className="standardText size20">Position: {leagueuser.position}</p>
+                        </div>
+                      )}
+                  </div>)}
+              </div>}
             </div>
           </div>
         )}
