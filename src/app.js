@@ -37,7 +37,7 @@ class App extends React.Component {
             <Route exact path="/leagues/new" component={LeagueNew} />
             <Route exact path="/leagues" component={LeaguesIndex} />
             <Route path="/leagues/:leagueId/join" component={LeagueJoin} />
-            <Route path="/leagues/:leagueId" component={LeagueShow} />
+            {/* <Route path="/leagues/:leagueId" component={LeagueShow} /> */}
             <Route path="/users/:id/edit" component={UsersEdit} />
             <Route path="/fixtures/picks/history/:week" component={PastPicksIndex} />
             <Route path="/fixtures/picks/:week" component={PicksIndex} />
