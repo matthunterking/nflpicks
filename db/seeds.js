@@ -7,7 +7,7 @@ const User = require('../models/user');
 
 
 mongoose.connect(dbURI, (err, db) => {
-  // db.dropDatabase();
+  db.dropDatabase();
 
   Team.create([{
     name: 'Arizona Cardinals',
