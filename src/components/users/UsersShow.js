@@ -19,12 +19,14 @@ class UsersShow extends React.Component {
     let userData;
     let leaguesData;
     let weeks;
+    let fixtures;
 
     const chartOptions = {
       legend: {
         display: false
       },
-      cutoutPercentage: 80
+      cutoutPercentage: 80,
+      responsive: true
     };
 
     const scoreChartData = {
@@ -54,14 +56,18 @@ class UsersShow extends React.Component {
     function updateData() {
       weeks = userData.picks.map(pick => parseInt(pick.week) + 1);
       weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
-      const totalAvailable = (weeks.length - 1) * userData.picks.length + 4;
+      const filteredFixtures = fixtures.filter(fixture => !!fixture.winner).map(fixture => fixture.week);
+      const locksAvailable = [...new Set(filteredFixtures)].filter(week => week < 18);
+      const totalAvailable = fixtures.filter(fixture => !!fixture.winner).reduce((total, fixture) => total + fixture.points, 0) + (locksAvailable.length * 4);
+      console.log('here are the totalAvailable', filteredFixtures);
+      console.log('here are the totalAvailable', locksAvailable);
 
       //TODO clean this up and sort out post season
 
       scoreChartData.datasets[0].data = [(userData.score/totalAvailable).toFixed(2), ((totalAvailable - userData.score)/totalAvailable).toFixed(2)];
 
       const correctLocks = userData.picks.filter(pick => pick.pointsScored === 5).length;
-      lockChartData.datasets[0].data = [(correctLocks/weeks.length), ((weeks.length-correctLocks)/weeks.length)];
+      lockChartData.datasets[0].data = [(correctLocks/(weeks.length -1)), (((weeks.length -1)-correctLocks)/(weeks.length -1))];
 
       if(userData.favouriteTeam) {
         scoreChartData.datasets[0].backgroundColor = [userData.favouriteTeam.secondaryColor, userData.favouriteTeam.tertiaryColor];
@@ -84,6 +90,13 @@ class UsersShow extends React.Component {
           .then(res => {
             leaguesData = res.data;
           })
+          .then(() => {
+            return axios
+              .get('/api/fixtures')
+              .then(res => {
+                fixtures = res.data;
+              });
+          })
           .then(() => updateData())
           .then(() => {
             console.log('in the last then', leaguesData);
@@ -95,6 +108,7 @@ class UsersShow extends React.Component {
                   user: userData,
                   leagues: leaguesData,
                   weeks: weeks,
+                  fixtures: fixtures,
                   scoreData: scoreChartData,
                   lockData: lockChartData,
                   chartOptions: chartOptions

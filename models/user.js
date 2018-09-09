@@ -28,13 +28,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.checkPicks = function checkPicks(fixture) {
   const pickToUpdate = this.picks.filter(pick => pick.gameId.toString() === fixture._id.toString())[0];
-  console.log('we are updating =>', pickToUpdate);
   if(pickToUpdate) {
     if (pickToUpdate.winnerPick.toString() === fixture.winner.toString()) {
       if(pickToUpdate.lock) {
         pickToUpdate.pointsScored = 5;
       } else {
-        pickToUpdate.pointsScored = 1;
+        pickToUpdate.pointsScored = fixture.points;
       }
     } else {
       pickToUpdate.pointsScored = 0;
@@ -53,10 +52,7 @@ userSchema.methods.setLock = function setLock(lock) {
 };
 
 userSchema.methods.totalScore = function totalScore() {
-  console.log('this.picks =>', this.picks);
-  console.log('this.picks.reduce((total, pick) => total + pick.pointsScored, 0) =>', this.picks.reduce((total, pick) => total + pick.pointsScored, 0));
   this.score = this.picks.reduce((total, pick) => total + pick.pointsScored, 0);
-  console.log(this);
   this.save();
 };
 

@@ -47,11 +47,9 @@ function leagueShow(req, res, next) {
 }
 
 function leagueJoin(req, res, next) {
-  console.log('in league join =>', req.body);
   League
     .findById(req.params.id)
     .then(league => {
-      console.log(req.body.code, '===', league.code);
       if(req.body.code === league.code) {
         league.users.push({ userId: req.currentUser.id.toString() });
         return league.save();

@@ -27,7 +27,6 @@ leagueSchema.methods.updatePositions = function updatePositions() {
       return user;
     }
   });
-  console.log('sorted users ->',this);
   this.save();
 };
 

@@ -8,8 +8,14 @@ class LeagueJoin extends React.Component {
   state= {
     leagueId: this.props.match.params.leagueId,
     code: null,
-    user: null
+    user: null,
+    registerMode: false
   };
+
+  handleSwitch = () => {
+    const registerMode = !this.state.registerMode;
+    this.setState({ registerMode: registerMode });
+  }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
@@ -70,60 +76,58 @@ class LeagueJoin extends React.Component {
 
   render() {
     return (
-      <main>
-        {Auth.isAuthenticated() && <div>
-          <form onSubmit={this.handleSubmit}>
-            <div className="field">
-              <p>Input the league code below to join:</p>
-              <input
-                className="input"
-                name="code"
-                placeholder="CODE WORD"
-                onChange={this.handleChange}
-              />
-            </div>
-            <button>Sumbit</button>
-          </form>
-        </div>}
-        {!Auth.isAuthenticated() && <div>
-          <form onSubmit={this.handleLoginSubmit} className="box">
-            <div className="field">
-              <input
-                className="input"
-                name="email"
-                placeholder="Email"
-                onChange={this.handleRegistrationChange}
-              />
-            </div>
-            <div className="field">
-              <input
-                type="password"
-                className="input"
-                name="password"
-                placeholder="Password"
-                onChange={this.handleRegistrationChange}
-              />
-            </div>
-            <button className="button submitButton">Log in</button>
-          </form>
-          <p>Please register to join this league</p>
-          <form onSubmit={this.handleRegistration}>
-            <div className='columns'>
-              <div className='column'>
+      <div className="homeScreen">
+        <div className="homeScreenBackground">
+          <div className="homeScreenContainer">
+            {Auth.isAuthenticated() && <div className="registerContainer">
+              <form onSubmit={this.handleSubmit} className="smallForm" style={{
+                left: '40%',
+                width: '500px',
+                padding: '50px'
+              }}>
                 <div className="field">
+                  <p>Input the league code below to join:</p>
+                  <input
+                    className="input"
+                    name="code"
+                    placeholder="CODE WORD"
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button>Sumbit</button>
+              </form>
+            </div>}
+            {!Auth.isAuthenticated() && <div className="registerContainer" style={{width: '100%'}}>
+              <button className="button registerButton" onClick={this.handleSwitch}>
+                Register
+              </button>
+              {this.state.registerMode && <button className="button loginButton" onClick={this.handleSwitch} style={{
+                left: '50%'
+              }}>
+                Log in
+              </button>}
+              {/* <Link className="button registerButton" to="/register">
+              Register
+                        </Link> */}
+              <form onSubmit={this.handleSubmit} className="smallForm" style={{
+                left: this.state.registerMode ? '-20%' : '30%'
+              }}>
+                {!this.state.registerMode && <p className="customSubTitle">SIGN IN TO JOIN LEAGUE</p>}
+                {this.state.registerMode && <p className="customSubTitle">REGISTER TO JOIN LEAGUE</p>}
+                {this.state.registerMode && <div className="field">
                   <input
                     className="input"
                     name="name"
                     placeholder="Name"
-                    onChange={this.handleRegistrationChange}
+                    onChange={this.handleChange}
                   />
-                </div>
+                </div>}
                 <div className="field">
                   <input
                     className="input"
                     name="email"
                     placeholder="Email"
-                    onChange={this.handleRegistrationChange}
+                    onChange={this.handleChange}
                   />
                 </div>
                 <div className="field">
@@ -132,24 +136,26 @@ class LeagueJoin extends React.Component {
                     className="input"
                     name="password"
                     placeholder="Password"
-                    onChange={this.handleRegistrationChange}
+                    onChange={this.handleChange}
                   />
                 </div>
-                <div className="field">
+
+                {this.state.registerMode && <div className="field">
                   <input
                     type="password"
                     className="input"
                     name="passwordConfirmation"
                     placeholder="Password Confirmation"
-                    onChange={this.handleRegistrationChange}
+                    onChange={this.handleChange}
                   />
-                </div>
-              </div>
-            </div>
-            <button>Submit</button>
-          </form>
-        </div>}
-      </main>
+                </div>}
+                {!this.state.registerMode && <button className="redButton">Log in</button>}
+                {this.state.registerMode && <button className="redButton">Register</button>}
+              </form>
+            </div>}
+          </div>
+        </div>
+      </div>
     );
   }
 }

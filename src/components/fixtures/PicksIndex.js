@@ -138,7 +138,7 @@ class PicksIndex extends React.Component {
                       </div>
                     </div> )}
                   {this.state.picks.length === this.state.fixtures.length &&
-                    !!this.state.picks.filter(pick => pick.lock).length &&
+                    (!!this.state.picks.filter(pick => pick.lock).length || parseInt(this.state.week) > 17) &&
                     <button onClick={this.handleSubmit} className='button standardText' style={{
                       backgroundColor:
                     user.favouriteTeam ?

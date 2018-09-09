@@ -67,7 +67,6 @@ function fixtureResult(req, res, next) {
 }
 
 function fixtureNew(req, res, next) {
-  console.log('in fixtures new', req.body);
   Fixtures
     .create(req.body)
     .then(fixture => res.json(fixture))

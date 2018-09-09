@@ -7,8 +7,8 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
   const otherLocked = !!picks.filter(pick => pick.lock && pick.gameId !== fixture.id.toString()).length;
   const thisLocked = !!picks.filter(pick => pick.lock && pick.gameId === fixture.id.toString()).length;
 
-  const availableToLockAway = !user.locks.includes(fixture.awayTeam._id);
-  const availableToLockHome = !user.locks.includes(fixture.homeTeam._id);
+  const availableToLockAway = !user.locks.includes(fixture.awayTeam._id) && fixture.week < 18;
+  const availableToLockHome = !user.locks.includes(fixture.homeTeam._id) && fixture.week < 18;
 
   const awayPicked = !!picks.filter(pick => pick.winnerPick === fixture.awayTeam._id.toString()).length;
   const homePicked = !!picks.filter(pick => pick.winnerPick === fixture.homeTeam._id.toString()).length;
@@ -67,17 +67,29 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
       <div className="team">
         <div className="innerTeam" style={{
           backgroundImage:
-          `url(/assets/images/${fixture.awayTeam.fixtureImage})`
+          `url(/assets/images/${fixture.awayTeam.fixtureImage})`,
+          justifyContent: awayPicked && awayLocked ? 'space-between' : 'space-around'
         }}>
           {awayPicked && awayLocked && <button
             onClick={handleUnlock}
             game={fixture.id}
-            winner={fixture.awayTeam._id}
-            loser={fixture.homeTeam._id}
-            className="lockedButton"
+            winner={fixture.homeTeam._id}
+            loser={fixture.awayTeam._id}
+            className="lockedButtonRight"
           >
           </button>}
-          <p className="standardText">{fixture.awayTeam.name}</p>
+          <div style={{
+            paddingRight: awayPicked && awayLocked ? '80px' : '0px'
+          }}>
+            <p className="standardText size20"
+              style={{
+                color: fixture.awayTeam.textColor
+              }}
+            >{fixture.awayTeam.name.substring(0, fixture.awayTeam.name.lastIndexOf(' '))}</p>
+            <p className="highlightText size30">
+              {fixture.awayTeam.name.substring(fixture.awayTeam.name.lastIndexOf(' '))}
+            </p>
+          </div>
         </div>
         <p className="standardText">&#9432; Past picks:{' '}
           {user.picks.filter(pick => pick.winnerPick._id === fixture.awayTeam._id).length}
@@ -86,23 +98,35 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
         </p>
       </div>
 
-      <div className="at">AT</div>
+      <div className="at"></div>
 
 
       <div className="team teamRight">
         <div className="innerTeam innerTeamRight" style={{
           backgroundImage:
-          `url(/assets/images/${fixture.homeTeam.fixtureImage})`
+          `url(/assets/images/${fixture.homeTeam.fixtureImage})`,
+          justifyContent: homePicked && homeLocked ? 'space-between' : 'space-around'
         }}>
+          <div style={{
+            paddingLeft: homePicked && homeLocked ? '80px' : '0px'
+          }}>
+            <p className="standardText size20"
+              style={{
+                color: fixture.homeTeam.textColor
+              }}
+            >{fixture.homeTeam.name.substring(0, fixture.homeTeam.name.lastIndexOf(' '))}</p>
+            <p className="highlightText size30">
+              {fixture.homeTeam.name.substring(fixture.homeTeam.name.lastIndexOf(' '))}
+            </p>
+          </div>
           {homePicked && homeLocked && <button
             onClick={handleUnlock}
             game={fixture.id}
             winner={fixture.homeTeam._id}
             loser={fixture.awayTeam._id}
-            className="lockedButton"
+            className="lockedButtonRight"
           >
           </button>}
-          <p className="standardText">{fixture.homeTeam.name}</p>
         </div>
         <p className="standardText">&#9432; Past picks:{' '}
           {user.picks.filter(pick => pick.winnerPick._id === fixture.homeTeam._id).length}

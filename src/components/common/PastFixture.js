@@ -8,38 +8,64 @@ const PastFixture = ({ fixture, user }) => {
 
   return (
     <div className="fixtureContainer">
-      <div className="team">
-        <div className="innerTeam" style={{
-          backgroundColor:
-          awayWin ? fixture.awayTeam.primaryColor : 'grey',
+      <div className="team teamRight">
+        <div className="innerTeam innerTeamRight" style={{
+          filter:
+            awayWin ? 'grayscale(0%)' : 'grayscale(100%)',
+          flexDirection: 'column',
           backgroundImage:
-            `url(/assets/images/${fixture.awayTeam.fixtureImage})`
+              `url(/assets/images/${fixture.awayTeam.fixtureImage})`
         }}>
-          {/* <button
-            className="lockedButton"
-          >
-          </button> */}
-          <p className="standardText">{fixture.awayTeam.name}</p>
+          <p className="standardText size20"
+            style={{
+              color: fixture.awayTeam.textColor
+            }}
+          >{fixture.awayTeam.name.substring(0, fixture.awayTeam.name.lastIndexOf(' '))}</p>
+          <p className="highlightText size30">
+            {fixture.awayTeam.name.substring(fixture.awayTeam.name.lastIndexOf(' '))}
+          </p>
         </div>
-        {pick.winnerPick._id === fixture.awayTeam._id && <p className="standardText">
-          You picked the {fixture.awayTeam.name}
+        {(homeWin || awayWin) && pick.winnerPick._id === fixture.awayTeam._id && <p className="highlightText"
+          style={{
+            color: awayWin ? 'Green' : 'Red'
+          }}>
+            You {awayWin ? 'correctly ' : 'incorrectly '}picked the {fixture.awayTeam.name}
         </p>}
+        {(!homeWin && !awayWin) && pick.winnerPick._id === fixture.awayTeam._id && <p className="highlightText">
+            You picked the {fixture.awayTeam.name} RESULT PENDING
+        </p>}
+
       </div>
 
-      <div className="at">AT</div>
+      <div className="at" style={{position: 'relative', left: '0%'}}></div>
 
       <div className="team teamRight">
         <div className="innerTeam innerTeamRight" style={{
-          backgroundColor:
-          homeWin ? fixture.homeTeam.primaryColor : 'grey',
+          filter:
+          homeWin ? 'grayscale(0%)' : 'grayscale(100%)',
+          flexDirection: 'column',
           backgroundImage:
             `url(/assets/images/${fixture.homeTeam.fixtureImage})`
         }}>
-          <p className="standardText">{fixture.homeTeam.name}</p>
+          <p className="standardText size20"
+            style={{
+              color: fixture.homeTeam.textColor
+            }}
+          >{fixture.homeTeam.name.substring(0, fixture.homeTeam.name.lastIndexOf(' '))}</p>
+          <p className="highlightText size30">
+            {fixture.homeTeam.name.substring(fixture.homeTeam.name.lastIndexOf(' '))}
+          </p>
         </div>
-        {pick.winnerPick._id === fixture.homeTeam._id && <p className="standardText">
-          You picked the {fixture.homeTeam.name}
+        {(homeWin || awayWin) && pick.winnerPick._id === fixture.homeTeam._id && <p className="highlightText"
+          style={{
+            color: homeWin ? 'Green' : 'Red'
+          }}>
+            You {homeWin ? 'correctly ' : 'incorrectly '}picked the {fixture.homeTeam.name}
         </p>}
+        {(!homeWin && !awayWin) && pick.winnerPick._id === fixture.homeTeam._id && <p className="highlightText">
+            You picked the {fixture.homeTeam.name}  RESULT PENDING
+        </p>}
+
       </div>
 
       <button

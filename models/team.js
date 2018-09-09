@@ -7,6 +7,7 @@ const teamSchema = new mongoose.Schema({
   primaryColor: { type: String },
   secondaryColor: { type: String },
   tertiaryColor: { type: String },
+  textColor: { type: String },
   established: { type: Number },
   division: {
     type: String,

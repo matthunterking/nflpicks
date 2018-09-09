@@ -11,3 +11,8 @@
   width: 20%;
   word-wrap: break-word;
 }
+
+.lineChartContainer {
+  min-height: 400px;
+  overflow-x: scroll;
+}

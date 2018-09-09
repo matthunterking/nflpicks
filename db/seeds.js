@@ -15,6 +15,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#97233F',
     secondaryColor: '#FFB612',
     tertiaryColor: '#000000',
+    textColor: '#FFB612',
     division: 'NFC West',
     established: 1920,
     fixtureImage: 'FixtureCardinals.png'
@@ -24,6 +25,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#F26522',
     secondaryColor: '#ffffff',
     tertiaryColor: '#00143F',
+    textColor: '#F26522',
     division: 'NFC North',
     established: 1920,
     fixtureImage: 'FixtureBears.png'
@@ -33,6 +35,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#FCBE14',
     secondaryColor: '#ffffff',
     tertiaryColor: '#24423C',
+    textColor: '#FCBE14',
     division: 'NFC North',
     established: 1921,
     fixtureImage: 'FixturePackers.png'
@@ -42,6 +45,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#B20032',
     secondaryColor: '#ffffff',
     tertiaryColor: '#192E6C',
+    textColor: '#B20032',
     division: 'NFC East',
     established: 1925,
     fixtureImage: 'FixtureGiants.png'
@@ -51,6 +55,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#046EB4',
     secondaryColor: '#B0B7BC',
     tertiaryColor: '#000000',
+    textColor: '#B0B7BC',
     division: 'NFC North',
     established: 1930,
     fixtureImage: 'FixtureLions.png'
@@ -60,6 +65,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#7C1415',
     secondaryColor: '#FFC20F',
     tertiaryColor: '#000000',
+    textColor: '#FFC20F',
     division: 'NFC East',
     established: 1932,
     fixtureImage: 'FixtureRedskins.png'
@@ -69,6 +75,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#014A53',
     secondaryColor: '#BBC4C9',
     tertiaryColor: '#000000',
+    textColor: '#BBC4C9',
     division: 'NFC East',
     established: 1933,
     fixtureImage: 'FixtureEagles.png'
@@ -78,6 +85,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#FFC20E',
     secondaryColor: '#B2BABF',
     tertiaryColor: '#000000',
+    textColor: '#00539B',
     division: 'AFC North',
     established: 1933,
     fixtureImage: 'FixtureSteelers.png'
@@ -87,6 +95,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#95774C',
     secondaryColor: '#ffffff',
     tertiaryColor: '#002147',
+    textColor: '#002147',
     division: 'NFC West',
     established: 1937,
     fixtureImage: 'FixtureRams.png'
@@ -96,6 +105,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#C9243F',
     secondaryColor: '#C8AA76',
     tertiaryColor: '#000000',
+    textColor: '#C8AA76',
     division: 'NFC West',
     established: 1946,
     fixtureImage: 'Fixture49ers.png'
@@ -105,6 +115,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#FB4F14',
     secondaryColor: '#ffffff',
     tertiaryColor: '#22150C',
+    textColor: '#FB4F14',
     division: 'AFC North',
     established: 1946,
     fixtureImage: 'FixtureBrowns.png'
@@ -114,6 +125,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#B0B7BC',
     secondaryColor: '#ffffff',
     tertiaryColor: '#003D79',
+    textColor: '#B0B7BC',
     division: 'AFC South',
     established: 1953,
     fixtureImage: 'FixtureColts.png'
@@ -123,6 +135,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#B0B7BC',
     secondaryColor: '#ffffff',
     tertiaryColor: '#0C264C',
+    textColor: '#0C264C',
     division: 'NFC East',
     established: 1960,
     fixtureImage: 'FixtureCowboys.png'
@@ -132,6 +145,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#CA2430',
     secondaryColor: '#FFB612',
     tertiaryColor: '#000000',
+    textColor: '#FFB612',
     division: 'AFC West',
     established: 1960,
     fixtureImage: 'FixtureChiefs.png'
@@ -141,6 +155,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#2072BA',
     secondaryColor: '#FDB515',
     tertiaryColor: '#0A2342',
+    textColor: '#FDB515',
     division: 'AFC West',
     established: 1960,
     fixtureImage: 'FixtureChargers.png'
@@ -150,6 +165,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#FB4F14',
     secondaryColor: '#ffffff',
     tertiaryColor: '#002244',
+    textColor: '#FB4F14',
     division: 'AFC West',
     established: 1960,
     fixtureImage: 'FixtureBroncos.png'
@@ -159,6 +175,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#203731',
     secondaryColor: '#ffffff',
     tertiaryColor: '#000000',
+    textColor: '#ffffff',
     division: 'AFC East',
     established: 1960,
     fixtureImage: 'FixtureJets.png'
@@ -168,6 +185,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#C81F32',
     secondaryColor: '#B0B7BD',
     tertiaryColor: '#0A2342',
+    textColor: '#C81F32',
     division: 'AFC East',
     established: 1960,
     fixtureImage: 'FixturePatriots.png'
@@ -177,6 +195,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#C4C9CC',
     secondaryColor: '#ffffff',
     tertiaryColor: '#000000',
+    textColor: '#000000',
     division: 'AFC West',
     established: 1960,
     fixtureImage: 'FixtureRaiders.png'
@@ -186,6 +205,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#4095D1',
     secondaryColor: '#BCC4C9',
     tertiaryColor: '#00295B',
+    textColor: '#00295B',
     division: 'AFC South',
     established: 1960,
     fixtureImage: 'FixtureTitans.png'
@@ -195,6 +215,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#C60C30',
     secondaryColor: '#ffffff',
     tertiaryColor: '#00338D',
+    textColor: '#C60C30',
     division: 'AFC East',
     established: 1960,
     fixtureImage: 'FixtureBills.png'
@@ -204,6 +225,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#4F2E84',
     secondaryColor: '#FEC62F',
     tertiaryColor: '#000000',
+    textColor: '#FEC62F',
     division: 'NFC North',
     established: 1961,
     fixtureImage: 'FixtureVikings.png'
@@ -213,6 +235,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#A71930',
     secondaryColor: '#A5ACAF',
     tertiaryColor: '#000000',
+    textColor: '#000000',
     division: 'NFC South',
     established: 1966,
     fixtureImage: 'FixtureFalcons.png'
@@ -222,6 +245,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#0091A0',
     secondaryColor: '#FF8500',
     tertiaryColor: '#002760',
+    textColor: '#FF8500',
     division: 'AFC East',
     established: 1966,
     fixtureImage: 'FixtureDolphins.png'
@@ -231,6 +255,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#A08A58',
     secondaryColor: '#ffffff',
     tertiaryColor: '#000000',
+    textColor: '#000000',
     division: 'NFC South',
     established: 1967,
     fixtureImage: 'FixtureSaints.png'
@@ -240,6 +265,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#FB4F14',
     secondaryColor: '#ffffff',
     tertiaryColor: '#000000',
+    textColor: '#000000',
     division: 'AFC North',
     established: 1968,
     fixtureImage: 'FixtureBengals.png'
@@ -249,6 +275,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#002A5C',
     secondaryColor: '#7AC142',
     tertiaryColor: '#002A5C',
+    textColor: '#7AC142',
     division: 'NFC West',
     established: 1976,
     fixtureImage: 'FixtureSeahawks.png'
@@ -258,6 +285,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#D40909',
     secondaryColor: '#B0B9BF',
     tertiaryColor: '#000000',
+    textColor: '#000000',
     division: 'NFC South',
     established: 1976,
     fixtureImage: 'FixtureBuccaneers.png'
@@ -267,6 +295,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#0085CA',
     secondaryColor: '#BFC0BF',
     tertiaryColor: '#000000',
+    textColor: '#000000',
     division: 'NFC South',
     established: 1995,
     fixtureImage: 'FixturePanthers.png'
@@ -276,6 +305,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#D8A328',
     secondaryColor: '#136677',
     tertiaryColor: '#000000',
+    textColor: '#D8A328',
     division: 'AFC South',
     established: 1995,
     fixtureImage: 'FixtureJaguars.png'
@@ -285,6 +315,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#9E7C0C',
     secondaryColor: '#ffffff',
     tertiaryColor: '#241773',
+    textColor: '#9E7C0C',
     division: 'AFC North',
     established: 1996,
     fixtureImage: 'FixtureRavens.png'
@@ -294,6 +325,7 @@ mongoose.connect(dbURI, (err, db) => {
     primaryColor: '#C9243F',
     secondaryColor: '#ffffff',
     tertiaryColor: '#00143F',
+    textColor: '#C9243F',
     division: 'AFC South',
     established: 2002,
     fixtureImage: 'FixtureTexans.png'

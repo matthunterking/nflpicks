@@ -36,7 +36,7 @@ const LeagueTable = ({ user, league, weeks }) => {
             </tr>)}
         </tbody>
       </table>
-      <p>Send this link to invite someone to this league <span>http://localhost:8000/leagues/{league.id}/join</span></p>
+      <p>Send this link to invite someone to this league <span>https://nfl-picks-game.herokuapp.com/leagues/{league.id}/join</span></p>
     </div>
   );
 };
