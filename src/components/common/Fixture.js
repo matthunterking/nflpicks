@@ -16,7 +16,6 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
   const awayLocked = !!picks.filter(pick => pick.lock && pick.winnerPick === fixture.awayTeam._id.toString()).length;
   const homeLocked = !!picks.filter(pick => pick.lock && pick.winnerPick === fixture.homeTeam._id.toString()).length;
 
-
   return (
     <div className="fixtureContainer">
       {(!awayPicked && !thisLocked) && <button
@@ -67,8 +66,8 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
 
       <div className="team">
         <div className="innerTeam" style={{
-          backgroundColor:
-          fixture.awayTeam.primaryColor
+          backgroundImage:
+          `url(/assets/images/${fixture.awayTeam.fixtureImage})`
         }}>
           {awayPicked && awayLocked && <button
             onClick={handleUnlock}
@@ -92,8 +91,8 @@ const Fixture = ({ fixture, handleClick, handleLock, picks, user, handleUnlock }
 
       <div className="team teamRight">
         <div className="innerTeam innerTeamRight" style={{
-          backgroundColor:
-          fixture.homeTeam.primaryColor
+          backgroundImage:
+          `url(/assets/images/${fixture.homeTeam.fixtureImage})`
         }}>
           {homePicked && homeLocked && <button
             onClick={handleUnlock}

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const teamSchema = new mongoose.Schema({
   name: { type: String, required: 'This field is required' },
   logo: { type: String },
-  shortName: { type: String },
+  fixtureImage: { type: String },
   primaryColor: { type: String },
   secondaryColor: { type: String },
   tertiaryColor: { type: String },

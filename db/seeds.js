@@ -17,7 +17,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC West',
     established: 1920,
-    shortName: 'ARI'
+    fixtureImage: 'FixtureCardinals.png'
   },{
     name: 'Chicago Bears',
     logo: 'bears.png',
@@ -26,7 +26,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'NFC North',
     established: 1920,
-    shortName: 'CHI'
+    fixtureImage: 'FixtureBears.png'
   },{
     name: 'Green Bay Packers',
     logo: 'packers.png',
@@ -35,7 +35,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'NFC North',
     established: 1921,
-    shortName: 'GB'
+    fixtureImage: 'FixturePackers.png'
   },{
     name: 'New York Giants',
     logo: 'giants.png',
@@ -44,7 +44,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'NFC East',
     established: 1925,
-    shortName: 'NYG'
+    fixtureImage: 'FixtureGiants.png'
   },{
     name: 'Detroit Lions',
     logo: 'lions.png',
@@ -53,7 +53,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC North',
     established: 1930,
-    shortName: 'DET'
+    fixtureImage: 'FixtureLions.png'
   },{
     name: 'Washington Redskins',
     logo: 'redskins.png',
@@ -62,7 +62,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC East',
     established: 1932,
-    shortName: 'WAS'
+    fixtureImage: 'FixtureRedskins.png'
   },{
     name: 'Philadelphia Eagles',
     logo: 'eagles.png',
@@ -71,7 +71,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC East',
     established: 1933,
-    shortName: 'PHI'
+    fixtureImage: 'FixtureEagles.png'
   },{
     name: 'Pittsburgh Steelers',
     logo: 'steelers.png',
@@ -80,7 +80,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#B2BABF',
     division: 'AFC North',
     established: 1933,
-    shortName: 'PIT'
+    fixtureImage: 'FixtureSteelers.png'
   },{
     name: 'Los Angeles Rams',
     logo: 'rams.png',
@@ -89,7 +89,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'NFC West',
     established: 1937,
-    shortName: 'LAR'
+    fixtureImage: 'FixtureRams.png'
   },{
     name: 'San Francisco 49ers',
     logo: '49ers.png',
@@ -98,7 +98,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC West',
     established: 1946,
-    shortName: 'SF'
+    fixtureImage: 'Fixture49ers.png'
   },{
     name: 'Cleveland Browns',
     logo: 'browns.png',
@@ -107,7 +107,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC North',
     established: 1946,
-    shortName: 'CLE'
+    fixtureImage: 'FixtureBrowns.png'
   },{
     name: 'Indianapolis Colts',
     logo: 'colts.png',
@@ -116,7 +116,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#B0B7BC',
     division: 'AFC South',
     established: 1953,
-    shortName: 'IND'
+    fixtureImage: 'FixtureColts.png'
   },{
     name: 'Dallas Cowboys',
     logo: 'cowboys.png',
@@ -125,7 +125,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'NFC East',
     established: 1960,
-    shortName: 'DAL'
+    fixtureImage: 'FixtureCowboys.png'
   },{
     name: 'Kansas City Chiefs',
     logo: 'chiefs.png',
@@ -134,7 +134,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'AFC West',
     established: 1960,
-    shortName: 'KC'
+    fixtureImage: 'FixtureChiefs.png'
   },{
     name: 'Los Angeles Chargers',
     logo: 'chargers.png',
@@ -143,7 +143,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#0A2342',
     division: 'AFC West',
     established: 1960,
-    shortName: 'LAC'
+    fixtureImage: 'FixtureChargers.png'
   },{
     name: 'Denver Broncos',
     logo: 'broncos.png',
@@ -152,7 +152,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC West',
     established: 1960,
-    shortName: 'DEN'
+    fixtureImage: 'FixtureBroncos.png'
   },{
     name: 'New York Jets',
     logo: 'jets.png',
@@ -161,7 +161,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'AFC East',
     established: 1960,
-    shortName: 'NYJ'
+    fixtureImage: 'FixtureJets.png'
   },{
     name: 'New England Patriots',
     logo: 'pats.png',
@@ -170,7 +170,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#B0B7BD',
     division: 'AFC East',
     established: 1960,
-    shortName: 'NE'
+    fixtureImage: 'FixturePatriots.png'
   },{
     name: 'Oakland Raiders',
     logo: 'raiders.png',
@@ -179,7 +179,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC West',
     established: 1960,
-    shortName: 'OAK'
+    fixtureImage: 'FixtureRaiders.png'
   },{
     name: 'Tennessee Titans',
     logo: 'titans.png',
@@ -188,7 +188,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#BCC4C9',
     division: 'AFC South',
     established: 1960,
-    shortName: 'TEN'
+    fixtureImage: 'FixtureTitans.png'
   },{
     name: 'Buffalo Bills',
     logo: 'bills.png',
@@ -197,7 +197,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC East',
     established: 1960,
-    shortName: 'BUF'
+    fixtureImage: 'FixtureBills.png'
   },{
     name: 'Minnesota Vikings',
     logo: 'vikings.png',
@@ -206,7 +206,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC North',
     established: 1961,
-    shortName: 'MIN'
+    fixtureImage: 'FixtureVikings.png'
   },{
     name: 'Atlanta Falcons',
     logo: 'falcons.png',
@@ -215,7 +215,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC South',
     established: 1966,
-    shortName: 'ATL'
+    fixtureImage: 'FixtureFalcons.png'
   },{
     name: 'Miami Dolphins',
     logo: 'dolphins.png',
@@ -224,7 +224,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#002760',
     division: 'AFC East',
     established: 1966,
-    shortName: 'MIA'
+    fixtureImage: 'FixtureDolphins.png'
   },{
     name: 'New Orleans Saints',
     logo: 'saints.png',
@@ -233,7 +233,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'NFC South',
     established: 1967,
-    shortName: 'NO'
+    fixtureImage: 'FixtureSaints.png'
   },{
     name: 'Cincinnati Bengals',
     logo: 'bengals.png',
@@ -242,7 +242,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC North',
     established: 1968,
-    shortName: 'CIN'
+    fixtureImage: 'FixtureBengals.png'
   },{
     name: 'Seattle Seahawks',
     logo: 'seahawks.png',
@@ -251,7 +251,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#B2B7BB',
     division: 'NFC West',
     established: 1976,
-    shortName: 'SEA'
+    fixtureImage: 'FixtureSeahawks.png'
   },{
     name: 'Tampa Bay Buccaneers',
     logo: 'bucks.png',
@@ -260,7 +260,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC South',
     established: 1976,
-    shortName: 'TB'
+    fixtureImage: 'FixtureBuccaneers.png'
   },{
     name: 'Carolina Panthers',
     logo: 'panthers.png',
@@ -269,7 +269,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'NFC South',
     established: 1995,
-    shortName: 'CAR'
+    fixtureImage: 'FixturePanthers.png'
   },{
     name: 'Jacksonville Jaguars',
     logo: 'jags.png',
@@ -278,7 +278,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#000000',
     division: 'AFC South',
     established: 1995,
-    shortName: 'JAX'
+    fixtureImage: 'FixtureJaguars.png'
   },{
     name: 'Baltimore Ravens',
     logo: 'ravens.png',
@@ -287,7 +287,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC North',
     established: 1996,
-    shortName: 'BAL'
+    fixtureImage: 'FixtureRavens.png'
   },{
     name: 'Houston Texans',
     logo: 'texans.png',
@@ -296,7 +296,7 @@ mongoose.connect(dbURI, (err, db) => {
     tertiaryColor: '#ffffff',
     division: 'AFC South',
     established: 2002,
-    shortName: 'HOU'
+    fixtureImage: 'FixtureTexans.png'
   }])
     .then(teams => {
       console.log(`${teams.length} teams created!`);

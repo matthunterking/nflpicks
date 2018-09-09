@@ -11,7 +11,9 @@ const PastFixture = ({ fixture, user }) => {
       <div className="team">
         <div className="innerTeam" style={{
           backgroundColor:
-          awayWin ? fixture.awayTeam.primaryColor : 'grey'
+          awayWin ? fixture.awayTeam.primaryColor : 'grey',
+          backgroundImage:
+            `url(/assets/images/${fixture.awayTeam.fixtureImage})`
         }}>
           {/* <button
             className="lockedButton"
@@ -29,7 +31,9 @@ const PastFixture = ({ fixture, user }) => {
       <div className="team teamRight">
         <div className="innerTeam innerTeamRight" style={{
           backgroundColor:
-          homeWin ? fixture.homeTeam.primaryColor : 'grey'
+          homeWin ? fixture.homeTeam.primaryColor : 'grey',
+          backgroundImage:
+            `url(/assets/images/${fixture.homeTeam.fixtureImage})`
         }}>
           <p className="standardText">{fixture.homeTeam.name}</p>
         </div>

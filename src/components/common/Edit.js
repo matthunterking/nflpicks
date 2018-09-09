@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import SubMenu from '../partials/UserShowSubMenu';
+import LeftPanel from '../partials/UserShowLeftPanel';
+
 // import ReactFilestack from 'filestack-react';
 
 // const filestackAPI = process.env.FILESTACK_API_KEY;
@@ -23,14 +26,26 @@ class UsersEdit extends React.Component {
 
     componentDidMount(){
       let userData;
-      let teamData;
-      console.log(this.props);
-      axios.get(`/api/users/${this.props.match.params.id}`)
+      let weeks;
+
+      function updateData() {
+        weeks = userData.picks.map(pick => parseInt(pick.week) + 1);
+        weeks = [1].concat(weeks).filter((week, index, array) => week !== array[index-1]);
+      }
+
+      axios
+        .get(`/api/users/${Auth.getPayload().sub}`)
         .then(res => userData = res.data)
+        .then(() => updateData())
         .then(() => {
-          axios.get('/api/teams')
-            .then(res => teamData = res.data)
-            .then(() => this.setState({ user: userData, teams: teamData}));
+          return axios
+            .get('/api/teams')
+            .then(res =>
+              this.setState({
+                teams: res.data,
+                user: userData,
+                weeks: weeks
+              }, () => console.log('this is the state',this.state)));
         });
     }
 
@@ -56,56 +71,105 @@ class UsersEdit extends React.Component {
     if(!this.state.user || !this.state.teams) return null;
     return (
       <div>
-        <section className='section'>
-          <div className="container">
-            <form className="editform" onSubmit={this.handleSubmit}>
-              <div className="field">
-                <input
-                  className="input"
-                  name="name"
-                  placeholder="Name"
-                  onChange={this.handleChange}
-                  value={user.name}
-                />
-              </div>
-              <div className="field">
-                <input
-                  className="input"
-                  name="email"
-                  placeholder="Email"
-                  onChange={this.handleChange}
-                  value={user.email}
-                />
-              </div>
-
-              {/* <ReactFilestack
-                apikey="AOMNdTfLRb2JoY4KejONwz"
-                buttonText="Upload Photo"
-                buttonClass="button redirectButton"
-                options={basicOptions}
-                onSuccess={this.onSuccess}
-                onChange={this.handleChange}
-                onError={this.onError}
-              /> */}
-
-              <p>AWAY TEAM </p><select
-                className="select"
-                name="favouriteTeam"
-                placeholder=''
-                onChange={this.handleChange}>
-                <option value=''></option>
-                {this.state.teams.map(team =>
-                  <option
-                    key={team._id}
-                    value={team._id}
-                  >{team.name}</option>
-                )}
-              </select>
-              <hr />
-              <button className="button submitButton">Submit</button>
-            </form>
+        {user && <div className="container userShowContainer">
+          <div className="columns">
+            <div className="column is-one-quarter">
+            </div>
+            <div className="column is-three-quarters">
+              <SubMenu currentWeek={this.state.weeks[this.state.weeks.length - 1]} />
+            </div>
           </div>
-        </section>
+          <div className="columns">
+            <LeftPanel user={user} weeks={this.state.weeks}/>
+            <div className='column is-four-fifths centralColumn'>
+              <div className="topProfileContainer" style={{
+                backgroundColor:
+                user.favouriteTeam ?
+                  `${user.favouriteTeam.tertiaryColor}B3` : 'black'
+              }}>
+                <div className="topPanelTopLine">
+                  <p className="standardText">Edit Profile</p>
+                </div>
+                <hr />
+                <div>
+                  <form className="editform" onSubmit={this.handleSubmit}>
+                    <div className="field">
+                      <label htmlFor="name" className="label standardText">Name</label>
+                      <div className="control">
+                        <input
+                          className="input"
+                          name="name"
+                          type="text"
+                          placeholder="Name"
+                          onChange={this.handleChange}
+                          value={user.name}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <label htmlFor="email" className="label standardText">Email</label>
+                      <div className="control">
+                        <input
+                          className="input"
+                          name="email"
+                          type="text"
+                          placeholder="Email"
+                          onChange={this.handleChange}
+                          value={user.email}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <label htmlFor="city" className="label standardText">City</label>
+                      <div className="control">
+                        <input
+                          className="input"
+                          name="city"
+                          type="text"
+                          placeholder="Email"
+                          onChange={this.handleChange}
+                          value={user.city}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <label htmlFor="favouriteTeam" className="label standardText">Favourite Team</label>
+                      <div className="control">
+                        <select
+                          className="select"
+                          name="favouriteTeam"
+                          placeholder=''
+                          onChange={this.handleChange}>
+                          <option value=''></option>
+                          {this.state.teams.map(team =>
+                            <option
+                              key={team._id}
+                              value={team._id}
+                            >{team.name}</option>
+                          )}
+                        </select>
+                      </div>
+                    </div>
+
+
+                      {/* <ReactFilestack
+                        apikey="AOMNdTfLRb2JoY4KejONwz"
+                        buttonText="Upload Photo"
+                        buttonClass="button redirectButton"
+                        options={basicOptions}
+                      onSuccess={this.onSuccess}
+                        onChange={this.handleChange}
+                        onError={this.onError}
+                      /> */}
+
+                    <hr />
+                    <button className="button submitButton">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>}
       </div>
     );
   }

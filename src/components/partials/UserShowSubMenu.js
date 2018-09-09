@@ -6,7 +6,7 @@ const SubMenu = ({ currentWeek }) => {
     <div className="subMenu">
       <Link className="standardText subNavItem" to="/dashboard">HOME</Link>
       <Link className="standardText subNavItem" to={`/fixtures/picks/${currentWeek}`}>PICKS</Link>
-      <Link className="standardText subNavItem" to="/dashboard">LEAGUES</Link>
+      <Link className="standardText subNavItem" to="/leagues">LEAGUES</Link>
     </div>
   );
 };

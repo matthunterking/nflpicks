@@ -10,6 +10,7 @@ import AuthRegister from './components/auth/Register';
 import FixturesIndex from './components/fixtures/Index';
 import FixturesNew from './components/fixtures/New';
 import LeagueNew from './components/leagues/New';
+import LeaguesIndex from './components/leagues/Index';
 import LeagueJoin from './components/leagues/Join';
 import LeagueShow from './components/leagues/Show';
 import ResultsIndex from './components/fixtures/ResultsIndex';
@@ -34,6 +35,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route exact path="/leagues/new" component={LeagueNew} />
+            <Route exact path="/leagues" component={LeaguesIndex} />
             <Route path="/leagues/:leagueId/join" component={LeagueJoin} />
             <Route path="/leagues/:leagueId" component={LeagueShow} />
             <Route path="/users/:id/edit" component={UsersEdit} />

@@ -82,7 +82,6 @@ class UsersShow extends React.Component {
             headers: { Authorization: `Bearer ${Auth.getToken()}`}
           })
           .then(res => {
-            console.log('!!!!!!!!!!!!', res.data);
             leaguesData = res.data;
           })
           .then(() => updateData())

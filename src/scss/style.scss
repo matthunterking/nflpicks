@@ -22,6 +22,19 @@ html {
   color: white;
 }
 
+.table {
+  background-color: transparent;
+  color: white;
+}
+
+.table thead th {
+  color: white;
+}
+
+.table tbody td {
+  color: white;
+}
+
 .team {
   width: 40%;
 }
@@ -30,6 +43,8 @@ html {
   display: flex;
   height: 100px;
   width: 100%;
+  background-size: cover;
+  background-position: center;
 }
 
 .innerTeamRight {
