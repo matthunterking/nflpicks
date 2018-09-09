@@ -18,6 +18,8 @@
     "bcrypt": "^2.0.1",
     "chai": "^4.1.2",
     "chart.js": "^2.7.2",
+    "filestack-js": "^1.5.1",
+    "filestack-react": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
     "mocha": "^5.2.0",
     "mongoose": "^5.1.5",

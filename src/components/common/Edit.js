@@ -4,16 +4,16 @@ import Auth from '../../lib/Auth';
 import SubMenu from '../partials/UserShowSubMenu';
 import LeftPanel from '../partials/UserShowLeftPanel';
 
-// import ReactFilestack from 'filestack-react';
+import ReactFilestack from 'filestack-react';
 
 // const filestackAPI = process.env.FILESTACK_API_KEY;
 
-// const basicOptions = {
-//   accept: 'image/*',
-//   fromSources: ['local_file_system'],
-//   maxSize: 1024 * 1024,
-//   maxFiles: 1
-// };
+const basicOptions = {
+  accept: 'image/*',
+  fromSources: ['local_file_system'],
+  maxSize: 1024 * 1024,
+  maxFiles: 1
+};
 
 class UsersEdit extends React.Component {
 
@@ -49,9 +49,17 @@ class UsersEdit extends React.Component {
         });
     }
 
+    onSuccess = (result) => {
+      this.setState({
+        profilePic: result.filesUploaded[0].url
+      });
+    }
+
   handleChange = ({ target: { name, value } }) => {
     const errors = {...this.state.errors, [name]: ''};
-    this.setState({ errors, [name]: value });
+    this.setState({ errors, [name]: value }, () => {
+      console.log('------>', this.state);
+    });
   }
 
   handleSubmit = (e) => {
@@ -102,7 +110,7 @@ class UsersEdit extends React.Component {
                           type="text"
                           placeholder="Name"
                           onChange={this.handleChange}
-                          value={user.name}
+                          value={this.state.name || user.name}
                         />
                       </div>
                     </div>
@@ -115,7 +123,7 @@ class UsersEdit extends React.Component {
                           type="text"
                           placeholder="Email"
                           onChange={this.handleChange}
-                          value={user.email}
+                          value={this.state.email || user.email}
                         />
                       </div>
                     </div>
@@ -128,7 +136,7 @@ class UsersEdit extends React.Component {
                           type="text"
                           placeholder="Email"
                           onChange={this.handleChange}
-                          value={user.city}
+                          value={this.state.city || user.city}
                         />
                       </div>
                     </div>
@@ -152,15 +160,15 @@ class UsersEdit extends React.Component {
                     </div>
 
 
-                      {/* <ReactFilestack
-                        apikey="AOMNdTfLRb2JoY4KejONwz"
-                        buttonText="Upload Photo"
-                        buttonClass="button redirectButton"
-                        options={basicOptions}
+                    <ReactFilestack
+                      apikey= "A59NZXCVQTPiOSoJ88JWEz"
+                      buttonText="Upload Photo"
+                      buttonClass="button redirectButton"
+                      options={basicOptions}
                       onSuccess={this.onSuccess}
-                        onChange={this.handleChange}
-                        onError={this.onError}
-                      /> */}
+                      onChange={this.handleChange}
+                      onError={this.onError}
+                    />
 
                     <hr />
                     <button className="button submitButton">Submit</button>
