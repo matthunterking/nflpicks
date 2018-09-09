@@ -6,7 +6,7 @@ import LeftPanel from '../partials/UserShowLeftPanel';
 
 import ReactFilestack from 'filestack-react';
 
-// const filestackAPI = process.env.FILESTACK_API_KEY;
+const filestackAPI = process.env.FILESTACK_API_KEY;
 
 const basicOptions = {
   accept: 'image/*',
@@ -161,7 +161,7 @@ class UsersEdit extends React.Component {
 
 
                     <ReactFilestack
-                      apikey= "A59NZXCVQTPiOSoJ88JWEz"
+                      apikey= {filestackAPI}
                       buttonText="Upload Profile Picture"
                       buttonClass="button redirectButton"
                       options={basicOptions}
