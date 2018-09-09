@@ -7,329 +7,329 @@ const User = require('../models/user');
 
 
 mongoose.connect(dbURI, (err, db) => {
-  db.dropDatabase();
+  db.dropDatabase().then(() => {
 
-  Team.create([{
-    name: 'Arizona Cardinals',
-    logo: 'cardinals.png',
-    primaryColor: '#97233F',
-    secondaryColor: '#FFB612',
-    tertiaryColor: '#000000',
-    textColor: '#FFB612',
-    division: 'NFC West',
-    established: 1920,
-    fixtureImage: 'FixtureCardinals.png'
-  },{
-    name: 'Chicago Bears',
-    logo: 'bears.png',
-    primaryColor: '#F26522',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#00143F',
-    textColor: '#F26522',
-    division: 'NFC North',
-    established: 1920,
-    fixtureImage: 'FixtureBears.png'
-  },{
-    name: 'Green Bay Packers',
-    logo: 'packers.png',
-    primaryColor: '#FCBE14',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#24423C',
-    textColor: '#FCBE14',
-    division: 'NFC North',
-    established: 1921,
-    fixtureImage: 'FixturePackers.png'
-  },{
-    name: 'New York Giants',
-    logo: 'giants.png',
-    primaryColor: '#B20032',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#192E6C',
-    textColor: '#B20032',
-    division: 'NFC East',
-    established: 1925,
-    fixtureImage: 'FixtureGiants.png'
-  },{
-    name: 'Detroit Lions',
-    logo: 'lions.png',
-    primaryColor: '#046EB4',
-    secondaryColor: '#B0B7BC',
-    tertiaryColor: '#000000',
-    textColor: '#B0B7BC',
-    division: 'NFC North',
-    established: 1930,
-    fixtureImage: 'FixtureLions.png'
-  },{
-    name: 'Washington Redskins',
-    logo: 'redskins.png',
-    primaryColor: '#7C1415',
-    secondaryColor: '#FFC20F',
-    tertiaryColor: '#000000',
-    textColor: '#FFC20F',
-    division: 'NFC East',
-    established: 1932,
-    fixtureImage: 'FixtureRedskins.png'
-  },{
-    name: 'Philadelphia Eagles',
-    logo: 'eagles.png',
-    primaryColor: '#014A53',
-    secondaryColor: '#BBC4C9',
-    tertiaryColor: '#000000',
-    textColor: '#BBC4C9',
-    division: 'NFC East',
-    established: 1933,
-    fixtureImage: 'FixtureEagles.png'
-  },{
-    name: 'Pittsburgh Steelers',
-    logo: 'steelers.png',
-    primaryColor: '#FFC20E',
-    secondaryColor: '#B2BABF',
-    tertiaryColor: '#000000',
-    textColor: '#00539B',
-    division: 'AFC North',
-    established: 1933,
-    fixtureImage: 'FixtureSteelers.png'
-  },{
-    name: 'Los Angeles Rams',
-    logo: 'rams.png',
-    primaryColor: '#95774C',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#002147',
-    textColor: '#002147',
-    division: 'NFC West',
-    established: 1937,
-    fixtureImage: 'FixtureRams.png'
-  },{
-    name: 'San Francisco 49ers',
-    logo: '49ers.png',
-    primaryColor: '#C9243F',
-    secondaryColor: '#C8AA76',
-    tertiaryColor: '#000000',
-    textColor: '#C8AA76',
-    division: 'NFC West',
-    established: 1946,
-    fixtureImage: 'Fixture49ers.png'
-  },{
-    name: 'Cleveland Browns',
-    logo: 'browns.png',
-    primaryColor: '#FB4F14',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#22150C',
-    textColor: '#FB4F14',
-    division: 'AFC North',
-    established: 1946,
-    fixtureImage: 'FixtureBrowns.png'
-  },{
-    name: 'Indianapolis Colts',
-    logo: 'colts.png',
-    primaryColor: '#B0B7BC',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#003D79',
-    textColor: '#B0B7BC',
-    division: 'AFC South',
-    established: 1953,
-    fixtureImage: 'FixtureColts.png'
-  },{
-    name: 'Dallas Cowboys',
-    logo: 'cowboys.png',
-    primaryColor: '#B0B7BC',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#0C264C',
-    textColor: '#0C264C',
-    division: 'NFC East',
-    established: 1960,
-    fixtureImage: 'FixtureCowboys.png'
-  },{
-    name: 'Kansas City Chiefs',
-    logo: 'chiefs.png',
-    primaryColor: '#CA2430',
-    secondaryColor: '#FFB612',
-    tertiaryColor: '#000000',
-    textColor: '#FFB612',
-    division: 'AFC West',
-    established: 1960,
-    fixtureImage: 'FixtureChiefs.png'
-  },{
-    name: 'Los Angeles Chargers',
-    logo: 'chargers.png',
-    primaryColor: '#2072BA',
-    secondaryColor: '#FDB515',
-    tertiaryColor: '#0A2342',
-    textColor: '#FDB515',
-    division: 'AFC West',
-    established: 1960,
-    fixtureImage: 'FixtureChargers.png'
-  },{
-    name: 'Denver Broncos',
-    logo: 'broncos.png',
-    primaryColor: '#FB4F14',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#002244',
-    textColor: '#FB4F14',
-    division: 'AFC West',
-    established: 1960,
-    fixtureImage: 'FixtureBroncos.png'
-  },{
-    name: 'New York Jets',
-    logo: 'jets.png',
-    primaryColor: '#203731',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#000000',
-    textColor: '#ffffff',
-    division: 'AFC East',
-    established: 1960,
-    fixtureImage: 'FixtureJets.png'
-  },{
-    name: 'New England Patriots',
-    logo: 'pats.png',
-    primaryColor: '#C81F32',
-    secondaryColor: '#B0B7BD',
-    tertiaryColor: '#0A2342',
-    textColor: '#C81F32',
-    division: 'AFC East',
-    established: 1960,
-    fixtureImage: 'FixturePatriots.png'
-  },{
-    name: 'Oakland Raiders',
-    logo: 'raiders.png',
-    primaryColor: '#C4C9CC',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#000000',
-    textColor: '#000000',
-    division: 'AFC West',
-    established: 1960,
-    fixtureImage: 'FixtureRaiders.png'
-  },{
-    name: 'Tennessee Titans',
-    logo: 'titans.png',
-    primaryColor: '#4095D1',
-    secondaryColor: '#BCC4C9',
-    tertiaryColor: '#00295B',
-    textColor: '#00295B',
-    division: 'AFC South',
-    established: 1960,
-    fixtureImage: 'FixtureTitans.png'
-  },{
-    name: 'Buffalo Bills',
-    logo: 'bills.png',
-    primaryColor: '#C60C30',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#00338D',
-    textColor: '#C60C30',
-    division: 'AFC East',
-    established: 1960,
-    fixtureImage: 'FixtureBills.png'
-  },{
-    name: 'Minnesota Vikings',
-    logo: 'vikings.png',
-    primaryColor: '#4F2E84',
-    secondaryColor: '#FEC62F',
-    tertiaryColor: '#000000',
-    textColor: '#FEC62F',
-    division: 'NFC North',
-    established: 1961,
-    fixtureImage: 'FixtureVikings.png'
-  },{
-    name: 'Atlanta Falcons',
-    logo: 'falcons.png',
-    primaryColor: '#A71930',
-    secondaryColor: '#A5ACAF',
-    tertiaryColor: '#000000',
-    textColor: '#000000',
-    division: 'NFC South',
-    established: 1966,
-    fixtureImage: 'FixtureFalcons.png'
-  },{
-    name: 'Miami Dolphins',
-    logo: 'dolphins.png',
-    primaryColor: '#0091A0',
-    secondaryColor: '#FF8500',
-    tertiaryColor: '#002760',
-    textColor: '#FF8500',
-    division: 'AFC East',
-    established: 1966,
-    fixtureImage: 'FixtureDolphins.png'
-  },{
-    name: 'New Orleans Saints',
-    logo: 'saints.png',
-    primaryColor: '#A08A58',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#000000',
-    textColor: '#000000',
-    division: 'NFC South',
-    established: 1967,
-    fixtureImage: 'FixtureSaints.png'
-  },{
-    name: 'Cincinnati Bengals',
-    logo: 'bengals.png',
-    primaryColor: '#FB4F14',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#000000',
-    textColor: '#000000',
-    division: 'AFC North',
-    established: 1968,
-    fixtureImage: 'FixtureBengals.png'
-  },{
-    name: 'Seattle Seahawks',
-    logo: 'seahawks.png',
-    primaryColor: '#002A5C',
-    secondaryColor: '#7AC142',
-    tertiaryColor: '#002A5C',
-    textColor: '#7AC142',
-    division: 'NFC West',
-    established: 1976,
-    fixtureImage: 'FixtureSeahawks.png'
-  },{
-    name: 'Tampa Bay Buccaneers',
-    logo: 'bucks.png',
-    primaryColor: '#D40909',
-    secondaryColor: '#B0B9BF',
-    tertiaryColor: '#000000',
-    textColor: '#000000',
-    division: 'NFC South',
-    established: 1976,
-    fixtureImage: 'FixtureBuccaneers.png'
-  },{
-    name: 'Carolina Panthers',
-    logo: 'panthers.png',
-    primaryColor: '#0085CA',
-    secondaryColor: '#BFC0BF',
-    tertiaryColor: '#000000',
-    textColor: '#000000',
-    division: 'NFC South',
-    established: 1995,
-    fixtureImage: 'FixturePanthers.png'
-  },{
-    name: 'Jacksonville Jaguars',
-    logo: 'jags.png',
-    primaryColor: '#D8A328',
-    secondaryColor: '#136677',
-    tertiaryColor: '#000000',
-    textColor: '#D8A328',
-    division: 'AFC South',
-    established: 1995,
-    fixtureImage: 'FixtureJaguars.png'
-  },{
-    name: 'Baltimore Ravens',
-    logo: 'ravens.png',
-    primaryColor: '#9E7C0C',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#241773',
-    textColor: '#9E7C0C',
-    division: 'AFC North',
-    established: 1996,
-    fixtureImage: 'FixtureRavens.png'
-  },{
-    name: 'Houston Texans',
-    logo: 'texans.png',
-    primaryColor: '#C9243F',
-    secondaryColor: '#ffffff',
-    tertiaryColor: '#00143F',
-    textColor: '#C9243F',
-    division: 'AFC South',
-    established: 2002,
-    fixtureImage: 'FixtureTexans.png'
-  }])
+    return Team.create([{
+      name: 'Arizona Cardinals',
+      logo: 'cardinals.png',
+      primaryColor: '#97233F',
+      secondaryColor: '#FFB612',
+      tertiaryColor: '#000000',
+      textColor: '#FFB612',
+      division: 'NFC West',
+      established: 1920,
+      fixtureImage: 'FixtureCardinals.png'
+    },{
+      name: 'Chicago Bears',
+      logo: 'bears.png',
+      primaryColor: '#F26522',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#00143F',
+      textColor: '#F26522',
+      division: 'NFC North',
+      established: 1920,
+      fixtureImage: 'FixtureBears.png'
+    },{
+      name: 'Green Bay Packers',
+      logo: 'packers.png',
+      primaryColor: '#FCBE14',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#24423C',
+      textColor: '#FCBE14',
+      division: 'NFC North',
+      established: 1921,
+      fixtureImage: 'FixturePackers.png'
+    },{
+      name: 'New York Giants',
+      logo: 'giants.png',
+      primaryColor: '#B20032',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#192E6C',
+      textColor: '#B20032',
+      division: 'NFC East',
+      established: 1925,
+      fixtureImage: 'FixtureGiants.png'
+    },{
+      name: 'Detroit Lions',
+      logo: 'lions.png',
+      primaryColor: '#046EB4',
+      secondaryColor: '#B0B7BC',
+      tertiaryColor: '#000000',
+      textColor: '#B0B7BC',
+      division: 'NFC North',
+      established: 1930,
+      fixtureImage: 'FixtureLions.png'
+    },{
+      name: 'Washington Redskins',
+      logo: 'redskins.png',
+      primaryColor: '#7C1415',
+      secondaryColor: '#FFC20F',
+      tertiaryColor: '#000000',
+      textColor: '#FFC20F',
+      division: 'NFC East',
+      established: 1932,
+      fixtureImage: 'FixtureRedskins.png'
+    },{
+      name: 'Philadelphia Eagles',
+      logo: 'eagles.png',
+      primaryColor: '#014A53',
+      secondaryColor: '#BBC4C9',
+      tertiaryColor: '#000000',
+      textColor: '#BBC4C9',
+      division: 'NFC East',
+      established: 1933,
+      fixtureImage: 'FixtureEagles.png'
+    },{
+      name: 'Pittsburgh Steelers',
+      logo: 'steelers.png',
+      primaryColor: '#FFC20E',
+      secondaryColor: '#B2BABF',
+      tertiaryColor: '#000000',
+      textColor: '#00539B',
+      division: 'AFC North',
+      established: 1933,
+      fixtureImage: 'FixtureSteelers.png'
+    },{
+      name: 'Los Angeles Rams',
+      logo: 'rams.png',
+      primaryColor: '#95774C',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#002147',
+      textColor: '#002147',
+      division: 'NFC West',
+      established: 1937,
+      fixtureImage: 'FixtureRams.png'
+    },{
+      name: 'San Francisco 49ers',
+      logo: '49ers.png',
+      primaryColor: '#C9243F',
+      secondaryColor: '#C8AA76',
+      tertiaryColor: '#000000',
+      textColor: '#C8AA76',
+      division: 'NFC West',
+      established: 1946,
+      fixtureImage: 'Fixture49ers.png'
+    },{
+      name: 'Cleveland Browns',
+      logo: 'browns.png',
+      primaryColor: '#FB4F14',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#22150C',
+      textColor: '#FB4F14',
+      division: 'AFC North',
+      established: 1946,
+      fixtureImage: 'FixtureBrowns.png'
+    },{
+      name: 'Indianapolis Colts',
+      logo: 'colts.png',
+      primaryColor: '#B0B7BC',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#003D79',
+      textColor: '#B0B7BC',
+      division: 'AFC South',
+      established: 1953,
+      fixtureImage: 'FixtureColts.png'
+    },{
+      name: 'Dallas Cowboys',
+      logo: 'cowboys.png',
+      primaryColor: '#B0B7BC',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#0C264C',
+      textColor: '#0C264C',
+      division: 'NFC East',
+      established: 1960,
+      fixtureImage: 'FixtureCowboys.png'
+    },{
+      name: 'Kansas City Chiefs',
+      logo: 'chiefs.png',
+      primaryColor: '#CA2430',
+      secondaryColor: '#FFB612',
+      tertiaryColor: '#000000',
+      textColor: '#FFB612',
+      division: 'AFC West',
+      established: 1960,
+      fixtureImage: 'FixtureChiefs.png'
+    },{
+      name: 'Los Angeles Chargers',
+      logo: 'chargers.png',
+      primaryColor: '#2072BA',
+      secondaryColor: '#FDB515',
+      tertiaryColor: '#0A2342',
+      textColor: '#FDB515',
+      division: 'AFC West',
+      established: 1960,
+      fixtureImage: 'FixtureChargers.png'
+    },{
+      name: 'Denver Broncos',
+      logo: 'broncos.png',
+      primaryColor: '#FB4F14',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#002244',
+      textColor: '#FB4F14',
+      division: 'AFC West',
+      established: 1960,
+      fixtureImage: 'FixtureBroncos.png'
+    },{
+      name: 'New York Jets',
+      logo: 'jets.png',
+      primaryColor: '#203731',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#000000',
+      textColor: '#ffffff',
+      division: 'AFC East',
+      established: 1960,
+      fixtureImage: 'FixtureJets.png'
+    },{
+      name: 'New England Patriots',
+      logo: 'pats.png',
+      primaryColor: '#C81F32',
+      secondaryColor: '#B0B7BD',
+      tertiaryColor: '#0A2342',
+      textColor: '#C81F32',
+      division: 'AFC East',
+      established: 1960,
+      fixtureImage: 'FixturePatriots.png'
+    },{
+      name: 'Oakland Raiders',
+      logo: 'raiders.png',
+      primaryColor: '#C4C9CC',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#000000',
+      textColor: '#000000',
+      division: 'AFC West',
+      established: 1960,
+      fixtureImage: 'FixtureRaiders.png'
+    },{
+      name: 'Tennessee Titans',
+      logo: 'titans.png',
+      primaryColor: '#4095D1',
+      secondaryColor: '#BCC4C9',
+      tertiaryColor: '#00295B',
+      textColor: '#00295B',
+      division: 'AFC South',
+      established: 1960,
+      fixtureImage: 'FixtureTitans.png'
+    },{
+      name: 'Buffalo Bills',
+      logo: 'bills.png',
+      primaryColor: '#C60C30',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#00338D',
+      textColor: '#C60C30',
+      division: 'AFC East',
+      established: 1960,
+      fixtureImage: 'FixtureBills.png'
+    },{
+      name: 'Minnesota Vikings',
+      logo: 'vikings.png',
+      primaryColor: '#4F2E84',
+      secondaryColor: '#FEC62F',
+      tertiaryColor: '#000000',
+      textColor: '#FEC62F',
+      division: 'NFC North',
+      established: 1961,
+      fixtureImage: 'FixtureVikings.png'
+    },{
+      name: 'Atlanta Falcons',
+      logo: 'falcons.png',
+      primaryColor: '#A71930',
+      secondaryColor: '#A5ACAF',
+      tertiaryColor: '#000000',
+      textColor: '#000000',
+      division: 'NFC South',
+      established: 1966,
+      fixtureImage: 'FixtureFalcons.png'
+    },{
+      name: 'Miami Dolphins',
+      logo: 'dolphins.png',
+      primaryColor: '#0091A0',
+      secondaryColor: '#FF8500',
+      tertiaryColor: '#002760',
+      textColor: '#FF8500',
+      division: 'AFC East',
+      established: 1966,
+      fixtureImage: 'FixtureDolphins.png'
+    },{
+      name: 'New Orleans Saints',
+      logo: 'saints.png',
+      primaryColor: '#A08A58',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#000000',
+      textColor: '#000000',
+      division: 'NFC South',
+      established: 1967,
+      fixtureImage: 'FixtureSaints.png'
+    },{
+      name: 'Cincinnati Bengals',
+      logo: 'bengals.png',
+      primaryColor: '#FB4F14',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#000000',
+      textColor: '#000000',
+      division: 'AFC North',
+      established: 1968,
+      fixtureImage: 'FixtureBengals.png'
+    },{
+      name: 'Seattle Seahawks',
+      logo: 'seahawks.png',
+      primaryColor: '#002A5C',
+      secondaryColor: '#7AC142',
+      tertiaryColor: '#002A5C',
+      textColor: '#7AC142',
+      division: 'NFC West',
+      established: 1976,
+      fixtureImage: 'FixtureSeahawks.png'
+    },{
+      name: 'Tampa Bay Buccaneers',
+      logo: 'bucks.png',
+      primaryColor: '#D40909',
+      secondaryColor: '#B0B9BF',
+      tertiaryColor: '#000000',
+      textColor: '#000000',
+      division: 'NFC South',
+      established: 1976,
+      fixtureImage: 'FixtureBuccaneers.png'
+    },{
+      name: 'Carolina Panthers',
+      logo: 'panthers.png',
+      primaryColor: '#0085CA',
+      secondaryColor: '#BFC0BF',
+      tertiaryColor: '#000000',
+      textColor: '#000000',
+      division: 'NFC South',
+      established: 1995,
+      fixtureImage: 'FixturePanthers.png'
+    },{
+      name: 'Jacksonville Jaguars',
+      logo: 'jags.png',
+      primaryColor: '#D8A328',
+      secondaryColor: '#136677',
+      tertiaryColor: '#000000',
+      textColor: '#D8A328',
+      division: 'AFC South',
+      established: 1995,
+      fixtureImage: 'FixtureJaguars.png'
+    },{
+      name: 'Baltimore Ravens',
+      logo: 'ravens.png',
+      primaryColor: '#9E7C0C',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#241773',
+      textColor: '#9E7C0C',
+      division: 'AFC North',
+      established: 1996,
+      fixtureImage: 'FixtureRavens.png'
+    },{
+      name: 'Houston Texans',
+      logo: 'texans.png',
+      primaryColor: '#C9243F',
+      secondaryColor: '#ffffff',
+      tertiaryColor: '#00143F',
+      textColor: '#C9243F',
+      division: 'AFC South',
+      established: 2002,
+      fixtureImage: 'FixtureTexans.png'
+    }])
     .then(teams => {
       console.log(`${teams.length} teams created!`);
       return Fixtures.create([{
@@ -1649,23 +1649,24 @@ mongoose.connect(dbURI, (err, db) => {
         awayTeam: teams[9],
         week: '17'
       }])
-        .then(teams => {
-          console.log(`${teams.length} teams created!`);
-          return User
-            .create([{
-              name: 'Matt Hunter-King',
-              email: 'matthew85king@gmail.com',
-              admin: true,
-              profilePic: 'https://www.playerprofiler.com/wp-content/uploads/2014/06/HeadshotSilhouette5.png',
-              password: 'a',
-              passwordConfirmation: 'a',
-              favouriteTeam: teams[1],
-              score: 0,
-              city: 'London'
-            }])
-            .then(user => console.log(`${user.length} user created!`));
-        });
+      .then(teams => {
+        console.log(`${teams.length} teams created!`);
+        return User
+        .create([{
+          name: 'Matt Hunter-King',
+          email: 'matthew85king@gmail.com',
+          admin: true,
+          profilePic: 'https://www.playerprofiler.com/wp-content/uploads/2014/06/HeadshotSilhouette5.png',
+          password: 'a',
+          passwordConfirmation: 'a',
+          favouriteTeam: teams[1],
+          score: 0,
+          city: 'London'
+        }])
+              .then(user => console.log(`${user.length} user created!`));
+      });
     })
     .catch(err => console.log(err))
     .finally(() => mongoose.connection.close());
+  });
 });
