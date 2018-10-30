@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LineChart from '../common/LineChart';
 
 const MiddlePanel = ({ user, week }) => {
+  console.log('this is the week in middlePanel =>', week);
   return (
     <div className="middleProfileContainer" style={{
       backgroundColor:
@@ -17,28 +18,29 @@ const MiddlePanel = ({ user, week }) => {
       <div className="lineChartContainer">
         <LineChart className="lineChartContainer"
           user={user}
-          weeks={week}
+          weeks={week.filter((week, index, array) => index >= array.length - 6)}
         />
         <div className="scoreByWeekContainer">
-          {week.map((week, index, array) =>
-            <div className="scoreByWeek" key={week}>
-              <p>Week {week}</p>
-              <p
-                className="highlightText size30"
-                style={{
-                  color: user.favouriteTeam ?
-                    `${user.favouriteTeam.secondaryColor}` : '#013369'
-                }}
-              >{user.picks.filter(pick => pick.week === week.toString()).reduce((total, pick) => total + pick.pointsScored, 0)}</p>
-              <p>
-                {array[array.length - 1] === week &&
+          {week.filter((week, index, array) => index >= array.length - 6)
+            .map((week, index, array) =>
+              <div className="scoreByWeek" key={week}>
+                <p>Week {week}</p>
+                <p
+                  className="highlightText size30"
+                  style={{
+                    color: user.favouriteTeam ?
+                      `${user.favouriteTeam.secondaryColor}` : '#013369'
+                  }}
+                >{user.picks.filter(pick => pick.week === week.toString()).reduce((total, pick) => total + pick.pointsScored, 0)}</p>
+                <p>
+                  {array[array.length - 1] === week &&
                     <Link to={`/fixtures/picks/${week}`}>Make PICKS</Link>
-                }
-                {array[array.length - 1] !== week &&
+                  }
+                  {array[array.length - 1] !== week &&
                     <Link to={`/fixtures/picks/history/${week}`}>View PICKS</Link>
-                }
-              </p>
-            </div>)}
+                  }
+                </p>
+              </div>)}
         </div>
       </div>
     </div>
