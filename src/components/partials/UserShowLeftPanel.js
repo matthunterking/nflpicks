@@ -5,7 +5,7 @@ import Admin from '../common/Admin';
 const leftPanel = ({user, weeks}) => {
   console.log('this is user on the component', user);
   return(
-    <div className="column is-one-fifth leftProfileContainer" style={{
+    <div className="leftProfileContainer" style={{
       backgroundColor:
       user.favouriteTeam ?
         `${user.favouriteTeam.tertiaryColor}B3` : 'black'

@@ -6,6 +6,7 @@ import Auth from '../../lib/Auth';
 
 import SubMenu from '../partials/UserShowSubMenu';
 import LeftPanel from '../partials/UserShowLeftPanel';
+import LeftBottomPanel from '../partials/UserShowLeftBottom';
 import TopPanel from '../partials/UserShowTopPanel';
 import MiddlePanel from '../partials/UserShowMiddlePanel';
 import LockDisplay from '../partials/UserShowLockDisplay';
@@ -132,7 +133,10 @@ class UsersShow extends React.Component {
             </div>
           </div>
           <div className="columns">
-            <LeftPanel user={user} weeks={this.state.weeks}/>
+            <div className="column is-one-fifth leftPanel">
+              <LeftPanel user={user} weeks={this.state.weeks} />
+              <LeftBottomPanel user={user} weeks={this.state.weeks} />
+            </div>
             <div className='column is-four-fifths centralColumn'>
               <TopPanel
                 user={user}
