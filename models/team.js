@@ -37,18 +37,18 @@ teamSchema.methods.updateRecord = function updateRecord(fixture) {
   }
 
   if(winnerId === this._id.toString()) {
-    this.record.loss.splice(this.record.loss.indexOf(fixture.week), 1);
-    this.record.tie.splice(this.record.tie.indexOf(fixture.week), 1);
+    // this.record.loss.splice(this.record.loss.indexOf(fixture.week), 1);
+    // this.record.tie.splice(this.record.tie.indexOf(fixture.week), 1);
     this.record.wins.push(fixture.week);
 
   } else if(loserId === this._id.toString()) {
-    this.record.wins.splice(this.record.wins.indexOf(fixture.week), 1);
-    this.record.tie.splice(this.record.tie.indexOf(fixture.week), 1);
+    // this.record.wins.splice(this.record.wins.indexOf(fixture.week), 1);
+    // this.record.tie.splice(this.record.tie.indexOf(fixture.week), 1);
     this.record.loss.push(fixture.week);
 
   } else {
-    this.record.wins.splice(this.record.wins.indexOf(fixture.week), 1);
-    this.record.loss.splice(this.record.loss.indexOf(fixture.week), 1);
+    // this.record.wins.splice(this.record.wins.indexOf(fixture.week), 1);
+    // this.record.loss.splice(this.record.loss.indexOf(fixture.week), 1);
     this.record.tie.push(fixture.week);
   }
   this.save();

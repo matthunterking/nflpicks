@@ -11,6 +11,9 @@ router.route('/leagues')
   .get(secureRoute, leagues.index)
   .post(secureRoute, leagues.create);
 
+router.route('/allLeagues')
+  .get(leagues.allIndex);
+
 router.route('/leagues/:id')
   .get(leagues.show)
   .post(secureRoute, leagues.join);

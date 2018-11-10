@@ -19,7 +19,7 @@ function leagueCreate(req, res, next) {
     .catch(next);
 }
 
-function leagueIndex(req, res, next) {
+function leagueIndexFiltered(req, res, next) {
   League
     .find()
     .populate('users.userId')
@@ -32,6 +32,20 @@ function leagueIndex(req, res, next) {
         league.users.filter(user =>
           user.userId._id.toString() === req.currentUser.id.toString()).length !== 0);
       res.json(filteredLeagues);
+    })
+    .catch(next);
+}
+
+function leaguesIndexAll(req, res, next) {
+  League
+    .find()
+    .populate('users.userId')
+    .then(leagues => {
+      leagues.forEach(league => league.updatePositions());
+      return leagues;
+    })
+    .then(leagues => {
+      res.json(leagues);
     })
     .catch(next);
 }
@@ -62,7 +76,8 @@ function leagueJoin(req, res, next) {
 }
 
 module.exports = {
-  index: leagueIndex,
+  allIndex: leaguesIndexAll,
+  index: leagueIndexFiltered,
   show: leagueShow,
   create: leagueCreate,
   join: leagueJoin

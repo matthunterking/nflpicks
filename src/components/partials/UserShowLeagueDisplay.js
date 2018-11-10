@@ -16,15 +16,6 @@ const LeagueDisplay = ({ user, leagues }) => {
         {leagues.map(league =>
           <div key={league._id}>
             <div>
-              {!leagues.length && <div>
-                <Link to={'/leagues/new'} className='button standardText editProfile' style={{
-                  backgroundColor:
-                  user.favouriteTeam ?
-                    `${user.favouriteTeam.primaryColor}` : '#D50A0A',
-                  color: user.favouriteTeam ?
-                    `${user.favouriteTeam.secondaryColor}` : '#013369'
-                }}>Create a League</Link>
-              </div>}
               {!!leagues.length && <div>
                 {leagues.map(league =>
                   <div key={league._id} className="columns">
@@ -39,6 +30,15 @@ const LeagueDisplay = ({ user, leagues }) => {
                         </div>
                       )}
                   </div>)}
+                <div>
+                  <Link to={'/leagues/new'} className='button standardText editProfile' style={{
+                    backgroundColor:
+                      user.favouriteTeam ?
+                        `${user.favouriteTeam.primaryColor}` : '#D50A0A',
+                    color: user.favouriteTeam ?
+                      `${user.favouriteTeam.secondaryColor}` : '#013369'
+                  }}>Create a League</Link>
+                </div>
               </div>}
             </div>
           </div>
