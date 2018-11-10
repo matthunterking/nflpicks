@@ -30,19 +30,19 @@ const LeagueDisplay = ({ user, leagues }) => {
                         </div>
                       )}
                   </div>)}
-                <div>
-                  <Link to={'/leagues/new'} className='button standardText editProfile' style={{
-                    backgroundColor:
-                      user.favouriteTeam ?
-                        `${user.favouriteTeam.primaryColor}` : '#D50A0A',
-                    color: user.favouriteTeam ?
-                      `${user.favouriteTeam.secondaryColor}` : '#013369'
-                  }}>Create a League</Link>
-                </div>
               </div>}
             </div>
           </div>
         )}
+      </div>
+      <div>
+        <Link to={'/leagues/new'} className='button standardText editProfile' style={{
+          backgroundColor:
+        user.favouriteTeam ?
+          `${user.favouriteTeam.primaryColor}` : '#D50A0A',
+          color: user.favouriteTeam ?
+            `${user.favouriteTeam.secondaryColor}` : '#013369'
+        }}>Create a League</Link>
       </div>
     </div>
   );
