@@ -43,6 +43,14 @@ const LeagueDisplay = ({ user, leagues }) => {
           color: user.favouriteTeam ?
             `${user.favouriteTeam.secondaryColor}` : '#013369'
         }}>Create a League</Link>
+        <Link to={'/leagues/join'} className='button standardText editProfile' style={{
+          marginLeft: '5px',
+          backgroundColor:
+        user.favouriteTeam ?
+          `${user.favouriteTeam.primaryColor}` : '#D50A0A',
+          color: user.favouriteTeam ?
+            `${user.favouriteTeam.secondaryColor}` : '#013369'
+        }}>Join a League</Link>
       </div>
     </div>
   );
