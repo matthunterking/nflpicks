@@ -59,9 +59,7 @@ class PicksIndex extends React.Component {
     } else {
       picks.push(data);
     }
-    this.setState({ picks: picks }, () => {
-      console.log('this is state in handleLock',this.state);
-    });
+    this.setState({ picks: picks });
   }
 
   handleUnlock = (e) => {

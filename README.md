@@ -1,33 +1,45 @@
-<!-- TITLE -> For WDI projects "WDI - Project 1" -->
-<!-- IMAGE -> For WDI projects "https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png" for not WDI "MHK LOGO" -->
-# NFL Picks Game
-
+# NFL Picks <img style='float: right' src=''>
 ---
-<a href='https://thawing-tor-87999.herokuapp.com/'>
-<img style='border: 2px solid black; width: 100%' src='/screenshots/logo.png' alt='logo screenshot'></a>
+<a href='https://nfl-picks-game.herokuapp.com/'>
+<img style='width: 100%;' src='/screenshots/nflpickslogo.png' alt='logo screenshot'></a>
 
 ### Project Overview and Motivation
-Each year whilst following the NFL season we have a competition to predict the results of each regular and post season game. Historically we've used an excel spreadsheet to track which of us had picked the most correct results. This project was created to replace that spreadsheet.
+I made this site in collaboration with my wife who is a graphic designer. We are both fans of American Football and for the past few years have been competing against each other predicting the results of NFL games. We used to use an Excel spreadsheet for this but after I’d learnt to code decided to replace it with this site.
 
-<!-- Contributors - For group projects -->
+This project was made during my evenings and weekends while I was a Teaching Assistant at General Assembly.
+
+
 ### Contributors
-| [<img src="/screenshots/MHK.jpg" width="100px;"/><br /><sub><b>**Matt Hunter-King**</b><br>Web Development</sub>](http://matthunterking.com/)<br /> | [<img src="/screenshots/RHK.jpeg" width="100px;"/><br /><sub><b>**Rachel Hunter-King**</b><br>*Graphic Design*</sub>](http://matthunterking.com/)
+<table>
+  <thead>
+    <th><img src='/screenshots/MHK.jpg' width=70px /></th>
+    <th><img src='/screenshots/RHK.jpeg' width=90px /></th>
+  </thead>
+  <tbody>
+    <td>
+    <strong>Matt Hunter-King</strong>
+    <p>Web Development</p>
+    </td>
+    <td>
+    <strong>Rachel Hunter-King</strong>
+    <p>Graphic Design</p>
+    </td>
+  </tbody>
+</table>
 
-<!-- Timeframe - Time in days and Month -->
 ### Timeframe
-* 3 months (June 2018 - September 2018)
+3 months (June 2018 - September 2018)
 
 ---
 ### Technologies used
 
 * React
-* Javascript (ECMAScript6) + jQuery
+* JavaScript (ECMAScript6)
 * SCSS
 * Bulma
 * GitHub
 * bcrypt
 * mongoose
-* filestack-js
 * Heroku
 * Trello
 * Yarn
@@ -42,48 +54,70 @@ Each year whilst following the NFL season we have a competition to predict the r
 * react-countup
 
 ---
-<!-- User Journey - For big projects -->
-<!-- Screenshots - For small projects -->
+
 ### User Journey
-1. On entering the site users can either log in or if they are a new user register for the site.
+On entering the site users can either log in or if they are a new user register for the site.
+
 ![screenshot1](/screenshots/screenshot1.png)
 
-2. When registering users can upload a profile picture via file stack and can answer a series of multiple choice questions which are used to compare their compatibility with potential matches.
+Once the user has logged in or registered they will be taken to their dashboard. The color scheme will match their favourite team and their are graphs which show their current game stats.
+
 ![screenshot2](/screenshots/screenshot2.png)
-
-3. Once they have logged in or registered users can view potential matches which they can filter by gender and age. The number of hearts below each profile indicates their compatibility.
-![screenshot3](/screenshots/screenshot4.png)
-
-4. Clicking on a profile provides more information and gives the user the option to send a request to connect.
 ![screenshot5](/screenshots/screenshot5.png)
 
-5. The 'My Profile' page allows users to edit/delete their profile and manage match requests. They can also plan dates with confirmed matches.
+1 point is awarded for a correct pick during the regular season (this increases in the post season where there are less games). Each player has the option to 'lock' a team each week meaning that they would score 5 points for a correct result. Players can only lock each team once during the regular season.
+
+![screenshot3](/screenshots/screenshot3.png)
+![screenshot4](/screenshots/screenshot4.png)
+
+Each week users are required to input their predictions on this page. If the team selected is avaiable to be locked once selected the lock button appears.
+
 ![screenshot6](/screenshots/screenshot6.png)
 
-6. Clicking on the 'Plan a date' button on a confirmed match opens the date page which calculates the central point between the two users and shows bars and resturants in the surronding area.
-![screenshot7](/screenshots/screenshot7.png)
 
-7. Users can also message confirmed matches in the messaging screen.
-![screenshot8](/screenshots/screenshot8.png)
 ---
 
 ### Approach
-We started by creating wireframes for the project and produced a trello board. Below are some early wireframes for the project:
 
-![planning](/screenshots/planning.png)
+I started this project by looking for an external API which would be able to give me the NFL fixture list and the results of games. Unfortunately I wasn't able to find a suitable and free API so instead I had to create a particularly big seeds file and an admin user who would have to input all the results.
+
+I began by creating the backend of the app focussing on the models I would need and how they would be linked together. One I had the back end working I moved onto building the front end and Rachel began work on the design.
+
+### Locking a Fixture
+
+One of the major challenges on the front end was making sure that state had the correct data stored before sending it to the back end. As users need to pick a team before they can lock that fixture my handleLock function had to find the original pick then update that pick to show that it's a lock. To do this I make a copy of the current picks `this.state.picks`. Using the copy I then found the game which needed to be updated, set the `lock` field to true and then finally set state with the updated data.
+
+```
+handleLock = (e) => {
+  const picks = [].concat(...this.state.picks);
+  const data = {
+    gameId: e.target.getAttribute('game')
+  };
+  if(picks.some(pick => pick.gameId === data.gameId)) {
+    const index = picks.findIndex(pick => pick.gameId === data.gameId);
+    picks[index].lock = true;
+  } else {
+    picks.push(data);
+  }
+  this.setState({ picks: picks });
+}
+```
 
 ---
 
+
 ### Challenges
 
-Creating a system for sending and accepting matches and messaging were big challenges. We decided not to use external packages for both of these features so creating models and controllers for both these processes was difficult and in hindsight we would have built these differently if we were to do the project again.
+This project was spread out over a long period of time and I was often having to dip in and out of it. I also didn't spend enough time at the start mapping out what my front end app would look like and what requests each component would need to make. That being said I'm really pleased that I managed to make a functioning app although there are certainly parts of it which could be simplified.
 
 ### Wins
 
-The messaging inbox was a lot of work however users being able to switch between sets of messages by clicking into the user list was a really nice UX feature. Incorporating google places into the map element and calculating the middle point between users was also a great achievement.
+I was really pleased with my use of components on this app, it was really rewarding to thing of them as more parts of the site rather than having one component per page. The look and feel of the final site is really nice and it was great working with Rachel to produce a really great design. Finally I really enjoyed the amount of vanilla JavaScript I needed to use to package up my data.
 
 ---
 
 ### Future features
 
-If we had more time we would like to have added more personalisation to the plan a date feature so that users could be shown different types of locations. We would have also liked to add log in with Facebook and email notifications.
+If I had more time I would build in some more robust error handling and also work on displaying some more information on each fixture, for example your success rate when picking each team, that teams record and their standing in their division.
+
+I'll be building this site again for the 2019 NFL season so watch this space to see if I can improve on this app next time.

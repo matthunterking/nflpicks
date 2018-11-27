@@ -139,6 +139,19 @@ class UsersEdit extends React.Component {
                           value={this.state.city || user.city}
                         />
                       </div>
+                      <div className="field">
+                        <label htmlFor="profilePic" className="label standardText">Profile Picture</label>
+                        <div className="control">
+                          <input
+                            className="input"
+                            name="profilePic"
+                            type="text"
+                            placeholder="Profile Picture"
+                            onChange={this.handleChange}
+                            value={this.state.profilePic || user.profilePic}
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="field">
                       <label htmlFor="favouriteTeam" className="label standardText">Favourite Team</label>
