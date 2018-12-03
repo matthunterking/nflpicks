@@ -1,4 +1,4 @@
-# NFL Picks <img style='float: right' src=''>
+# NFL Picks <img style='float: right' src='/screenshots/logo.png'>
 ---
 <a href='https://nfl-picks-game.herokuapp.com/'>
 <img style='width: 100%;' src='/screenshots/nflpickslogo.png' alt='logo screenshot'></a>
